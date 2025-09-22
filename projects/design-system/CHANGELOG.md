@@ -1,5 +1,11 @@
 # @neno-liv/design-system
 
+## 1.12.0
+
+### Minor Changes
+
+- 9ba3add: change default button variant to secondary
+
 ## 1.11.0
 
 ### Minor Changes
