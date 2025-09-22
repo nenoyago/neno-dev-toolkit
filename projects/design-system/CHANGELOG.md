@@ -1,5 +1,11 @@
 # @neno-liv/design-system
 
+## 1.11.0
+
+### Minor Changes
+
+- 12c9de2: btn variant primary
+
 ## 1.10.0
 
 ### Minor Changes
