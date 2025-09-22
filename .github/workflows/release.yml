@@ -69,7 +69,7 @@ jobs:
           if git diff --staged --quiet; then
             echo "✅ No changes to commit"
           else
-            git commit -m "chore(release): update package versions [skip ci]"
+            git commit -m "release 🔖: update package versions [skip ci]"
             echo "📦 Version changes committed"
           fi
 
@@ -124,8 +124,7 @@ jobs:
               --merge \
               --admin \
               --delete-branch \
-              --body "Automatically merged by release workflow" \
-              --message "chore(release): merge auto-release [skip ci]"
+              --body "release 🔖: merge auto-release [skip ci]"
             echo "✅ PR merged successfully"
           else
             echo "❌ PR number not found"
