@@ -1,0 +1,79 @@
+name: Validate Changeset
+
+on:
+  pull_request:
+    types: [opened, synchronize, reopened]
+
+jobs:
+  validate-changeset:
+    runs-on: ubuntu-latest
+    steps:
+      # 1️⃣ Checkout
+      - name: 📥 Checkout repository
+        uses: actions/checkout@v4
+
+      # 2️⃣ Skip CI for auto-release commits
+      - name: 🚫 Skip auto-release commits
+        id: skip_commit
+        run: |
+          # Pega o último commit como uma única linha
+          LAST_COMMIT_MSG=$(git log -1 --pretty=%B | tr '\n' ' ')
+          echo "Last commit: $LAST_COMMIT_MSG"
+
+          if echo "$LAST_COMMIT_MSG" | grep -q '\[skip ci\]'; then
+            echo "⚠️ Commit de auto-release detectado, pulando validação..."
+            echo "skip_commit=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip_commit=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      # 3️⃣ Stop workflow if auto-release commit
+      - name: ⏹️ Stop if auto-release commit
+        if: steps.skip_commit.outputs.skip_commit == 'true'
+        run: |
+          echo "Auto-release commit detected. Skipping changeset validation."
+          exit 0
+
+      # 4️⃣ Validate branch name & skip logic
+      - name: 🏷️ Validate branch name
+        id: branch
+        run: |
+          BRANCH="${{ github.head_ref }}"
+
+          # Prefixos permitidos para PR branches
+          ALLOWED_PREFIXES="^(feat/|feature/|fix/|hotfix/|docs/|test/|refactor/|chore/|release/|beta/)"
+          if [[ ! "$BRANCH" =~ $ALLOWED_PREFIXES ]]; then
+            echo "🚨 Branch inválido: $BRANCH. Use um dos prefixes permitidos."
+            exit 1
+          else
+            echo "✅ Branch válido: $BRANCH"
+          fi
+
+          # Pular checagem de changeset para release/chore branches
+          if [[ "$BRANCH" =~ ^(release/|chore/) ]]; then
+            echo "⚠️ Branch release ou chore detectada ($BRANCH); pulando validação de changeset."
+            echo "skip_changeset=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip_changeset=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      # 5️⃣ Validate presence of changeset (CORRIGIDO)
+      - name: 📝 Validate changeset presence
+        if: steps.branch.outputs.skip_changeset == 'false'
+        run: |
+          # Método mais robusto para contar changesets
+          if [ -d ".changeset" ]; then
+            COUNT=$(find .changeset -maxdepth 1 -name "*.md" -not -name "README.md" | wc -l | tr -d ' ')
+            echo "Changesets encontrados: $COUNT"
+            
+            if [ "$COUNT" -eq 0 ]; then
+              echo "❌ Nenhum changeset encontrado. Adicione um arquivo .md em .changeset/"
+              echo "💡 Execute: pnpm changeset"
+              exit 1
+            else
+              echo "✅ Changeset(s) válido(s) encontrado(s): $COUNT"
+            fi
+          else
+            echo "❌ Diretório .changeset não encontrado"
+            exit 1
+          fi

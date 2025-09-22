@@ -1,0 +1,39 @@
+{
+  "name": "@neno-liv/configs-model",
+  "version": "1.1.0",
+  "description": "ESLint and Prettier shared config for Eleva projects.",
+  "main": "eslint.config.cjs",
+  "exports": {
+    ".": "./eslint.config.cjs",
+    "./prettier.config.cjs": "./prettier.config.cjs",
+    "./eslint.config.cjs": "./eslint.config.cjs"
+  },
+  "files": [
+    "eslint.config.cjs",
+    "prettier.config.cjs"
+  ],
+  "keywords": [
+    "eslint",
+    "prettier",
+    "config",
+    "eleva"
+  ],
+  "author": "Yago Neno <developer.neno@gmail.com>",
+  "license": "MIT",
+  "publishConfig": {
+    "access": "public"
+  },
+  "peerDependencies": {
+    "eslint": ">=8.0.0",
+    "prettier": ">=2.0.0",
+    "@typescript-eslint/parser": ">=5.0.0",
+    "@typescript-eslint/eslint-plugin": ">=5.0.0",
+    "@angular-eslint/eslint-plugin": ">=17.0.0",
+    "@angular-eslint/eslint-plugin-template": ">=17.0.0",
+    "@angular-eslint/template-parser": ">=17.0.0",
+    "eslint-plugin-unused-imports": ">=3.0.0",
+    "eslint-plugin-prettier": ">=4.0.0",
+    "eslint-plugin-import": ">=2.0.0"
+  },
+  "private": false
+}

@@ -1,0 +1,41 @@
+<div
+  class="min-h-screen w-screen flex flex-col bg-gradient-to-br from-white via-gray-100 to-gray-200 dark:from-gray-900 dark:via-gray-800 dark:to-gray-950"
+>
+  <header
+    class="w-full pt-6 pb-4 bg-transparent flex justify-center items-center z-20"
+  >
+    <h1
+      class="text-2xl sm:text-4xl font-extrabold text-center text-gray-900 dark:text-white tracking-tight select-none"
+    >
+      Liv Design System
+    </h1>
+  </header>
+  <main
+    class="flex-1 flex flex-col items-center justify-center px-2 md:px-0 my-4"
+  >
+    <div
+      class="w-full max-w-5xl h-full grow rounded-3xl shadow-xl bg-white/90 dark:bg-gray-900/90 p-6 md:p-12 border border-gray-200 dark:border-gray-800 flex flex-col"
+    >
+      <p class="text-center text-lg text-gray-600 dark:text-gray-300 mb-8 mt-2">
+        Explore os componentes abaixo:
+      </p>
+      <div class="flex gap-10 md:gap-16 flex-1 justify-center items-center">
+        <div class="flex flex-col items-center">
+          <h6 class="font-semibold mb-4 text-gray-800 dark:text-gray-200">
+            Botão
+          </h6>
+          <div class="flex flex-col items-center gap-4">
+            <ui-button>Primário</ui-button>
+            <ui-button variant="secondary">Secundário</ui-button>
+            <ui-button disabled>Desabilitado</ui-button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer class="w-full py-4 bg-transparent flex justify-center items-center">
+    <span class="text-xs text-gray-400 select-none"
+      >© {{ year() }} Liv Design System Demo</span
+    >
+  </footer>
+</div>

@@ -1,0 +1,7 @@
+# @neno-liv/configs-model
+
+## 1.1.0
+
+### Minor Changes
+
+- [#22](https://github.com/nenoyago/eleva-design-system/pull/22) [`5b29fcf`](https://github.com/nenoyago/eleva-design-system/commit/5b29fcf52c5dcaf51405cd6f700608a6c674f85b) Thanks [@nenoyago](https://github.com/nenoyago)! - button variant

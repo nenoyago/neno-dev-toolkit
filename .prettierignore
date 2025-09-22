@@ -1,0 +1,10 @@
+dist/
+node_modules/
+coverage/
+build/
+*.lock
+*.log
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+storybook-static/
