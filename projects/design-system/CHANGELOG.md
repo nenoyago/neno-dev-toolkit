@@ -1,5 +1,11 @@
 # @neno-liv/design-system
 
+## 1.10.0
+
+### Minor Changes
+
+- f7119db: button variant
+
 ## 1.9.0
 
 ### Minor Changes
