@@ -66,14 +66,14 @@ jobs:
 
       - name: 🏷️ Ensure release labels exist
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           gh label create "🤖 auto-release" --color 6F42C1 --description "Automated version updates" --force || true
           gh label create "🚀 release" --color FFD33D --description "Package releases" --force || true
 
       - name: 📬 Create Release PR
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           PR_INFO=$(gh pr create \
             --title "🚀 Automated Package Release" \
