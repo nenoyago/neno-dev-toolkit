@@ -1,5 +1,11 @@
 # @neno-liv/design-system
 
+## 1.18.0
+
+### Minor Changes
+
+- ccfabea: change default button variant to secondary
+
 ## 1.17.0
 
 ### Minor Changes
