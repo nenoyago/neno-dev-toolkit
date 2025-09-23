@@ -1,5 +1,11 @@
 # @neno-liv/design-system
 
+## 1.14.0
+
+### Minor Changes
+
+- 8025401: varaint button
+
 ## 1.13.0
 
 ### Minor Changes
