@@ -1,5 +1,11 @@
 # @neno-liv/design-system
 
+## 1.16.1
+
+### Patch Changes
+
+- 6934e24: btn variant
+
 ## 1.16.0
 
 ### Minor Changes
