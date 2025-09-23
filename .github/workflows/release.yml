@@ -114,11 +114,11 @@ jobs:
           echo "PR_NUMBER=$PR_NUMBER" >> $GITHUB_ENV
           echo "PR_URL=$PR_URL" >> $GITHUB_ENV
 
-          echo "🎉 Pull Request criado com sucesso!"
-          echo "📝 Número do PR: #$PR_NUMBER"
-          echo "🔗 URL do PR: $PR_URL"
+          echo "🎉 Pull Request created successfully!"
+          echo "📝 PR Number: #$PR_NUMBER"
+          echo "🔗 PR URL: $PR_URL"
           echo "🌿 Branch: $NEW_BRANCH → main"
-          echo "📋 Resposta completa:"
+          echo "📋 Full response:"
           echo "$PR_INFO"
 
       - name: ⏱️ Wait for PR checks
@@ -157,7 +157,7 @@ jobs:
           ref: main
 
       - name: ⏳ Wait a bit to ensure main is synced
-        run: sleep 10
+        run: sleep 5
 
       - name: 📦 Setup pnpm
         uses: pnpm/action-setup@v4
@@ -172,12 +172,6 @@ jobs:
 
       - name: ⚡ Install dependencies
         run: pnpm install --frozen-lockfile
-
-      - name: 📝 Check packages to publish
-        run: |
-          echo "📦 Checking which packages will be published..."
-          pnpm changeset status --verbose || true
-          echo "✅ Packages ready to publish will be processed in the next step."
 
       - name: 📝 Publish public packages
         env:
