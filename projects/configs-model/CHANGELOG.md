@@ -1,5 +1,11 @@
 # @neno-liv/configs-model
 
+## 1.2.0
+
+### Minor Changes
+
+- 2b4f066: version
+
 ## 1.1.0
 
 ### Minor Changes
