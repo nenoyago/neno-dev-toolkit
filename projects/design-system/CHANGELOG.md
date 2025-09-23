@@ -1,5 +1,11 @@
 # @neno-liv/design-system
 
+## 1.13.0
+
+### Minor Changes
+
+- 2b4f066: version
+
 ## 1.12.0
 
 ### Minor Changes
