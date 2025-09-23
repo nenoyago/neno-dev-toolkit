@@ -32,7 +32,7 @@ export class LivButtonComponent {
    * Variante visual do botão.
    * @default 'primary'
    */
-  readonly variant = input<'primary' | 'secondary' | 'tertiary'>('secondary');
+  readonly variant = input<'primary' | 'secondary' | 'tertiary'>('primary');
 
   /**
    * Desabilita o botão.
