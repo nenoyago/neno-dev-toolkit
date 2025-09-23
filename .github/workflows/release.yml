@@ -173,7 +173,11 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: 📝 Publish public packages
-        run: pnpm changeset publish
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
+          pnpm changeset publish
       - name: 🎉 Release summary
         run: |
           echo "✅ Packages published successfully!"
