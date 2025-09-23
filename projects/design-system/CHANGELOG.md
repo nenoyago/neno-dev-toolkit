@@ -1,5 +1,11 @@
 # @neno-liv/design-system
 
+## 1.17.0
+
+### Minor Changes
+
+- 3c07ca5: change button default variant 2
+
 ## 1.16.1
 
 ### Patch Changes
