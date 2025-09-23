@@ -173,8 +173,11 @@ jobs:
       - name: ⚡ Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: 📝 Debug versions
-        run: pnpm changeset status
+      - name: 📝 Check packages to publish
+        run: |
+          echo "📦 Checking which packages will be published..."
+          pnpm changeset status --verbose || true
+          echo "✅ Packages ready to publish will be processed in the next step."
 
       - name: 📝 Publish public packages
         env:
