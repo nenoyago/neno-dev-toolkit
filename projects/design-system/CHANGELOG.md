@@ -1,5 +1,11 @@
 # @neno-liv/design-system
 
+## 1.19.0
+
+### Minor Changes
+
+- a3fda6a: change default button variant
+
 ## 1.18.0
 
 ### Minor Changes
