@@ -173,7 +173,10 @@ jobs:
       - name: ⚡ Install dependencies
         run: pnpm install --frozen-lockfile
 
-      - name: 📝 Publish public packages
+      - name: 🛠️ Build all packages
+        run: pnpm run build:packages
+
+      - name: �📝 Publish public packages
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
         run: |
