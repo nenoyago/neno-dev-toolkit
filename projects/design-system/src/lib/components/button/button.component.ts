@@ -3,7 +3,8 @@ import { NgClass } from '@angular/common';
 import { booleanAttribute, Component, input } from '@angular/core';
 
 @Component({
-  selector: 'ui-button',
+  // eslint-disable-next-line @angular-eslint/component-selector
+  selector: 'liv-button',
   standalone: true,
   imports: [NgClass],
   template: `
@@ -30,9 +31,9 @@ import { booleanAttribute, Component, input } from '@angular/core';
 export class LivButtonComponent {
   /**
    * Variante visual do botão.
-   * @default 'secondary'
+   * @default 'primary'
    */
-  readonly variant = input<'primary' | 'secondary' | 'tertiary'>('secondary');
+  readonly variant = input<'primary' | 'secondary' | 'tertiary'>('primary');
 
   /**
    * Desabilita o botão.
