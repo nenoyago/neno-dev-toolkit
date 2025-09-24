@@ -6,7 +6,7 @@
     "ci": "pnpm install --frozen-lockfile",
     "ng": "ng",
     "start": "ng serve",
-    "build:packages": "ng build design-system && ng build configs-model",
+    "build:packages": "ng build design-system",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "dev": "pnpm run build:design-system && concurrently -k -n design-system,demo -c yellow,cyan \"pnpm run build:design-system:watch\" \"pnpm run dev:wait\"",
