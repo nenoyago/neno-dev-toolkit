@@ -31,9 +31,9 @@ import { booleanAttribute, Component, input } from '@angular/core';
 export class LivButtonComponent {
   /**
    * Variante visual do botão.
-   * @default 'secondary'
+   * @default 'primary'
    */
-  readonly variant = input<'primary' | 'secondary' | 'tertiary'>('secondary');
+  readonly variant = input<'primary' | 'secondary' | 'tertiary'>('primary');
 
   /**
    * Desabilita o botão.

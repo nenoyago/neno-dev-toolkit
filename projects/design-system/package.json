@@ -18,6 +18,7 @@
   "sideEffects": false,
   "private": false,
   "publishConfig": {
+    "directory": "../../dist/design-system",
     "access": "public"
   }
 }
