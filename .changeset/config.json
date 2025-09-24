@@ -11,5 +11,11 @@
   "snapshot": {
     "useSnapshot": false,
     "prereleaseTemplate": "{tag}-{commit}"
-  }
+  },
+  "packages": [
+    {
+      "name": "@neno-liv/design-system",
+      "directory": "dist/design-system"
+    }
+  ]
 }
