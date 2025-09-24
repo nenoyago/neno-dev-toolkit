@@ -1,5 +1,11 @@
 # @neno-liv/design-system
 
+## 1.20.0
+
+### Minor Changes
+
+- c40036f: dasdas
+
 ## 1.19.0
 
 ### Minor Changes
