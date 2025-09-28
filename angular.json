@@ -10,10 +10,13 @@
       "projectType": "library",
       "root": "projects/design-system",
       "sourceRoot": "projects/design-system/src",
-      "prefix": "lib",
+      "prefix": "ds",
       "architect": {
         "build": {
-          "builder": "@angular/build:ng-packagr",
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/design-system/ng-package.json"
+          },
           "configurations": {
             "production": {
               "tsConfig": "projects/design-system/tsconfig.lib.prod.json"
@@ -25,163 +28,9 @@
           "defaultConfiguration": "production"
         },
         "test": {
-          "builder": "@angular/build:karma",
+          "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "tsConfig": "projects/design-system/tsconfig.spec.json"
-          }
-        },
-        "storybook": {
-          "builder": "@storybook/angular:start-storybook",
-          "options": {
-            "configDir": "projects/design-system/.storybook",
-            "browserTarget": "design-system:build",
-            "styles": [
-              "projects/design-system/src/styles/index.css"
-            ],
-            "compodoc": true,
-            "compodocArgs": [
-              "-e",
-              "json",
-              "-d",
-              "projects/design-system"
-            ],
-            "port": 6006
-          }
-        },
-        "build-storybook": {
-          "builder": "@storybook/angular:build-storybook",
-          "options": {
-            "configDir": "projects/design-system/.storybook",
-            "browserTarget": "design-system:build",
-            "styles": [
-              "projects/design-system/src/styles/index.css"
-            ],
-            "compodoc": true,
-            "compodocArgs": [
-              "-e",
-              "json",
-              "-d",
-              "projects/design-system"
-            ],
-            "outputDir": "dist/storybook/design-system"
-          }
-        }
-      }
-    },
-    "demo": {
-      "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss"
-        }
-      },
-      "root": "projects/demo",
-      "sourceRoot": "projects/demo/src",
-      "prefix": "app",
-      "architect": {
-        "build": {
-          "builder": "@angular/build:application",
-          "options": {
-            "browser": "projects/demo/src/main.ts",
-            "polyfills": [
-              "zone.js"
-            ],
-            "tsConfig": "projects/demo/tsconfig.app.json",
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "projects/demo/public"
-              }
-            ],
-            "styles": [
-              "projects/design-system/src/styles/index.css",
-              "projects/demo/src/styles.scss"
-            ]
-          },
-          "configurations": {
-            "production": {
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "500kB",
-                  "maximumError": "1MB"
-                },
-                {
-                  "type": "anyComponentStyle",
-                  "maximumWarning": "4kB",
-                  "maximumError": "8kB"
-                }
-              ],
-              "outputHashing": "all"
-            },
-            "development": {
-              "optimization": false,
-              "extractLicenses": false,
-              "sourceMap": true
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "serve": {
-          "builder": "@angular/build:dev-server",
-          "configurations": {
-            "production": {
-              "buildTarget": "demo:build:production"
-            },
-            "development": {
-              "buildTarget": "demo:build:development"
-            }
-          },
-          "defaultConfiguration": "development"
-        },
-        "extract-i18n": {
-          "builder": "@angular/build:extract-i18n"
-        },
-        "test": {
-          "builder": "@angular/build:karma",
-          "options": {
-            "polyfills": [
-              "zone.js",
-              "zone.js/testing"
-            ],
-            "tsConfig": "projects/demo/tsconfig.spec.json",
-            "inlineStyleLanguage": "scss",
-            "assets": [
-              {
-                "glob": "**/*",
-                "input": "projects/demo/public"
-              }
-            ],
-            "styles": [
-              "projects/demo/src/styles.scss"
-            ]
-          }
-        }
-      }
-    },
-    "configs-model": {
-      "projectType": "library",
-      "root": "projects/configs-model",
-      "sourceRoot": "projects/configs-model/src",
-      "prefix": "lib",
-      "architect": {
-        "build": {
-          "builder": "@angular/build:ng-packagr",
-          "configurations": {
-            "production": {
-              "tsConfig": "projects/configs-model/tsconfig.lib.prod.json"
-            },
-            "development": {
-              "tsConfig": "projects/configs-model/tsconfig.lib.json"
-            }
-          },
-          "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular/build:karma",
-          "options": {
-            "tsConfig": "projects/configs-model/tsconfig.spec.json",
+            "tsConfig": "projects/design-system/tsconfig.spec.json",
             "polyfills": [
               "zone.js",
               "zone.js/testing"

@@ -10,6 +10,6 @@
     "postcss"
   ],
   "assets": [
-    "src/styles/*.css"
+    "src/styles/output.css"
   ]
 }

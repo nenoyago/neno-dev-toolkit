@@ -1,6 +1,5 @@
-export * from './components';
+import { InjectionToken } from "@angular/core";
 
-export * from './theme/default-theme';
-export * from './theme/theme-config';
-export * from './theme/theme.provider';
-export * from './theme/theme.token';
+export const DESIGN_SYSTEM_TOKEN = new InjectionToken<string>(
+  "DESIGN_SYSTEM_TOKEN"
+);
