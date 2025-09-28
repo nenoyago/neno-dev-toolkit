@@ -1,6 +1,6 @@
 import { Meta, StoryObj } from '@storybook/angular';
 
-import { LivButtonComponent } from './button.component';
+import { ButtonComponent } from './button.component';
 
 type StoryArgs = {
   variant: 'primary' | 'secondary';
@@ -8,9 +8,9 @@ type StoryArgs = {
   content: string;
 };
 
-const meta: Meta<LivButtonComponent> = {
+const meta: Meta<ButtonComponent> = {
   title: 'Components/Button',
-  component: LivButtonComponent,
+  component: ButtonComponent,
   tags: ['autodocs'],
   argTypes: {
     variant: {
@@ -25,7 +25,7 @@ const meta: Meta<LivButtonComponent> = {
   },
   render: (args) => ({
     props: args,
-    template: `<liv-button [variant]="variant" [disabled]="disabled">{{content}}</liv-button>`
+    template: `<ds-button [variant]="variant" [disabled]="disabled">{{content}}</ds-button>`
   })
 };
 

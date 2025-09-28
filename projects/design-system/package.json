@@ -1,24 +1,30 @@
 {
   "name": "@neno-liv/design-system",
   "version": "1.19.0",
-  "type": "module",
+  "scripts": {
+    "build:css": "tailwindcss -i ./src/styles/index.css -o ./src/styles/output.css --minify"
+  },
+  "exports": {
+    "./styles/index.css": {
+      "default": "./src/styles/output.css"
+    }
+  },
   "peerDependencies": {
-    "@angular/common": "^20.1.0",
-    "@angular/core": "^20.1.0",
-    "@tailwindcss/postcss": "^4.1.11",
-    "postcss": "^8.5.6",
-    "tailwindcss": "^4.1.11"
+    "@angular/common": "^19.2.0",
+    "@angular/core": "^19.2.0"
   },
   "dependencies": {
-    "tslib": "^2.8.1"
-  },
-  "devDependencies": {
-    "@neno-liv/configs-model": "workspace:*"
+    "@tailwindcss/postcss": "^4.1.13",
+    "postcss": "^8.5.6",
+    "tailwindcss": "^4.1.13",
+    "tslib": "^2.3.0"
   },
   "sideEffects": false,
-  "private": false,
   "publishConfig": {
     "directory": "../../dist/design-system",
     "access": "public"
+  },
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.13"
   }
 }
