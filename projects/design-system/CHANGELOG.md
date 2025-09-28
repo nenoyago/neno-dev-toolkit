@@ -1,5 +1,11 @@
 # @neno-liv/design-system
 
+## 1.22.0
+
+### Minor Changes
+
+- 16e2608: adjust button component
+
 ## 1.21.0
 
 ### Minor Changes
