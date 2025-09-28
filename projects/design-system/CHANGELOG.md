@@ -1,5 +1,17 @@
 # @neno-liv/design-system
 
+## 1.21.0
+
+### Minor Changes
+
+- 75b4e25: change button variant
+
+## 1.20.0
+
+### Minor Changes
+
+- c40036f: dasdas
+
 ## 1.19.0
 
 ### Minor Changes
