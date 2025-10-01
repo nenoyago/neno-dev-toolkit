@@ -1,5 +1,5 @@
 {
-  "name": "@neno-liv/configs-model",
+  "name": "@nenoyago/configs-model",
   "version": "1.2.0",
   "description": "ESLint and Prettier shared config for Eleva projects.",
   "main": "eslint.config.cjs",
