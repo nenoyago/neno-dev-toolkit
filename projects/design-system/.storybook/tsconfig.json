@@ -5,17 +5,16 @@
       "node"
     ],
     "allowSyntheticDefaultImports": true,
-    "resolveJsonModule": true,
-    "sourceMap": true
+    "resolveJsonModule": true
   },
   "exclude": [
-    "../src/test.ts",
-    "../src/**/*.spec.ts"
+    "../components/test.ts",
+    "../components/**/*.spec.ts"
   ],
   "include": [
-    "../components/**/*.stories.ts",
-    "./preview.ts",
-    "./main.ts"
+    "../components/**/*.stories.*",
+    "../components/**/*.ts",
+    "./*.ts"
   ],
   "files": [
     "./typings.d.ts"

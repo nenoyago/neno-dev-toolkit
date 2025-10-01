@@ -58,6 +58,6 @@ export const DEFAULT_THEME: ThemeConfig = {
 
     'feedback-success-pure': '#42d38b',
     'feedback-success-light': '#caffe5',
-    'feedback-success-medium': '#1e8f57',
-  },
+    'feedback-success-medium': '#1e8f57'
+  }
 };

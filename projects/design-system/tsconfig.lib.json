@@ -9,9 +9,12 @@
     "types": []
   },
   "include": [
-    "src/**/*.ts"
+    "src/**/*.ts",
+    "components/**/*.ts",
+    "core/**/*.ts",
+    ".storybook/**/*.ts"
   ],
   "exclude": [
     "**/*.spec.ts"
-  ],
+  ]
 }

@@ -15,7 +15,7 @@ const meta: Meta<ButtonStory> = {
   argTypes: {
     variant: {
       control: { type: 'select' },
-      options: ['primary', 'secondary']
+      options: ['primary', 'secondary', 'tertiary']
     },
     disabled: { control: 'boolean' }
   },
@@ -25,7 +25,7 @@ const meta: Meta<ButtonStory> = {
   },
   render: (args) => ({
     props: args,
-    template: `<ds-button [variant]="variant" [disabled]="disabled">teste</ds-button>`
+    template: `<ds-button [variant]="variant" [disabled]="disabled">{{content}}</ds-button>`
   })
 };
 
@@ -44,6 +44,14 @@ export const Secondary: StoryObj<ButtonStory> = {
     variant: 'secondary',
     disabled: false,
     content: 'Secondary Button'
+  }
+};
+
+export const Tertiary: StoryObj<ButtonStory> = {
+  args: {
+    variant: 'tertiary',
+    disabled: false,
+    content: 'Tertiary Button'
   }
 };
 

@@ -1,4 +1,5 @@
-const configsModel = require('@neno-liv/configs-model');
+const configsModel = require('@nenoyago/configs-model');
+
 module.exports = [
   ...configsModel,
   {
@@ -9,9 +10,9 @@ module.exports = [
           './tsconfig.lib.json',
           './tsconfig.lib.prod.json',
           './tsconfig.spec.json',
-          '.storybook/tsconfig.json',
-        ],
-      },
+          '.storybook/tsconfig.json'
+        ]
+      }
     },
     rules: {
       '@angular-eslint/directive-selector': [
@@ -19,17 +20,26 @@ module.exports = [
         {
           type: 'attribute',
           prefix: 'ds',
-          style: 'camelCase',
-        },
+          style: 'camelCase'
+        }
       ],
       '@angular-eslint/component-selector': [
         'error',
         {
           type: 'element',
           prefix: 'ds',
-          style: 'kebab-case',
-        },
-      ],
-    },
-  },
+          style: 'kebab-case'
+        }
+      ]
+    }
+  }
+  ,
+  {
+    files: ['.storybook/**/*.ts', '.storybook/**/*.js'],
+    languageOptions: {
+      parserOptions: {
+        project: ['./.storybook/tsconfig.json']
+      }
+    }
+  }
 ];

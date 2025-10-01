@@ -1,4 +1,5 @@
-const configsModel = require('@neno-liv/configs-model');
+const configsModel = require('@nenoyago/configs-model');
+
 module.exports = [
   ...configsModel,
   {
@@ -8,8 +9,7 @@ module.exports = [
         project: [
           './projects/design-system/tsconfig.lib.json',
           './projects/design-system/tsconfig.lib.prod.json',
-          './projects/design-system/tsconfig.spec.json',
-          './projects/design-system/.storybook/tsconfig.json'
+          './projects/design-system/tsconfig.spec.json'
         ]
       }
     }

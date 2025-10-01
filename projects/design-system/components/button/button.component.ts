@@ -7,7 +7,7 @@ type Variant = 'primary' | 'secondary' | 'tertiary';
   selector: 'ds-button',
   imports: [NgClass],
   templateUrl: './button.component.html',
-  styleUrl: './button.component.css'
+  styleUrls: ['./button.component.css']
 })
 export class ButtonComponent {
   readonly variant = input<Variant>('primary');

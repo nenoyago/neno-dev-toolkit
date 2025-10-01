@@ -5,12 +5,12 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@neno-liv/design-system": [
+      "@nenoyago/design-system": [
         "./dist/design-system"
       ],
-      "@neno-liv/design-system/*": [
-        "./projects/design-system/*"
-      ]
+      "@nenoyago/configs-model": [
+        "./projects/configs-model"
+      ],
     },
     "outDir": "./dist/out-tsc",
     "strict": true,
@@ -31,6 +31,6 @@
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
     "strictInputAccessModifiers": true,
-    "strictTemplates": true
+    "strictTemplates": true,
   }
 }

@@ -42,6 +42,9 @@
           "options": {
             "configDir": "projects/design-system/.storybook",
             "browserTarget": "design-system:build",
+            "styles": [
+              "projects/design-system/src/styles/index.css"
+            ],
             "compodoc": true,
             "compodocArgs": [
               "-e",
