@@ -14,7 +14,8 @@
   ],
   "include": [
     "../components/**/*.stories.ts",
-    "./preview.ts"
+    "./preview.ts",
+    "./main.ts"
   ],
   "files": [
     "./typings.d.ts"

@@ -11,14 +11,24 @@
     "miscellaneous": {
         "variables": [
             {
+                "name": "config",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/design-system/.storybook/main.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StorybookConfig",
+                "defaultValue": "{\n  stories: ['../components/**/*.mdx', '../components/**/*.stories.@(js|jsx|mjs|ts|tsx)'],\n  addons: [\n    '@storybook/addon-docs',\n    {\n      name: '@storybook/addon-styling-webpack',\n      options: {\n        rules: [\n          // Replaces existing CSS rules to support PostCSS\n          {\n            test: /\\.css$/,\n            use: [\n              'style-loader',\n              {\n                loader: 'css-loader',\n                options: { importLoaders: 1 },\n              },\n              {\n                // Gets options from `postcss.config.js` in your project root\n                loader: 'postcss-loader',\n                options: { implementation: require.resolve('postcss') },\n              },\n            ],\n          },\n        ],\n      },\n    },\n  ],\n  framework: {\n    name: '@storybook/angular',\n    options: {},\n  },\n}"
+            },
+            {
                 "name": "Disabled",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
                 "file": "projects/design-system/components/button/button-component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "StoryObj<>",
-                "defaultValue": "{\n  args: { disabled: true },\n  parameters: { content: 'Disabled Button' },\n}"
+                "type": "StoryObj<ButtonStory>",
+                "defaultValue": "{\n  args: {\n    variant: 'primary',\n    disabled: true,\n    content: 'Disabled Button'\n  }\n}"
             },
             {
                 "name": "meta",
@@ -27,8 +37,8 @@
                 "file": "projects/design-system/components/button/button-component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "Meta<ButtonComponent>",
-                "defaultValue": "{\n  title: 'Components/Button',\n  component: ButtonComponent,\n    decorators: [\n    moduleMetadata({\n      declarations: [],\n      imports: [CommonModule],\n    }),\n  ],\n  args: {\n    variant: 'primary',\n    disabled: false,\n  },\n  render: (args) => ({\n    props: args,\n    template: `<ds-button [variant]=\"variant\" [disabled]=\"disabled\">teste</ds-button>`,\n  }),\n}"
+                "type": "Meta<ButtonStory>",
+                "defaultValue": "{\n  title: 'Components/Button',\n  component: ButtonComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: {\n      control: { type: 'select' },\n      options: ['primary', 'secondary']\n    },\n    disabled: { control: 'boolean' }\n  },\n  args: {\n    variant: 'primary',\n    disabled: false\n  },\n  render: (args) => ({\n    props: args,\n    template: `<ds-button [variant]=\"variant\" [disabled]=\"disabled\">teste</ds-button>`\n  })\n}"
             },
             {
                 "name": "preview",
@@ -47,8 +57,8 @@
                 "file": "projects/design-system/components/button/button-component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "StoryObj<>",
-                "defaultValue": "{\n  parameters: { content: 'Primary Button' },\n}"
+                "type": "StoryObj<ButtonStory>",
+                "defaultValue": "{\n  args: {\n    variant: 'primary',\n    disabled: false,\n    content: 'Primary Button'\n  }\n}"
             },
             {
                 "name": "Secondary",
@@ -57,14 +67,25 @@
                 "file": "projects/design-system/components/button/button-component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "StoryObj<>",
-                "defaultValue": "{\n  args: { variant: 'secondary' },\n  parameters: { content: 'Secondary Button' },\n}"
+                "type": "StoryObj<ButtonStory>",
+                "defaultValue": "{\n  args: {\n    variant: 'secondary',\n    disabled: false,\n    content: 'Secondary Button'\n  }\n}"
             }
         ],
         "functions": [],
         "typealiases": [
             {
-                "name": "StoryWithContent",
+                "name": "ButtonStory",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "",
+                "file": "projects/design-system/components/button/button-component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 193
+            },
+            {
+                "name": "StoryArgs",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
                 "rawtype": "literal type",
@@ -77,6 +98,18 @@
         ],
         "enumerations": [],
         "groupedVariables": {
+            "projects/design-system/.storybook/main.ts": [
+                {
+                    "name": "config",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/design-system/.storybook/main.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StorybookConfig",
+                    "defaultValue": "{\n  stories: ['../components/**/*.mdx', '../components/**/*.stories.@(js|jsx|mjs|ts|tsx)'],\n  addons: [\n    '@storybook/addon-docs',\n    {\n      name: '@storybook/addon-styling-webpack',\n      options: {\n        rules: [\n          // Replaces existing CSS rules to support PostCSS\n          {\n            test: /\\.css$/,\n            use: [\n              'style-loader',\n              {\n                loader: 'css-loader',\n                options: { importLoaders: 1 },\n              },\n              {\n                // Gets options from `postcss.config.js` in your project root\n                loader: 'postcss-loader',\n                options: { implementation: require.resolve('postcss') },\n              },\n            ],\n          },\n        ],\n      },\n    },\n  ],\n  framework: {\n    name: '@storybook/angular',\n    options: {},\n  },\n}"
+                }
+            ],
             "projects/design-system/components/button/button-component.stories.ts": [
                 {
                     "name": "Disabled",
@@ -85,8 +118,8 @@
                     "file": "projects/design-system/components/button/button-component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "StoryObj<>",
-                    "defaultValue": "{\n  args: { disabled: true },\n  parameters: { content: 'Disabled Button' },\n}"
+                    "type": "StoryObj<ButtonStory>",
+                    "defaultValue": "{\n  args: {\n    variant: 'primary',\n    disabled: true,\n    content: 'Disabled Button'\n  }\n}"
                 },
                 {
                     "name": "meta",
@@ -95,8 +128,8 @@
                     "file": "projects/design-system/components/button/button-component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "Meta<ButtonComponent>",
-                    "defaultValue": "{\n  title: 'Components/Button',\n  component: ButtonComponent,\n    decorators: [\n    moduleMetadata({\n      declarations: [],\n      imports: [CommonModule],\n    }),\n  ],\n  args: {\n    variant: 'primary',\n    disabled: false,\n  },\n  render: (args) => ({\n    props: args,\n    template: `<ds-button [variant]=\"variant\" [disabled]=\"disabled\">teste</ds-button>`,\n  }),\n}"
+                    "type": "Meta<ButtonStory>",
+                    "defaultValue": "{\n  title: 'Components/Button',\n  component: ButtonComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: {\n      control: { type: 'select' },\n      options: ['primary', 'secondary']\n    },\n    disabled: { control: 'boolean' }\n  },\n  args: {\n    variant: 'primary',\n    disabled: false\n  },\n  render: (args) => ({\n    props: args,\n    template: `<ds-button [variant]=\"variant\" [disabled]=\"disabled\">teste</ds-button>`\n  })\n}"
                 },
                 {
                     "name": "Primary",
@@ -105,8 +138,8 @@
                     "file": "projects/design-system/components/button/button-component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "StoryObj<>",
-                    "defaultValue": "{\n  parameters: { content: 'Primary Button' },\n}"
+                    "type": "StoryObj<ButtonStory>",
+                    "defaultValue": "{\n  args: {\n    variant: 'primary',\n    disabled: false,\n    content: 'Primary Button'\n  }\n}"
                 },
                 {
                     "name": "Secondary",
@@ -115,8 +148,8 @@
                     "file": "projects/design-system/components/button/button-component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "StoryObj<>",
-                    "defaultValue": "{\n  args: { variant: 'secondary' },\n  parameters: { content: 'Secondary Button' },\n}"
+                    "type": "StoryObj<ButtonStory>",
+                    "defaultValue": "{\n  args: {\n    variant: 'secondary',\n    disabled: false,\n    content: 'Secondary Button'\n  }\n}"
                 }
             ],
             "projects/design-system/.storybook/preview.ts": [
@@ -137,7 +170,18 @@
         "groupedTypeAliases": {
             "projects/design-system/components/button/button-component.stories.ts": [
                 {
-                    "name": "StoryWithContent",
+                    "name": "ButtonStory",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "",
+                    "file": "projects/design-system/components/button/button-component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 193
+                },
+                {
+                    "name": "StoryArgs",
                     "ctype": "miscellaneous",
                     "subtype": "typealias",
                     "rawtype": "literal type",
@@ -159,6 +203,16 @@
         "count": 0,
         "status": "low",
         "files": [
+            {
+                "filePath": "projects/design-system/.storybook/main.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "config",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
             {
                 "filePath": "projects/design-system/.storybook/preview.ts",
                 "type": "variable",
@@ -214,7 +268,17 @@
                 "type": "type alias",
                 "linktype": "miscellaneous",
                 "linksubtype": "typealias",
-                "name": "StoryWithContent",
+                "name": "ButtonStory",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/design-system/components/button/button-component.stories.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "StoryArgs",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"

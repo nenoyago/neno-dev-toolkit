@@ -21,8 +21,8 @@
   },
   "sideEffects": false,
   "publishConfig": {
-    "directory": "../../dist/design-system",
-    "access": "public"
+    "registry": "https://npm.pkg.github.com/",
+    "directory": "../../dist/design-system"
   },
   "devDependencies": {
     "@tailwindcss/cli": "^4.1.14"
