@@ -3,12 +3,12 @@ import { Meta, StoryObj } from '@storybook/angular';
 import { ButtonComponent } from './button.component';
 
 type StoryArgs = {
-  variant: 'primary' | 'secondary';
-  disabled: boolean;
   content: string;
 };
 
-const meta: Meta<ButtonComponent> = {
+type ButtonStory = ButtonComponent & StoryArgs;
+
+const meta: Meta<ButtonStory> = {
   title: 'Components/Button',
   component: ButtonComponent,
   tags: ['autodocs'],
@@ -25,13 +25,13 @@ const meta: Meta<ButtonComponent> = {
   },
   render: (args) => ({
     props: args,
-    template: `<ds-button [variant]="variant" [disabled]="disabled">{{content}}</ds-button>`
+    template: `<ds-button [variant]="variant" [disabled]="disabled">teste</ds-button>`
   })
 };
 
 export default meta;
 
-export const Primary: StoryObj<StoryArgs> = {
+export const Primary: StoryObj<ButtonStory> = {
   args: {
     variant: 'primary',
     disabled: false,
@@ -39,7 +39,7 @@ export const Primary: StoryObj<StoryArgs> = {
   }
 };
 
-export const Secondary: StoryObj<StoryArgs> = {
+export const Secondary: StoryObj<ButtonStory> = {
   args: {
     variant: 'secondary',
     disabled: false,
@@ -47,7 +47,7 @@ export const Secondary: StoryObj<StoryArgs> = {
   }
 };
 
-export const Disabled: StoryObj<StoryArgs> = {
+export const Disabled: StoryObj<ButtonStory> = {
   args: {
     variant: 'primary',
     disabled: true,

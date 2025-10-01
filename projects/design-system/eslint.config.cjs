@@ -18,7 +18,7 @@ module.exports = [
         'error',
         {
           type: 'attribute',
-          prefix: 'ui',
+          prefix: 'ds',
           style: 'camelCase',
         },
       ],
@@ -26,7 +26,7 @@ module.exports = [
         'error',
         {
           type: 'element',
-          prefix: 'ui',
+          prefix: 'ds',
           style: 'kebab-case',
         },
       ],
