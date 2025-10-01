@@ -1,5 +1,11 @@
 # @neno-liv/design-system
 
+## 1.24.0
+
+### Minor Changes
+
+- 5934908: tes
+
 ## 1.23.0
 
 ### Minor Changes
