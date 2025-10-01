@@ -1,5 +1,11 @@
 # @neno-liv/configs-model
 
+## 2.0.0
+
+### Major Changes
+
+- 7b13dcd: dsiajdy:wq
+
 ## 1.2.0
 
 ### Minor Changes

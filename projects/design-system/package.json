@@ -1,6 +1,6 @@
 {
   "name": "@nenoyago/design-system",
-  "version": "1.24.0",
+  "version": "2.0.0",
   "scripts": {
     "build:css": "tailwindcss -i ./src/styles/index.css -o ./src/styles/output.css --minify"
   },
