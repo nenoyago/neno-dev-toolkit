@@ -21,7 +21,7 @@
   "author": "Yago Neno <developer.neno@gmail.com>",
   "license": "MIT",
   "publishConfig": {
-    "access": "public"
+    "registry": "https://npm.pkg.github.com/"
   },
   "peerDependencies": {
     "eslint": ">=8.0.0",

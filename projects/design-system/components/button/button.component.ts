@@ -10,7 +10,7 @@ type Variant = 'primary' | 'secondary' | 'tertiary';
   styleUrl: './button.component.css'
 })
 export class ButtonComponent {
-  readonly variant = input<Variant>('secondary');
+  readonly variant = input<Variant>('primary');
   readonly disabled = input(false, {
     transform: booleanAttribute
   });
