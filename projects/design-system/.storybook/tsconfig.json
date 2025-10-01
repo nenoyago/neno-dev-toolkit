@@ -13,7 +13,7 @@
     "../src/**/*.spec.ts"
   ],
   "include": [
-    "../src/**/*.stories.*",
+    "../components/**/*.stories.ts",
     "./preview.ts"
   ],
   "files": [
