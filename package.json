@@ -5,7 +5,6 @@
     "preinstall": "npx only-allow pnpm",
     "ci": "pnpm install --frozen-lockfile",
     "ng": "ng",
-    "start": "ng serve",
     "build:packages": "cd projects/design-system && pnpm run build:css && cd ../.. && NODE_OPTIONS='--max-old-space-size=4096' ng build design-system",
     "prebuild:packages": "pnpm run check-env",
     "storybook": "ng run design-system:storybook",

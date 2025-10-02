@@ -7,7 +7,6 @@ const unusedImports = require('eslint-plugin-unused-imports');
 const eslintPluginPrettier = require('eslint-plugin-prettier');
 const eslintPluginImport = require('eslint-plugin-import');
 const templateParser = require('@angular-eslint/template-parser');
-const { create } = require('domain');
 
 module.exports = [
   {
