@@ -1,5 +1,11 @@
 # @neno-liv/design-system
 
+## 2.3.0
+
+### Minor Changes
+
+- c2f35a2: create icon component
+
 ## 2.2.0
 
 ### Minor Changes
