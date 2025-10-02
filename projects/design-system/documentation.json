@@ -1,430 +1,440 @@
 {
-  "pipes": [],
-  "interfaces": [],
-  "injectables": [],
-  "guards": [],
-  "interceptors": [],
-  "classes": [],
-  "directives": [],
-  "components": [
-    {
-      "name": "ButtonComponent",
-      "id": "component-ButtonComponent-4b89978232a0e7c22f63aac52337a24a9937c92dffa3b89147744bb7ac2a61b934d33b7f68c0977f17646aaac3697efbc6f64f6e58bea1697833c6a6f3874a52",
-      "file": "projects/design-system/components/button/button.component.ts",
-      "encapsulation": [],
-      "entryComponents": [],
-      "inputs": [],
-      "outputs": [],
-      "providers": [],
-      "selector": "ds-button",
-      "styleUrls": ["./button.component.css"],
-      "styles": [],
-      "templateUrl": ["./button.component.html"],
-      "viewProviders": [],
-      "hostDirectives": [],
-      "inputsClass": [
+    "pipes": [],
+    "interfaces": [],
+    "injectables": [],
+    "guards": [],
+    "interceptors": [],
+    "classes": [],
+    "directives": [],
+    "components": [
         {
-          "name": "disabled",
-          "defaultValue": "false, {    transform: booleanAttribute  }",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "indexKey": "",
-          "optional": false,
-          "description": "",
-          "line": 14,
-          "modifierKind": [148],
-          "required": false
-        },
-        {
-          "name": "variant",
-          "defaultValue": "'primary'",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "Variant",
-          "indexKey": "",
-          "optional": false,
-          "description": "",
-          "line": 13,
-          "modifierKind": [148],
-          "required": false
+            "name": "ButtonComponent",
+            "id": "component-ButtonComponent-4b89978232a0e7c22f63aac52337a24a9937c92dffa3b89147744bb7ac2a61b934d33b7f68c0977f17646aaac3697efbc6f64f6e58bea1697833c6a6f3874a52",
+            "file": "projects/design-system/components/button/button.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "ds-button",
+            "styleUrls": [
+                "./button.component.css"
+            ],
+            "styles": [],
+            "templateUrl": [
+                "./button.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [
+                {
+                    "name": "disabled",
+                    "defaultValue": "false, {    transform: booleanAttribute  }",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 14,
+                    "modifierKind": [
+                        148
+                    ],
+                    "required": false
+                },
+                {
+                    "name": "variant",
+                    "defaultValue": "'primary'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Variant",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 13,
+                    "modifierKind": [
+                        148
+                    ],
+                    "required": false
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": false,
+            "imports": [
+                {
+                    "name": "NgClass"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { NgClass } from '@angular/common';\nimport { booleanAttribute, Component, input } from '@angular/core';\n\ntype Variant = 'primary' | 'secondary' | 'tertiary';\n\n@Component({\n  selector: 'ds-button',\n  imports: [NgClass],\n  templateUrl: './button.component.html',\n  styleUrls: ['./button.component.css']\n})\nexport class ButtonComponent {\n  readonly variant = input<Variant>('primary');\n  readonly disabled = input(false, {\n    transform: booleanAttribute\n  });\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": [
+                {
+                    "data": "",
+                    "styleUrl": "./button.component.css"
+                }
+            ],
+            "stylesData": "",
+            "extends": [],
+            "templateData": "<button\n  type=\"button\"\n  [disabled]=\"disabled()\"\n  [ngClass]=\"[\n    'px-4 py-2 text-sm font-semibold rounded transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-offset-2',\n    variant() === 'primary'\n      ? 'bg-brand-primary-pure text-white enabled:hover:bg-brand-primary-light enabled:focus:ring-brand-primary-light enabled:focus:ring-offset-brand-primary-lightest enabled:focus:bg-brand-primary-dark enabled:active:bg-brand-primary-dark'\n      : '',\n    variant() === 'secondary'\n      ? 'bg-brand-secondary-pure text-white enabled:hover:bg-brand-secondary-light enabled:focus:ring-brand-secondary-light enabled:focus:ring-offset-brand-secondary-lightest enabled:focus:bg-brand-secondary-dark enabled:active:bg-brand-secondary-dark'\n      : '',\n    variant() === 'tertiary'\n      ? 'bg-transparent text-brand-primary-pure border border-brand-primary-pure enabled:hover:bg-brand-primary-lightest enabled:focus:ring-brand-primary-light enabled:focus:ring-offset-brand-primary-lightest enabled:focus:bg-brand-primary-light enabled:active:bg-brand-primary-dark enabled:active:text-white'\n      : ''\n  ]\"\n>\n  <ng-content />\n</button>\n"
         }
-      ],
-      "outputsClass": [],
-      "propertiesClass": [],
-      "methodsClass": [],
-      "deprecated": false,
-      "deprecationMessage": "",
-      "hostBindings": [],
-      "hostListeners": [],
-      "standalone": false,
-      "imports": [
-        {
-          "name": "NgClass"
-        }
-      ],
-      "description": "",
-      "rawdescription": "\n",
-      "type": "component",
-      "sourceCode": "import { NgClass } from '@angular/common';\nimport { booleanAttribute, Component, input } from '@angular/core';\n\ntype Variant = 'primary' | 'secondary' | 'tertiary';\n\n@Component({\n  selector: 'ds-button',\n  imports: [NgClass],\n  templateUrl: './button.component.html',\n  styleUrls: ['./button.component.css']\n})\nexport class ButtonComponent {\n  readonly variant = input<Variant>('primary');\n  readonly disabled = input(false, {\n    transform: booleanAttribute\n  });\n}\n",
-      "assetsDirs": [],
-      "styleUrlsData": [
-        {
-          "data": "",
-          "styleUrl": "./button.component.css"
-        }
-      ],
-      "stylesData": "",
-      "extends": [],
-      "templateData": "<button\n  type=\"button\"\n  [disabled]=\"disabled()\"\n  [ngClass]=\"[\n    'px-4 py-2 text-sm font-semibold rounded transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-offset-2',\n    variant() === 'primary'\n      ? 'bg-brand-primary-pure text-white enabled:hover:bg-brand-primary-light enabled:focus:ring-brand-primary-light enabled:focus:ring-offset-brand-primary-lightest enabled:focus:bg-brand-primary-dark enabled:active:bg-brand-primary-dark'\n      : '',\n    variant() === 'secondary'\n      ? 'bg-brand-secondary-pure text-white enabled:hover:bg-brand-secondary-light enabled:focus:ring-brand-secondary-light enabled:focus:ring-offset-brand-secondary-lightest enabled:focus:bg-brand-secondary-dark enabled:active:bg-brand-secondary-dark'\n      : '',\n    variant() === 'tertiary'\n      ? 'bg-transparent text-brand-primary-pure border border-brand-primary-pure enabled:hover:bg-brand-primary-lightest enabled:focus:ring-brand-primary-light enabled:focus:ring-offset-brand-primary-lightest enabled:focus:bg-brand-primary-light enabled:active:bg-brand-primary-dark enabled:active:text-white'\n      : ''\n  ]\"\n>\n  <ng-content />\n</button>\n"
-    }
-  ],
-  "modules": [],
-  "miscellaneous": {
-    "variables": [
-      {
-        "name": "decorators",
-        "ctype": "miscellaneous",
-        "subtype": "variable",
-        "file": "projects/design-system/.storybook/preview.ts",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "type": "any[]",
-        "defaultValue": "[\n  moduleMetadata({\n    imports: [],\n    providers: [\n      // @ts-ignore\n      applicationConfig({\n        providers: [],\n      }),\n    ],\n  }),\n]"
-      },
-      {
-        "name": "Disabled",
-        "ctype": "miscellaneous",
-        "subtype": "variable",
-        "file": "projects/design-system/components/button/button.component.stories.ts",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "type": "StoryObj<ButtonStory>",
-        "defaultValue": "{\n  args: {\n    variant: 'primary',\n    disabled: true,\n    content: 'Disabled Button'\n  }\n}"
-      },
-      {
-        "name": "meta",
-        "ctype": "miscellaneous",
-        "subtype": "variable",
-        "file": "projects/design-system/components/button/button.component.stories.ts",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "type": "Meta<ButtonStory>",
-        "defaultValue": "{\n  title: 'Components/Button',\n  component: ButtonComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: {\n      control: { type: 'select' },\n      options: ['primary', 'secondary', 'tertiary']\n    },\n    disabled: { control: 'boolean' }\n  },\n  args: {\n    variant: 'primary',\n    disabled: false\n  },\n  render: (args) => ({\n    props: args,\n    template: `<ds-button [variant]=\"variant\" [disabled]=\"disabled\">{{content}}</ds-button>`,\n  })\n}"
-      },
-      {
-        "name": "preview",
-        "ctype": "miscellaneous",
-        "subtype": "variable",
-        "file": "projects/design-system/.storybook/preview.ts",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "type": "Preview",
-        "defaultValue": "{\n  parameters: {\n    actions: { argTypesRegex: '^on[A-Z].*' },\n    controls: {\n      matchers: {\n        color: /(background|color)$/i,\n        date: /Date$/i,\n      },\n    },\n  },\n}"
-      },
-      {
-        "name": "Primary",
-        "ctype": "miscellaneous",
-        "subtype": "variable",
-        "file": "projects/design-system/components/button/button.component.stories.ts",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "type": "StoryObj<ButtonStory>",
-        "defaultValue": "{\n  args: {\n    variant: 'primary',\n    disabled: false,\n    content: 'Primary Button'\n  }\n}"
-      },
-      {
-        "name": "Secondary",
-        "ctype": "miscellaneous",
-        "subtype": "variable",
-        "file": "projects/design-system/components/button/button.component.stories.ts",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "type": "StoryObj<ButtonStory>",
-        "defaultValue": "{\n  args: {\n    variant: 'secondary',\n    disabled: false,\n    content: 'Secondary Button'\n  }\n}"
-      },
-      {
-        "name": "Tertiary",
-        "ctype": "miscellaneous",
-        "subtype": "variable",
-        "file": "projects/design-system/components/button/button.component.stories.ts",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "type": "StoryObj<ButtonStory>",
-        "defaultValue": "{\n  args: {\n    variant: 'tertiary',\n    disabled: false,\n    content: 'Tertiary Button'\n  }\n}"
-      }
     ],
-    "functions": [],
-    "typealiases": [
-      {
-        "name": "ButtonStory",
-        "ctype": "miscellaneous",
-        "subtype": "typealias",
-        "rawtype": "",
-        "file": "projects/design-system/components/button/button.component.stories.ts",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "description": "",
-        "kind": 193
-      },
-      {
-        "name": "StoryArgs",
-        "ctype": "miscellaneous",
-        "subtype": "typealias",
-        "rawtype": "literal type",
-        "file": "projects/design-system/components/button/button.component.stories.ts",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "description": "",
-        "kind": 187
-      },
-      {
-        "name": "Variant",
-        "ctype": "miscellaneous",
-        "subtype": "typealias",
-        "rawtype": "\"primary\" | \"secondary\" | \"tertiary\"",
-        "file": "projects/design-system/components/button/button.component.ts",
-        "deprecated": false,
-        "deprecationMessage": "",
-        "description": "",
-        "kind": 192
-      }
-    ],
-    "enumerations": [],
-    "groupedVariables": {
-      "projects/design-system/.storybook/preview.ts": [
-        {
-          "name": "decorators",
-          "ctype": "miscellaneous",
-          "subtype": "variable",
-          "file": "projects/design-system/.storybook/preview.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "any[]",
-          "defaultValue": "[\n  moduleMetadata({\n    imports: [],\n    providers: [\n      // @ts-ignore\n      applicationConfig({\n        providers: [],\n      }),\n    ],\n  }),\n]"
+    "modules": [],
+    "miscellaneous": {
+        "variables": [
+            {
+                "name": "config",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/design-system/.storybook/main.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StorybookConfig",
+                "defaultValue": "{\n  stories: [\n    '../components/**/*.mdx',\n    '../components/**/*.stories.@(js|jsx|mjs|ts|tsx)'\n  ],\n  addons: ['@storybook/addon-docs', '@storybook/addon-styling-webpack'],\n  framework: {\n    name: '@storybook/angular',\n    options: {}\n  }\n}"
+            },
+            {
+                "name": "Disabled",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/design-system/components/button/button.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryObj<ButtonStory>",
+                "defaultValue": "{\n  args: {\n    variant: 'primary',\n    disabled: true,\n    content: 'Disabled Button'\n  }\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/design-system/components/button/button.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<ButtonStory>",
+                "defaultValue": "{\n  title: 'Components/Button',\n  component: ButtonComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: {\n      control: { type: 'select' },\n      options: ['primary', 'secondary', 'tertiary']\n    },\n    disabled: { control: 'boolean' }\n  },\n  args: {\n    variant: 'primary',\n    disabled: false\n  },\n  render: (args) => ({\n    props: args,\n    template: `<ds-button [variant]=\"variant\" [disabled]=\"disabled\">{{content}}</ds-button>`\n  })\n}"
+            },
+            {
+                "name": "preview",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/design-system/.storybook/preview.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Preview",
+                "defaultValue": "{\n  parameters: {\n    actions: { argTypesRegex: '^on[A-Z].*' },\n    controls: {\n      matchers: {\n        color: /(background|color)$/i,\n        date: /Date$/i\n      }\n    }\n  }\n}"
+            },
+            {
+                "name": "Primary",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/design-system/components/button/button.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryObj<ButtonStory>",
+                "defaultValue": "{\n  args: {\n    variant: 'primary',\n    disabled: false,\n    content: 'Primary Button'\n  }\n}"
+            },
+            {
+                "name": "Secondary",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/design-system/components/button/button.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryObj<ButtonStory>",
+                "defaultValue": "{\n  args: {\n    variant: 'secondary',\n    disabled: false,\n    content: 'Secondary Button'\n  }\n}"
+            },
+            {
+                "name": "Tertiary",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/design-system/components/button/button.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "StoryObj<ButtonStory>",
+                "defaultValue": "{\n  args: {\n    variant: 'tertiary',\n    disabled: false,\n    content: 'Tertiary Button'\n  }\n}"
+            }
+        ],
+        "functions": [],
+        "typealiases": [
+            {
+                "name": "ButtonStory",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "",
+                "file": "projects/design-system/components/button/button.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 193
+            },
+            {
+                "name": "StoryArgs",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "literal type",
+                "file": "projects/design-system/components/button/button.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 187
+            },
+            {
+                "name": "Variant",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "\"primary\" | \"secondary\" | \"tertiary\"",
+                "file": "projects/design-system/components/button/button.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 192
+            }
+        ],
+        "enumerations": [],
+        "groupedVariables": {
+            "projects/design-system/.storybook/main.ts": [
+                {
+                    "name": "config",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/design-system/.storybook/main.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StorybookConfig",
+                    "defaultValue": "{\n  stories: [\n    '../components/**/*.mdx',\n    '../components/**/*.stories.@(js|jsx|mjs|ts|tsx)'\n  ],\n  addons: ['@storybook/addon-docs', '@storybook/addon-styling-webpack'],\n  framework: {\n    name: '@storybook/angular',\n    options: {}\n  }\n}"
+                }
+            ],
+            "projects/design-system/components/button/button.component.stories.ts": [
+                {
+                    "name": "Disabled",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/design-system/components/button/button.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryObj<ButtonStory>",
+                    "defaultValue": "{\n  args: {\n    variant: 'primary',\n    disabled: true,\n    content: 'Disabled Button'\n  }\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/design-system/components/button/button.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<ButtonStory>",
+                    "defaultValue": "{\n  title: 'Components/Button',\n  component: ButtonComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: {\n      control: { type: 'select' },\n      options: ['primary', 'secondary', 'tertiary']\n    },\n    disabled: { control: 'boolean' }\n  },\n  args: {\n    variant: 'primary',\n    disabled: false\n  },\n  render: (args) => ({\n    props: args,\n    template: `<ds-button [variant]=\"variant\" [disabled]=\"disabled\">{{content}}</ds-button>`\n  })\n}"
+                },
+                {
+                    "name": "Primary",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/design-system/components/button/button.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryObj<ButtonStory>",
+                    "defaultValue": "{\n  args: {\n    variant: 'primary',\n    disabled: false,\n    content: 'Primary Button'\n  }\n}"
+                },
+                {
+                    "name": "Secondary",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/design-system/components/button/button.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryObj<ButtonStory>",
+                    "defaultValue": "{\n  args: {\n    variant: 'secondary',\n    disabled: false,\n    content: 'Secondary Button'\n  }\n}"
+                },
+                {
+                    "name": "Tertiary",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/design-system/components/button/button.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "StoryObj<ButtonStory>",
+                    "defaultValue": "{\n  args: {\n    variant: 'tertiary',\n    disabled: false,\n    content: 'Tertiary Button'\n  }\n}"
+                }
+            ],
+            "projects/design-system/.storybook/preview.ts": [
+                {
+                    "name": "preview",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/design-system/.storybook/preview.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Preview",
+                    "defaultValue": "{\n  parameters: {\n    actions: { argTypesRegex: '^on[A-Z].*' },\n    controls: {\n      matchers: {\n        color: /(background|color)$/i,\n        date: /Date$/i\n      }\n    }\n  }\n}"
+                }
+            ]
         },
-        {
-          "name": "preview",
-          "ctype": "miscellaneous",
-          "subtype": "variable",
-          "file": "projects/design-system/.storybook/preview.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "Preview",
-          "defaultValue": "{\n  parameters: {\n    actions: { argTypesRegex: '^on[A-Z].*' },\n    controls: {\n      matchers: {\n        color: /(background|color)$/i,\n        date: /Date$/i,\n      },\n    },\n  },\n}"
+        "groupedFunctions": {},
+        "groupedEnumerations": {},
+        "groupedTypeAliases": {
+            "projects/design-system/components/button/button.component.stories.ts": [
+                {
+                    "name": "ButtonStory",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "",
+                    "file": "projects/design-system/components/button/button.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 193
+                },
+                {
+                    "name": "StoryArgs",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "literal type",
+                    "file": "projects/design-system/components/button/button.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 187
+                }
+            ],
+            "projects/design-system/components/button/button.component.ts": [
+                {
+                    "name": "Variant",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "\"primary\" | \"secondary\" | \"tertiary\"",
+                    "file": "projects/design-system/components/button/button.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 192
+                }
+            ]
         }
-      ],
-      "projects/design-system/components/button/button.component.stories.ts": [
-        {
-          "name": "Disabled",
-          "ctype": "miscellaneous",
-          "subtype": "variable",
-          "file": "projects/design-system/components/button/button.component.stories.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "StoryObj<ButtonStory>",
-          "defaultValue": "{\n  args: {\n    variant: 'primary',\n    disabled: true,\n    content: 'Disabled Button'\n  }\n}"
-        },
-        {
-          "name": "meta",
-          "ctype": "miscellaneous",
-          "subtype": "variable",
-          "file": "projects/design-system/components/button/button.component.stories.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "Meta<ButtonStory>",
-          "defaultValue": "{\n  title: 'Components/Button',\n  component: ButtonComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: {\n      control: { type: 'select' },\n      options: ['primary', 'secondary', 'tertiary']\n    },\n    disabled: { control: 'boolean' }\n  },\n  args: {\n    variant: 'primary',\n    disabled: false\n  },\n  render: (args) => ({\n    props: args,\n    template: `<ds-button [variant]=\"variant\" [disabled]=\"disabled\">{{content}}</ds-button>`,\n  })\n}"
-        },
-        {
-          "name": "Primary",
-          "ctype": "miscellaneous",
-          "subtype": "variable",
-          "file": "projects/design-system/components/button/button.component.stories.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "StoryObj<ButtonStory>",
-          "defaultValue": "{\n  args: {\n    variant: 'primary',\n    disabled: false,\n    content: 'Primary Button'\n  }\n}"
-        },
-        {
-          "name": "Secondary",
-          "ctype": "miscellaneous",
-          "subtype": "variable",
-          "file": "projects/design-system/components/button/button.component.stories.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "StoryObj<ButtonStory>",
-          "defaultValue": "{\n  args: {\n    variant: 'secondary',\n    disabled: false,\n    content: 'Secondary Button'\n  }\n}"
-        },
-        {
-          "name": "Tertiary",
-          "ctype": "miscellaneous",
-          "subtype": "variable",
-          "file": "projects/design-system/components/button/button.component.stories.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "type": "StoryObj<ButtonStory>",
-          "defaultValue": "{\n  args: {\n    variant: 'tertiary',\n    disabled: false,\n    content: 'Tertiary Button'\n  }\n}"
-        }
-      ]
     },
-    "groupedFunctions": {},
-    "groupedEnumerations": {},
-    "groupedTypeAliases": {
-      "projects/design-system/components/button/button.component.stories.ts": [
-        {
-          "name": "ButtonStory",
-          "ctype": "miscellaneous",
-          "subtype": "typealias",
-          "rawtype": "",
-          "file": "projects/design-system/components/button/button.component.stories.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "description": "",
-          "kind": 193
-        },
-        {
-          "name": "StoryArgs",
-          "ctype": "miscellaneous",
-          "subtype": "typealias",
-          "rawtype": "literal type",
-          "file": "projects/design-system/components/button/button.component.stories.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "description": "",
-          "kind": 187
-        }
-      ],
-      "projects/design-system/components/button/button.component.ts": [
-        {
-          "name": "Variant",
-          "ctype": "miscellaneous",
-          "subtype": "typealias",
-          "rawtype": "\"primary\" | \"secondary\" | \"tertiary\"",
-          "file": "projects/design-system/components/button/button.component.ts",
-          "deprecated": false,
-          "deprecationMessage": "",
-          "description": "",
-          "kind": 192
-        }
-      ]
+    "routes": {
+        "name": "<root>",
+        "kind": "module",
+        "children": []
+    },
+    "coverage": {
+        "count": 0,
+        "status": "low",
+        "files": [
+            {
+                "filePath": "projects/design-system/.storybook/main.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "config",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/design-system/.storybook/preview.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "preview",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/design-system/components/button/button.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Disabled",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/design-system/components/button/button.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/design-system/components/button/button.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Primary",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/design-system/components/button/button.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Secondary",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/design-system/components/button/button.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "Tertiary",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/design-system/components/button/button.component.stories.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "ButtonStory",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/design-system/components/button/button.component.stories.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "StoryArgs",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/design-system/components/button/button.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "ButtonComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/3",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/design-system/components/button/button.component.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "Variant",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            }
+        ]
     }
-  },
-  "routes": {
-    "name": "<root>",
-    "kind": "module",
-    "children": []
-  },
-  "coverage": {
-    "count": 0,
-    "status": "low",
-    "files": [
-      {
-        "filePath": "projects/design-system/.storybook/preview.ts",
-        "type": "variable",
-        "linktype": "miscellaneous",
-        "linksubtype": "variable",
-        "name": "decorators",
-        "coveragePercent": 0,
-        "coverageCount": "0/1",
-        "status": "low"
-      },
-      {
-        "filePath": "projects/design-system/.storybook/preview.ts",
-        "type": "variable",
-        "linktype": "miscellaneous",
-        "linksubtype": "variable",
-        "name": "preview",
-        "coveragePercent": 0,
-        "coverageCount": "0/1",
-        "status": "low"
-      },
-      {
-        "filePath": "projects/design-system/components/button/button.component.stories.ts",
-        "type": "variable",
-        "linktype": "miscellaneous",
-        "linksubtype": "variable",
-        "name": "Disabled",
-        "coveragePercent": 0,
-        "coverageCount": "0/1",
-        "status": "low"
-      },
-      {
-        "filePath": "projects/design-system/components/button/button.component.stories.ts",
-        "type": "variable",
-        "linktype": "miscellaneous",
-        "linksubtype": "variable",
-        "name": "meta",
-        "coveragePercent": 0,
-        "coverageCount": "0/1",
-        "status": "low"
-      },
-      {
-        "filePath": "projects/design-system/components/button/button.component.stories.ts",
-        "type": "variable",
-        "linktype": "miscellaneous",
-        "linksubtype": "variable",
-        "name": "Primary",
-        "coveragePercent": 0,
-        "coverageCount": "0/1",
-        "status": "low"
-      },
-      {
-        "filePath": "projects/design-system/components/button/button.component.stories.ts",
-        "type": "variable",
-        "linktype": "miscellaneous",
-        "linksubtype": "variable",
-        "name": "Secondary",
-        "coveragePercent": 0,
-        "coverageCount": "0/1",
-        "status": "low"
-      },
-      {
-        "filePath": "projects/design-system/components/button/button.component.stories.ts",
-        "type": "variable",
-        "linktype": "miscellaneous",
-        "linksubtype": "variable",
-        "name": "Tertiary",
-        "coveragePercent": 0,
-        "coverageCount": "0/1",
-        "status": "low"
-      },
-      {
-        "filePath": "projects/design-system/components/button/button.component.stories.ts",
-        "type": "type alias",
-        "linktype": "miscellaneous",
-        "linksubtype": "typealias",
-        "name": "ButtonStory",
-        "coveragePercent": 0,
-        "coverageCount": "0/1",
-        "status": "low"
-      },
-      {
-        "filePath": "projects/design-system/components/button/button.component.stories.ts",
-        "type": "type alias",
-        "linktype": "miscellaneous",
-        "linksubtype": "typealias",
-        "name": "StoryArgs",
-        "coveragePercent": 0,
-        "coverageCount": "0/1",
-        "status": "low"
-      },
-      {
-        "filePath": "projects/design-system/components/button/button.component.ts",
-        "type": "component",
-        "linktype": "component",
-        "name": "ButtonComponent",
-        "coveragePercent": 0,
-        "coverageCount": "0/3",
-        "status": "low"
-      },
-      {
-        "filePath": "projects/design-system/components/button/button.component.ts",
-        "type": "type alias",
-        "linktype": "miscellaneous",
-        "linksubtype": "typealias",
-        "name": "Variant",
-        "coveragePercent": 0,
-        "coverageCount": "0/1",
-        "status": "low"
-      }
-    ]
-  }
 }
