@@ -7,7 +7,12 @@
   "allowedNonPeerDependencies": [
     "@tailwindcss/postcss",
     "tailwindcss",
-    "postcss"
+    "postcss",
+    "@ng-icons/core",
+    "@ng-icons/heroicons",
+    "@ng-icons/lucide"
   ],
-  "assets": ["src/styles/output.css"]
+  "assets": [
+    "src/styles/output.css"
+  ]
 }
