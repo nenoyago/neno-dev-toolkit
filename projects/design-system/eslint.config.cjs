@@ -32,8 +32,7 @@ module.exports = [
         }
       ]
     }
-  }
-  ,
+  },
   {
     files: ['.storybook/**/*.ts', '.storybook/**/*.js'],
     languageOptions: {

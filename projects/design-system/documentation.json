@@ -1,6 +1,82 @@
 {
     "pipes": [],
-    "interfaces": [],
+    "interfaces": [
+        {
+            "name": "IconBaseComponentProps",
+            "id": "interface-IconBaseComponentProps-cb2da62e7cc4374a1c945fa6588396b7cfc1c27088659f8a277a5d5ad69be0bdad8995fe1139a50a6b52c27c1bf5e09f74c68e4ee785b88dbd8aa84d3a9deee9",
+            "file": "projects/design-system/components/icon/icon.component.ts",
+            "deprecated": false,
+            "deprecationMessage": "",
+            "type": "interface",
+            "sourceCode": "import { NgClass, NgComponentOutlet } from '@angular/common';\nimport { Component, inject, Injector, input, InputSignal } from '@angular/core';\n\nimport { provideIcons, IconName as NgIconName, NgIcon } from '@ng-icons/core';\n\nconst AVAILABLE_ICONS_IMPORT = [\n  import('@ng-icons/heroicons/outline'),\n  import('@ng-icons/lucide')\n];\n\ntype HeroIconName = Extract<\n  Exclude<\n    NgIconName,\n    `hero${string}Solid` | `hero${string}Mini` | `hero${string}Micro`\n  >,\n  `hero${string}`\n>;\n\ntype LucideIconName = Extract<NgIconName, `lucide${string}`>;\n\ntype IconName = HeroIconName | LucideIconName;\n\nexport type IconInput = IconName | (string & {});\n\ninterface IconBaseComponentProps {\n  name: InputSignal<IconInput>;\n  size: InputSignal<string>;\n  strokeWidth?: InputSignal<number>;\n  class?: InputSignal<string>;\n  ngClass?: InputSignal<string | string[] | Record<string, boolean>>;\n  style?: InputSignal<Record<string, string>>;\n}\n\n@Component({\n  standalone: true,\n  template: ''\n})\nabstract class IconBaseComponent implements IconBaseComponentProps {\n  readonly name = input.required<IconInput>();\n  readonly size = input<string>('');\n  readonly strokeWidth = input<number>(1.5);\n  readonly class = input<string>('');\n  readonly ngClass = input<string | string[] | Record<string, boolean>>('');\n  readonly style = input<Record<string, string>>({});\n}\n\n@Component({\n  selector: 'ds-icon-render',\n  imports: [NgIcon, NgClass],\n  template: `\n    @if (name(); as name) {\n      <ng-icon\n        [name]=\"name\"\n        [size]=\"size()\"\n        [strokeWidth]=\"strokeWidth()\"\n        [class]=\"class()\"\n        [ngClass]=\"ngClass()\"\n        [style]=\"style()\"\n      />\n    }\n  `\n})\nclass IconRenderComponent extends IconBaseComponent {}\n\n@Component({\n  selector: 'ds-icon',\n  imports: [NgComponentOutlet],\n  templateUrl: './icon.component.html',\n  styleUrl: './icon.component.css'\n})\nexport class IconComponent extends IconBaseComponent {\n  private readonly parentInjector = inject(Injector);\n\n  protected injector: Injector | null = null;\n  protected child = IconRenderComponent;\n\n  async ngOnInit() {\n    const name = this.name();\n\n    if (!name) {\n      this.injector = this.parentInjector;\n      throw new Error('Icon name is required');\n    }\n\n    const isCustomIcon =\n      typeof name === 'string' &&\n      !name.startsWith('hero') &&\n      !name.startsWith('lucide');\n\n    if (isCustomIcon) {\n      this.injector = Injector.create({\n        providers: [],\n        parent: this.parentInjector\n      });\n      return;\n    }\n\n    try {\n      // @ts-ignore\n      for await (const { [name]: icon } of AVAILABLE_ICONS_IMPORT) {\n        if (icon) {\n          this.injector = Injector.create({\n            providers: [provideIcons({ [name]: icon })],\n            parent: this.parentInjector\n          });\n          break;\n        }\n        this.injector = this.parentInjector;\n      }\n    } catch (err) {\n      console.error('Error loading icon:', err);\n      this.injector = this.parentInjector;\n    }\n  }\n}\n",
+            "properties": [
+                {
+                    "name": "class",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "InputSignal<string>",
+                    "indexKey": "",
+                    "optional": true,
+                    "description": "",
+                    "line": 29
+                },
+                {
+                    "name": "name",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "InputSignal<IconInput>",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 26
+                },
+                {
+                    "name": "ngClass",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "InputSignal<string | [] | Record>",
+                    "indexKey": "",
+                    "optional": true,
+                    "description": "",
+                    "line": 30
+                },
+                {
+                    "name": "size",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "InputSignal<string>",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 27
+                },
+                {
+                    "name": "strokeWidth",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "InputSignal<number>",
+                    "indexKey": "",
+                    "optional": true,
+                    "description": "",
+                    "line": 28
+                },
+                {
+                    "name": "style",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "InputSignal<Record<string, string>>",
+                    "indexKey": "",
+                    "optional": true,
+                    "description": "",
+                    "line": 31
+                }
+            ],
+            "indexSignatures": [],
+            "kind": 171,
+            "methods": [],
+            "extends": []
+        }
+    ],
     "injectables": [],
     "guards": [],
     "interceptors": [],
@@ -9,7 +85,7 @@
     "components": [
         {
             "name": "ButtonComponent",
-            "id": "component-ButtonComponent-4b89978232a0e7c22f63aac52337a24a9937c92dffa3b89147744bb7ac2a61b934d33b7f68c0977f17646aaac3697efbc6f64f6e58bea1697833c6a6f3874a52",
+            "id": "component-ButtonComponent-fe667a86d8e49ca0df61b13329bb2331bc4dcd964ba522cdd036d1d50064817234277bb783f5e33046e06be8a9e1ce09d0054b6af4b216353736ae9e5db28e49",
             "file": "projects/design-system/components/button/button.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -36,6 +112,21 @@
                     "optional": false,
                     "description": "",
                     "line": 14,
+                    "modifierKind": [
+                        148
+                    ],
+                    "required": false
+                },
+                {
+                    "name": "htmlType",
+                    "defaultValue": "'button'",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "\"button\" | \"submit\" | \"reset\"",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 17,
                     "modifierKind": [
                         148
                     ],
@@ -73,7 +164,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { NgClass } from '@angular/common';\nimport { booleanAttribute, Component, input } from '@angular/core';\n\ntype Variant = 'primary' | 'secondary' | 'tertiary';\n\n@Component({\n  selector: 'ds-button',\n  imports: [NgClass],\n  templateUrl: './button.component.html',\n  styleUrls: ['./button.component.css']\n})\nexport class ButtonComponent {\n  readonly variant = input<Variant>('primary');\n  readonly disabled = input(false, {\n    transform: booleanAttribute\n  });\n}\n",
+            "sourceCode": "import { NgClass } from '@angular/common';\nimport { booleanAttribute, Component, input } from '@angular/core';\n\ntype Variant = 'primary' | 'secondary' | 'tertiary';\n\n@Component({\n  selector: 'ds-button',\n  imports: [NgClass],\n  templateUrl: './button.component.html',\n  styleUrls: ['./button.component.css']\n})\nexport class ButtonComponent {\n  readonly variant = input<Variant>('primary');\n  readonly disabled = input(false, {\n    transform: booleanAttribute\n  });\n  readonly htmlType = input<'button' | 'submit' | 'reset'>('button');\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -83,12 +174,512 @@
             ],
             "stylesData": "",
             "extends": [],
-            "templateData": "<button\n  type=\"button\"\n  [disabled]=\"disabled()\"\n  [ngClass]=\"[\n    'px-4 py-2 text-sm font-semibold rounded transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-offset-2',\n    variant() === 'primary'\n      ? 'bg-brand-primary-pure text-white enabled:hover:bg-brand-primary-light enabled:focus:ring-brand-primary-light enabled:focus:ring-offset-brand-primary-lightest enabled:focus:bg-brand-primary-dark enabled:active:bg-brand-primary-dark'\n      : '',\n    variant() === 'secondary'\n      ? 'bg-brand-secondary-pure text-white enabled:hover:bg-brand-secondary-light enabled:focus:ring-brand-secondary-light enabled:focus:ring-offset-brand-secondary-lightest enabled:focus:bg-brand-secondary-dark enabled:active:bg-brand-secondary-dark'\n      : '',\n    variant() === 'tertiary'\n      ? 'bg-transparent text-brand-primary-pure border border-brand-primary-pure enabled:hover:bg-brand-primary-lightest enabled:focus:ring-brand-primary-light enabled:focus:ring-offset-brand-primary-lightest enabled:focus:bg-brand-primary-light enabled:active:bg-brand-primary-dark enabled:active:text-white'\n      : ''\n  ]\"\n>\n  <ng-content />\n</button>\n"
+            "templateData": "<button\n  [type]=\"htmlType()\"\n  [disabled]=\"disabled()\"\n  [ngClass]=\"[\n    'px-4 py-2 text-sm font-semibold rounded transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-offset-2',\n    variant() === 'primary'\n      ? 'bg-brand-primary-pure text-white enabled:hover:bg-brand-primary-light enabled:focus:ring-brand-primary-light enabled:focus:ring-offset-brand-primary-lightest enabled:focus:bg-brand-primary-dark enabled:active:bg-brand-primary-dark'\n      : '',\n    variant() === 'secondary'\n      ? 'bg-brand-secondary-pure text-white enabled:hover:bg-brand-secondary-light enabled:focus:ring-brand-secondary-light enabled:focus:ring-offset-brand-secondary-lightest enabled:focus:bg-brand-secondary-dark enabled:active:bg-brand-secondary-dark'\n      : '',\n    variant() === 'tertiary'\n      ? 'bg-transparent text-brand-primary-pure border border-brand-primary-pure enabled:hover:bg-brand-primary-lightest enabled:focus:ring-brand-primary-light enabled:focus:ring-offset-brand-primary-lightest enabled:focus:bg-brand-primary-light enabled:active:bg-brand-primary-dark enabled:active:text-white'\n      : ''\n  ]\"\n>\n  <ng-content />\n</button>\n"
+        },
+        {
+            "name": "IconBaseComponent",
+            "id": "component-IconBaseComponent-cb2da62e7cc4374a1c945fa6588396b7cfc1c27088659f8a277a5d5ad69be0bdad8995fe1139a50a6b52c27c1bf5e09f74c68e4ee785b88dbd8aa84d3a9deee9",
+            "file": "projects/design-system/components/icon/icon.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "styleUrls": [],
+            "styles": [],
+            "template": "",
+            "templateUrl": [],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [
+                {
+                    "name": "class",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 42,
+                    "modifierKind": [
+                        148
+                    ],
+                    "required": false
+                },
+                {
+                    "name": "name",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "IconInput",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 39,
+                    "modifierKind": [
+                        148
+                    ],
+                    "required": true
+                },
+                {
+                    "name": "ngClass",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string | string[] | Record<string, boolean>",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 43,
+                    "modifierKind": [
+                        148
+                    ],
+                    "required": false
+                },
+                {
+                    "name": "size",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 40,
+                    "modifierKind": [
+                        148
+                    ],
+                    "required": false
+                },
+                {
+                    "name": "strokeWidth",
+                    "defaultValue": "1.5",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 41,
+                    "modifierKind": [
+                        148
+                    ],
+                    "required": false
+                },
+                {
+                    "name": "style",
+                    "defaultValue": "{}",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Record<string, string>",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 44,
+                    "modifierKind": [
+                        148
+                    ],
+                    "required": false
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": true,
+            "imports": [],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { NgClass, NgComponentOutlet } from '@angular/common';\nimport { Component, inject, Injector, input, InputSignal } from '@angular/core';\n\nimport { provideIcons, IconName as NgIconName, NgIcon } from '@ng-icons/core';\n\nconst AVAILABLE_ICONS_IMPORT = [\n  import('@ng-icons/heroicons/outline'),\n  import('@ng-icons/lucide')\n];\n\ntype HeroIconName = Extract<\n  Exclude<\n    NgIconName,\n    `hero${string}Solid` | `hero${string}Mini` | `hero${string}Micro`\n  >,\n  `hero${string}`\n>;\n\ntype LucideIconName = Extract<NgIconName, `lucide${string}`>;\n\ntype IconName = HeroIconName | LucideIconName;\n\nexport type IconInput = IconName | (string & {});\n\ninterface IconBaseComponentProps {\n  name: InputSignal<IconInput>;\n  size: InputSignal<string>;\n  strokeWidth?: InputSignal<number>;\n  class?: InputSignal<string>;\n  ngClass?: InputSignal<string | string[] | Record<string, boolean>>;\n  style?: InputSignal<Record<string, string>>;\n}\n\n@Component({\n  standalone: true,\n  template: ''\n})\nabstract class IconBaseComponent implements IconBaseComponentProps {\n  readonly name = input.required<IconInput>();\n  readonly size = input<string>('');\n  readonly strokeWidth = input<number>(1.5);\n  readonly class = input<string>('');\n  readonly ngClass = input<string | string[] | Record<string, boolean>>('');\n  readonly style = input<Record<string, string>>({});\n}\n\n@Component({\n  selector: 'ds-icon-render',\n  imports: [NgIcon, NgClass],\n  template: `\n    @if (name(); as name) {\n      <ng-icon\n        [name]=\"name\"\n        [size]=\"size()\"\n        [strokeWidth]=\"strokeWidth()\"\n        [class]=\"class()\"\n        [ngClass]=\"ngClass()\"\n        [style]=\"style()\"\n      />\n    }\n  `\n})\nclass IconRenderComponent extends IconBaseComponent {}\n\n@Component({\n  selector: 'ds-icon',\n  imports: [NgComponentOutlet],\n  templateUrl: './icon.component.html',\n  styleUrl: './icon.component.css'\n})\nexport class IconComponent extends IconBaseComponent {\n  private readonly parentInjector = inject(Injector);\n\n  protected injector: Injector | null = null;\n  protected child = IconRenderComponent;\n\n  async ngOnInit() {\n    const name = this.name();\n\n    if (!name) {\n      this.injector = this.parentInjector;\n      throw new Error('Icon name is required');\n    }\n\n    const isCustomIcon =\n      typeof name === 'string' &&\n      !name.startsWith('hero') &&\n      !name.startsWith('lucide');\n\n    if (isCustomIcon) {\n      this.injector = Injector.create({\n        providers: [],\n        parent: this.parentInjector\n      });\n      return;\n    }\n\n    try {\n      // @ts-ignore\n      for await (const { [name]: icon } of AVAILABLE_ICONS_IMPORT) {\n        if (icon) {\n          this.injector = Injector.create({\n            providers: [provideIcons({ [name]: icon })],\n            parent: this.parentInjector\n          });\n          break;\n        }\n        this.injector = this.parentInjector;\n      }\n    } catch (err) {\n      console.error('Error loading icon:', err);\n      this.injector = this.parentInjector;\n    }\n  }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": [],
+            "implements": [
+                "IconBaseComponentProps"
+            ]
+        },
+        {
+            "name": "IconComponent",
+            "id": "component-IconComponent-cb2da62e7cc4374a1c945fa6588396b7cfc1c27088659f8a277a5d5ad69be0bdad8995fe1139a50a6b52c27c1bf5e09f74c68e4ee785b88dbd8aa84d3a9deee9",
+            "file": "projects/design-system/components/icon/icon.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "ds-icon",
+            "styleUrls": [],
+            "styles": [],
+            "templateUrl": [
+                "./icon.component.html"
+            ],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [
+                {
+                    "name": "class",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 42,
+                    "modifierKind": [
+                        148
+                    ],
+                    "required": false,
+                    "inheritance": {
+                        "file": "IconBaseComponent"
+                    }
+                },
+                {
+                    "name": "name",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "IconInput",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 39,
+                    "modifierKind": [
+                        148
+                    ],
+                    "required": true,
+                    "inheritance": {
+                        "file": "IconBaseComponent"
+                    }
+                },
+                {
+                    "name": "ngClass",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string | string[] | Record<string, boolean>",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 43,
+                    "modifierKind": [
+                        148
+                    ],
+                    "required": false,
+                    "inheritance": {
+                        "file": "IconBaseComponent"
+                    }
+                },
+                {
+                    "name": "size",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 40,
+                    "modifierKind": [
+                        148
+                    ],
+                    "required": false,
+                    "inheritance": {
+                        "file": "IconBaseComponent"
+                    }
+                },
+                {
+                    "name": "strokeWidth",
+                    "defaultValue": "1.5",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 41,
+                    "modifierKind": [
+                        148
+                    ],
+                    "required": false,
+                    "inheritance": {
+                        "file": "IconBaseComponent"
+                    }
+                },
+                {
+                    "name": "style",
+                    "defaultValue": "{}",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Record<string, string>",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 44,
+                    "modifierKind": [
+                        148
+                    ],
+                    "required": false,
+                    "inheritance": {
+                        "file": "IconBaseComponent"
+                    }
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [
+                {
+                    "name": "child",
+                    "defaultValue": "IconRenderComponent",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 75,
+                    "modifierKind": [
+                        124
+                    ]
+                },
+                {
+                    "name": "injector",
+                    "defaultValue": "null",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Injector | null",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 74,
+                    "modifierKind": [
+                        124
+                    ]
+                },
+                {
+                    "name": "parentInjector",
+                    "defaultValue": "inject(Injector)",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 72,
+                    "modifierKind": [
+                        123,
+                        148
+                    ]
+                }
+            ],
+            "methodsClass": [
+                {
+                    "name": "ngOnInit",
+                    "args": [],
+                    "optional": false,
+                    "returnType": "any",
+                    "typeParameters": [],
+                    "line": 77,
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "modifierKind": [
+                        134
+                    ]
+                }
+            ],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": false,
+            "imports": [
+                {
+                    "name": "NgComponentOutlet",
+                    "type": "component"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { NgClass, NgComponentOutlet } from '@angular/common';\nimport { Component, inject, Injector, input, InputSignal } from '@angular/core';\n\nimport { provideIcons, IconName as NgIconName, NgIcon } from '@ng-icons/core';\n\nconst AVAILABLE_ICONS_IMPORT = [\n  import('@ng-icons/heroicons/outline'),\n  import('@ng-icons/lucide')\n];\n\ntype HeroIconName = Extract<\n  Exclude<\n    NgIconName,\n    `hero${string}Solid` | `hero${string}Mini` | `hero${string}Micro`\n  >,\n  `hero${string}`\n>;\n\ntype LucideIconName = Extract<NgIconName, `lucide${string}`>;\n\ntype IconName = HeroIconName | LucideIconName;\n\nexport type IconInput = IconName | (string & {});\n\ninterface IconBaseComponentProps {\n  name: InputSignal<IconInput>;\n  size: InputSignal<string>;\n  strokeWidth?: InputSignal<number>;\n  class?: InputSignal<string>;\n  ngClass?: InputSignal<string | string[] | Record<string, boolean>>;\n  style?: InputSignal<Record<string, string>>;\n}\n\n@Component({\n  standalone: true,\n  template: ''\n})\nabstract class IconBaseComponent implements IconBaseComponentProps {\n  readonly name = input.required<IconInput>();\n  readonly size = input<string>('');\n  readonly strokeWidth = input<number>(1.5);\n  readonly class = input<string>('');\n  readonly ngClass = input<string | string[] | Record<string, boolean>>('');\n  readonly style = input<Record<string, string>>({});\n}\n\n@Component({\n  selector: 'ds-icon-render',\n  imports: [NgIcon, NgClass],\n  template: `\n    @if (name(); as name) {\n      <ng-icon\n        [name]=\"name\"\n        [size]=\"size()\"\n        [strokeWidth]=\"strokeWidth()\"\n        [class]=\"class()\"\n        [ngClass]=\"ngClass()\"\n        [style]=\"style()\"\n      />\n    }\n  `\n})\nclass IconRenderComponent extends IconBaseComponent {}\n\n@Component({\n  selector: 'ds-icon',\n  imports: [NgComponentOutlet],\n  templateUrl: './icon.component.html',\n  styleUrl: './icon.component.css'\n})\nexport class IconComponent extends IconBaseComponent {\n  private readonly parentInjector = inject(Injector);\n\n  protected injector: Injector | null = null;\n  protected child = IconRenderComponent;\n\n  async ngOnInit() {\n    const name = this.name();\n\n    if (!name) {\n      this.injector = this.parentInjector;\n      throw new Error('Icon name is required');\n    }\n\n    const isCustomIcon =\n      typeof name === 'string' &&\n      !name.startsWith('hero') &&\n      !name.startsWith('lucide');\n\n    if (isCustomIcon) {\n      this.injector = Injector.create({\n        providers: [],\n        parent: this.parentInjector\n      });\n      return;\n    }\n\n    try {\n      // @ts-ignore\n      for await (const { [name]: icon } of AVAILABLE_ICONS_IMPORT) {\n        if (icon) {\n          this.injector = Injector.create({\n            providers: [provideIcons({ [name]: icon })],\n            parent: this.parentInjector\n          });\n          break;\n        }\n        this.injector = this.parentInjector;\n      }\n    } catch (err) {\n      console.error('Error loading icon:', err);\n      this.injector = this.parentInjector;\n    }\n  }\n}\n",
+            "styleUrl": "./icon.component.css",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": [
+                "IconBaseComponent"
+            ],
+            "templateData": "@if (injector; as inj) {\n  <ng-container\n    *ngComponentOutlet=\"\n      child;\n      injector: inj;\n      inputs: {\n        name: name(),\n        size: size(),\n        strokeWidth: strokeWidth(),\n        class: class(),\n        ngClass: ngClass(),\n        style: style()\n      }\n    \"\n  />\n}\n"
+        },
+        {
+            "name": "IconRenderComponent",
+            "id": "component-IconRenderComponent-cb2da62e7cc4374a1c945fa6588396b7cfc1c27088659f8a277a5d5ad69be0bdad8995fe1139a50a6b52c27c1bf5e09f74c68e4ee785b88dbd8aa84d3a9deee9",
+            "file": "projects/design-system/components/icon/icon.component.ts",
+            "encapsulation": [],
+            "entryComponents": [],
+            "inputs": [],
+            "outputs": [],
+            "providers": [],
+            "selector": "ds-icon-render",
+            "styleUrls": [],
+            "styles": [],
+            "template": "@if (name(); as name) {\n  <ng-icon\n    [name]=\"name\"\n    [size]=\"size()\"\n    [strokeWidth]=\"strokeWidth()\"\n    [class]=\"class()\"\n    [ngClass]=\"ngClass()\"\n    [style]=\"style()\"\n  />\n}\n",
+            "templateUrl": [],
+            "viewProviders": [],
+            "hostDirectives": [],
+            "inputsClass": [
+                {
+                    "name": "class",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 42,
+                    "modifierKind": [
+                        148
+                    ],
+                    "required": false,
+                    "inheritance": {
+                        "file": "IconBaseComponent"
+                    }
+                },
+                {
+                    "name": "name",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "IconInput",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 39,
+                    "modifierKind": [
+                        148
+                    ],
+                    "required": true,
+                    "inheritance": {
+                        "file": "IconBaseComponent"
+                    }
+                },
+                {
+                    "name": "ngClass",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string | string[] | Record<string, boolean>",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 43,
+                    "modifierKind": [
+                        148
+                    ],
+                    "required": false,
+                    "inheritance": {
+                        "file": "IconBaseComponent"
+                    }
+                },
+                {
+                    "name": "size",
+                    "defaultValue": "''",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "string",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 40,
+                    "modifierKind": [
+                        148
+                    ],
+                    "required": false,
+                    "inheritance": {
+                        "file": "IconBaseComponent"
+                    }
+                },
+                {
+                    "name": "strokeWidth",
+                    "defaultValue": "1.5",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "number",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 41,
+                    "modifierKind": [
+                        148
+                    ],
+                    "required": false,
+                    "inheritance": {
+                        "file": "IconBaseComponent"
+                    }
+                },
+                {
+                    "name": "style",
+                    "defaultValue": "{}",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Record<string, string>",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 44,
+                    "modifierKind": [
+                        148
+                    ],
+                    "required": false,
+                    "inheritance": {
+                        "file": "IconBaseComponent"
+                    }
+                }
+            ],
+            "outputsClass": [],
+            "propertiesClass": [],
+            "methodsClass": [],
+            "deprecated": false,
+            "deprecationMessage": "",
+            "hostBindings": [],
+            "hostListeners": [],
+            "standalone": false,
+            "imports": [
+                {
+                    "name": "NgIcon"
+                },
+                {
+                    "name": "NgClass"
+                }
+            ],
+            "description": "",
+            "rawdescription": "\n",
+            "type": "component",
+            "sourceCode": "import { NgClass, NgComponentOutlet } from '@angular/common';\nimport { Component, inject, Injector, input, InputSignal } from '@angular/core';\n\nimport { provideIcons, IconName as NgIconName, NgIcon } from '@ng-icons/core';\n\nconst AVAILABLE_ICONS_IMPORT = [\n  import('@ng-icons/heroicons/outline'),\n  import('@ng-icons/lucide')\n];\n\ntype HeroIconName = Extract<\n  Exclude<\n    NgIconName,\n    `hero${string}Solid` | `hero${string}Mini` | `hero${string}Micro`\n  >,\n  `hero${string}`\n>;\n\ntype LucideIconName = Extract<NgIconName, `lucide${string}`>;\n\ntype IconName = HeroIconName | LucideIconName;\n\nexport type IconInput = IconName | (string & {});\n\ninterface IconBaseComponentProps {\n  name: InputSignal<IconInput>;\n  size: InputSignal<string>;\n  strokeWidth?: InputSignal<number>;\n  class?: InputSignal<string>;\n  ngClass?: InputSignal<string | string[] | Record<string, boolean>>;\n  style?: InputSignal<Record<string, string>>;\n}\n\n@Component({\n  standalone: true,\n  template: ''\n})\nabstract class IconBaseComponent implements IconBaseComponentProps {\n  readonly name = input.required<IconInput>();\n  readonly size = input<string>('');\n  readonly strokeWidth = input<number>(1.5);\n  readonly class = input<string>('');\n  readonly ngClass = input<string | string[] | Record<string, boolean>>('');\n  readonly style = input<Record<string, string>>({});\n}\n\n@Component({\n  selector: 'ds-icon-render',\n  imports: [NgIcon, NgClass],\n  template: `\n    @if (name(); as name) {\n      <ng-icon\n        [name]=\"name\"\n        [size]=\"size()\"\n        [strokeWidth]=\"strokeWidth()\"\n        [class]=\"class()\"\n        [ngClass]=\"ngClass()\"\n        [style]=\"style()\"\n      />\n    }\n  `\n})\nclass IconRenderComponent extends IconBaseComponent {}\n\n@Component({\n  selector: 'ds-icon',\n  imports: [NgComponentOutlet],\n  templateUrl: './icon.component.html',\n  styleUrl: './icon.component.css'\n})\nexport class IconComponent extends IconBaseComponent {\n  private readonly parentInjector = inject(Injector);\n\n  protected injector: Injector | null = null;\n  protected child = IconRenderComponent;\n\n  async ngOnInit() {\n    const name = this.name();\n\n    if (!name) {\n      this.injector = this.parentInjector;\n      throw new Error('Icon name is required');\n    }\n\n    const isCustomIcon =\n      typeof name === 'string' &&\n      !name.startsWith('hero') &&\n      !name.startsWith('lucide');\n\n    if (isCustomIcon) {\n      this.injector = Injector.create({\n        providers: [],\n        parent: this.parentInjector\n      });\n      return;\n    }\n\n    try {\n      // @ts-ignore\n      for await (const { [name]: icon } of AVAILABLE_ICONS_IMPORT) {\n        if (icon) {\n          this.injector = Injector.create({\n            providers: [provideIcons({ [name]: icon })],\n            parent: this.parentInjector\n          });\n          break;\n        }\n        this.injector = this.parentInjector;\n      }\n    } catch (err) {\n      console.error('Error loading icon:', err);\n      this.injector = this.parentInjector;\n    }\n  }\n}\n",
+            "assetsDirs": [],
+            "styleUrlsData": "",
+            "stylesData": "",
+            "extends": [
+                "IconBaseComponent"
+            ]
         }
     ],
     "modules": [],
     "miscellaneous": {
         "variables": [
+            {
+                "name": "AVAILABLE_ICONS_IMPORT",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/design-system/components/icon/icon.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "[]",
+                "defaultValue": "[\n  import('@ng-icons/heroicons/outline'),\n  import('@ng-icons/lucide')\n]"
+            },
             {
                 "name": "config",
                 "ctype": "miscellaneous",
@@ -110,6 +701,46 @@
                 "defaultValue": "{\n  args: {\n    variant: 'primary',\n    disabled: true,\n    content: 'Disabled Button'\n  }\n}"
             },
             {
+                "name": "heroIcons",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/design-system/components/icon/icon.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "[]",
+                "defaultValue": "[\n  'heroArrowDown',\n  'heroArrowLeft',\n  'heroArrowRight',\n  'heroArrowUp',\n  'heroArrowUpCircle',\n  'heroArrowUpTray',\n  'heroArrowUturnDown',\n  'heroArrowUturnLeft',\n  'heroArrowUturnRight',\n  'heroArrowUturnUp'\n]"
+            },
+            {
+                "name": "HeroIconsShowcase",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/design-system/components/icon/icon.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "object",
+                "defaultValue": "{\n  render: () => ({\n    template: `\n      <div style=\"display: flex; gap: 16px; flex-wrap: wrap;\">\n        ${heroIcons.map((name) => `<ds-icon name=\"${name}\" />`).join('')}\n      </div>\n    `\n  })\n}"
+            },
+            {
+                "name": "lucideIcons",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/design-system/components/icon/icon.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "[]",
+                "defaultValue": "[\n  'lucideAlignJustify',\n  'lucideAmbulance',\n  'lucideAmpersand',\n  'lucideAnchor',\n  'lucideAngry',\n  'lucideAnnoyed',\n  'lucideAntenna',\n  'lucideAnvil',\n  'lucideAperture',\n  'lucideApple'\n]"
+            },
+            {
+                "name": "LucideIconsShowcase",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/design-system/components/icon/icon.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "object",
+                "defaultValue": "{\n  render: () => ({\n    template: `\n      <div style=\"display: flex; gap: 16px; flex-wrap: wrap;\">\n        ${lucideIcons.map((name) => `<ds-icon name=\"${name}\" />`).join('')}\n      </div>\n    `\n  })\n}"
+            },
+            {
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -118,6 +749,16 @@
                 "deprecationMessage": "",
                 "type": "Meta<ButtonStory>",
                 "defaultValue": "{\n  title: 'Components/Button',\n  component: ButtonComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: {\n      control: { type: 'select' },\n      options: ['primary', 'secondary', 'tertiary']\n    },\n    disabled: { control: 'boolean' }\n  },\n  args: {\n    variant: 'primary',\n    disabled: false\n  },\n  render: (args) => ({\n    props: args,\n    template: `<ds-button [variant]=\"variant\" [disabled]=\"disabled\">{{content}}</ds-button>`\n  })\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/design-system/components/icon/icon.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<IconStory>",
+                "defaultValue": "{\n  title: 'Components/Icon',\n  component: IconComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    name: {\n      control: {\n        type: 'text'\n      }\n    },\n    size: {\n      control: {\n        type: 'text'\n      }\n    },\n    strokeWidth: {\n      control: { type: 'number' }\n    },\n    class: {\n      control: { type: 'text' }\n    },\n    ngClass: {\n      control: { type: 'object' }\n    },\n    style: {\n      control: { type: 'text' }\n    }\n  }\n}"
             },
             {
                 "name": "preview",
@@ -174,6 +815,61 @@
                 "kind": 193
             },
             {
+                "name": "HeroIconName",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "Extract<Exclude<NgIconName, template literal type | template literal type | template literal type> | template literal type>",
+                "file": "projects/design-system/components/icon/icon.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 183
+            },
+            {
+                "name": "IconInput",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "IconName | ",
+                "file": "projects/design-system/components/icon/icon.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 192
+            },
+            {
+                "name": "IconName",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "HeroIconName | LucideIconName",
+                "file": "projects/design-system/components/icon/icon.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 192
+            },
+            {
+                "name": "IconStory",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "IconComponent",
+                "file": "projects/design-system/components/icon/icon.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 183
+            },
+            {
+                "name": "LucideIconName",
+                "ctype": "miscellaneous",
+                "subtype": "typealias",
+                "rawtype": "Extract<NgIconName | template literal type>",
+                "file": "projects/design-system/components/icon/icon.component.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "description": "",
+                "kind": 183
+            },
+            {
                 "name": "StoryArgs",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
@@ -198,6 +894,18 @@
         ],
         "enumerations": [],
         "groupedVariables": {
+            "projects/design-system/components/icon/icon.component.ts": [
+                {
+                    "name": "AVAILABLE_ICONS_IMPORT",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/design-system/components/icon/icon.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "[]",
+                    "defaultValue": "[\n  import('@ng-icons/heroicons/outline'),\n  import('@ng-icons/lucide')\n]"
+                }
+            ],
             "projects/design-system/.storybook/main.ts": [
                 {
                     "name": "config",
@@ -262,6 +970,58 @@
                     "defaultValue": "{\n  args: {\n    variant: 'tertiary',\n    disabled: false,\n    content: 'Tertiary Button'\n  }\n}"
                 }
             ],
+            "projects/design-system/components/icon/icon.component.stories.ts": [
+                {
+                    "name": "heroIcons",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/design-system/components/icon/icon.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "[]",
+                    "defaultValue": "[\n  'heroArrowDown',\n  'heroArrowLeft',\n  'heroArrowRight',\n  'heroArrowUp',\n  'heroArrowUpCircle',\n  'heroArrowUpTray',\n  'heroArrowUturnDown',\n  'heroArrowUturnLeft',\n  'heroArrowUturnRight',\n  'heroArrowUturnUp'\n]"
+                },
+                {
+                    "name": "HeroIconsShowcase",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/design-system/components/icon/icon.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "object",
+                    "defaultValue": "{\n  render: () => ({\n    template: `\n      <div style=\"display: flex; gap: 16px; flex-wrap: wrap;\">\n        ${heroIcons.map((name) => `<ds-icon name=\"${name}\" />`).join('')}\n      </div>\n    `\n  })\n}"
+                },
+                {
+                    "name": "lucideIcons",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/design-system/components/icon/icon.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "[]",
+                    "defaultValue": "[\n  'lucideAlignJustify',\n  'lucideAmbulance',\n  'lucideAmpersand',\n  'lucideAnchor',\n  'lucideAngry',\n  'lucideAnnoyed',\n  'lucideAntenna',\n  'lucideAnvil',\n  'lucideAperture',\n  'lucideApple'\n]"
+                },
+                {
+                    "name": "LucideIconsShowcase",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/design-system/components/icon/icon.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "object",
+                    "defaultValue": "{\n  render: () => ({\n    template: `\n      <div style=\"display: flex; gap: 16px; flex-wrap: wrap;\">\n        ${lucideIcons.map((name) => `<ds-icon name=\"${name}\" />`).join('')}\n      </div>\n    `\n  })\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/design-system/components/icon/icon.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta<IconStory>",
+                    "defaultValue": "{\n  title: 'Components/Icon',\n  component: IconComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    name: {\n      control: {\n        type: 'text'\n      }\n    },\n    size: {\n      control: {\n        type: 'text'\n      }\n    },\n    strokeWidth: {\n      control: { type: 'number' }\n    },\n    class: {\n      control: { type: 'text' }\n    },\n    ngClass: {\n      control: { type: 'object' }\n    },\n    style: {\n      control: { type: 'text' }\n    }\n  }\n}"
+                }
+            ],
             "projects/design-system/.storybook/preview.ts": [
                 {
                     "name": "preview",
@@ -300,6 +1060,65 @@
                     "deprecationMessage": "",
                     "description": "",
                     "kind": 187
+                }
+            ],
+            "projects/design-system/components/icon/icon.component.ts": [
+                {
+                    "name": "HeroIconName",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "Extract<Exclude<NgIconName, template literal type | template literal type | template literal type> | template literal type>",
+                    "file": "projects/design-system/components/icon/icon.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 183
+                },
+                {
+                    "name": "IconInput",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "IconName | ",
+                    "file": "projects/design-system/components/icon/icon.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 192
+                },
+                {
+                    "name": "IconName",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "HeroIconName | LucideIconName",
+                    "file": "projects/design-system/components/icon/icon.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 192
+                },
+                {
+                    "name": "LucideIconName",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "Extract<NgIconName | template literal type>",
+                    "file": "projects/design-system/components/icon/icon.component.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 183
+                }
+            ],
+            "projects/design-system/components/icon/icon.component.stories.ts": [
+                {
+                    "name": "IconStory",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "IconComponent",
+                    "file": "projects/design-system/components/icon/icon.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 183
                 }
             ],
             "projects/design-system/components/button/button.component.ts": [
@@ -422,7 +1241,7 @@
                 "linktype": "component",
                 "name": "ButtonComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/3",
+                "coverageCount": "0/4",
                 "status": "low"
             },
             {
@@ -431,6 +1250,152 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "typealias",
                 "name": "Variant",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/design-system/components/icon/icon.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "heroIcons",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/design-system/components/icon/icon.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "HeroIconsShowcase",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/design-system/components/icon/icon.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "lucideIcons",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/design-system/components/icon/icon.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "LucideIconsShowcase",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/design-system/components/icon/icon.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "meta",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/design-system/components/icon/icon.component.stories.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "IconStory",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/design-system/components/icon/icon.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "IconBaseComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/7",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/design-system/components/icon/icon.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "IconComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/11",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/design-system/components/icon/icon.component.ts",
+                "type": "component",
+                "linktype": "component",
+                "name": "IconRenderComponent",
+                "coveragePercent": 0,
+                "coverageCount": "0/7",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/design-system/components/icon/icon.component.ts",
+                "type": "interface",
+                "linktype": "interface",
+                "name": "IconBaseComponentProps",
+                "coveragePercent": 0,
+                "coverageCount": "0/7",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/design-system/components/icon/icon.component.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "AVAILABLE_ICONS_IMPORT",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/design-system/components/icon/icon.component.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "HeroIconName",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/design-system/components/icon/icon.component.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "IconInput",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/design-system/components/icon/icon.component.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "IconName",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/design-system/components/icon/icon.component.ts",
+                "type": "type alias",
+                "linktype": "miscellaneous",
+                "linksubtype": "typealias",
+                "name": "LucideIconName",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"
