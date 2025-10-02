@@ -1,5 +1,11 @@
 # @neno-liv/configs-model
 
+## 2.1.0
+
+### Minor Changes
+
+- 0476249: update README and configuration files for shared Angular project setup
+
 ## 2.0.0
 
 ### Major Changes
