@@ -1,5 +1,11 @@
 # @neno-liv/design-system
 
+## 2.1.0
+
+### Minor Changes
+
+- 0476249: update README and configuration files for shared Angular project setup
+
 ## 1.24.0
 
 ### Minor Changes
