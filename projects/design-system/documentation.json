@@ -3,12 +3,12 @@
     "interfaces": [
         {
             "name": "IconBaseComponentProps",
-            "id": "interface-IconBaseComponentProps-ed54d651b328b7d5b8f7ebd21119ee9f3f8d84be9879036292b9e0fcc97a36622c250a27d12a52f908218c7baac00eae5e21d39159eb76654d23c82cb4e25e6f",
+            "id": "interface-IconBaseComponentProps-cb2da62e7cc4374a1c945fa6588396b7cfc1c27088659f8a277a5d5ad69be0bdad8995fe1139a50a6b52c27c1bf5e09f74c68e4ee785b88dbd8aa84d3a9deee9",
             "file": "projects/design-system/components/icon/icon.component.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
-            "sourceCode": "import { NgClass, NgComponentOutlet } from '@angular/common';\nimport { Component, inject, Injector, input, InputSignal } from '@angular/core';\n\nimport { provideIcons, IconName as NgIconName, NgIcon } from '@ng-icons/core';\n\nconst AVAILABLE_ICONS_IMPORT = [\n  import('@ng-icons/heroicons/outline'),\n  import('@ng-icons/lucide')\n];\n\ntype HeroIconName = Extract<\n  Exclude<\n    NgIconName,\n    `hero${string}Solid` | `hero${string}Mini` | `hero${string}Micro`\n  >,\n  `hero${string}`\n>;\n\ntype LucideIconName = Extract<NgIconName, `lucide${string}`>;\n\ntype IconName = HeroIconName | LucideIconName;\n\nexport type IconInput = IconName | (string & {});\n\ninterface IconBaseComponentProps {\n  name: InputSignal<IconInput>;\n  size: InputSignal<string | undefined>;\n  strokeWidth?: InputSignal<number>;\n  class?: InputSignal<string>;\n  ngClass?: InputSignal<string | string[] | Record<string, boolean>>;\n  style?: InputSignal<Record<string, string>>;\n}\n\n@Component({\n  standalone: true,\n  template: ''\n})\nabstract class IconBaseComponent implements IconBaseComponentProps {\n  readonly name = input.required<IconInput>();\n  readonly size = input<string>();\n  readonly strokeWidth = input<number>(1.5);\n  readonly class = input<string>('');\n  readonly ngClass = input<string | string[] | Record<string, boolean>>('');\n  readonly style = input<Record<string, string>>({});\n}\n\n@Component({\n  selector: 'ds-icon-render',\n  imports: [NgIcon, NgClass],\n  template: `\n    @if (name(); as name) {\n      <ng-icon\n        [name]=\"name\"\n        [size]=\"size()\"\n        [strokeWidth]=\"strokeWidth()\"\n        [class]=\"class()\"\n        [ngClass]=\"ngClass()\"\n        [style]=\"style()\"\n      />\n    }\n  `\n})\nclass IconRenderComponent extends IconBaseComponent {}\n\n@Component({\n  selector: 'ds-icon',\n  imports: [NgComponentOutlet],\n  templateUrl: './icon.component.html',\n  styleUrl: './icon.component.css'\n})\nexport class IconComponent extends IconBaseComponent {\n  private readonly parentInjector = inject(Injector);\n\n  protected injector: Injector | null = null;\n  protected child = IconRenderComponent;\n\n  async ngOnInit() {\n    const name = this.name();\n\n    if (!name) {\n      this.injector = this.parentInjector;\n      throw new Error('Icon name is required');\n    }\n\n    const isCustomIcon =\n      typeof name === 'string' &&\n      !name.startsWith('hero') &&\n      !name.startsWith('lucide');\n\n    if (isCustomIcon) {\n      this.injector = Injector.create({\n        providers: [],\n        parent: this.parentInjector\n      });\n      return;\n    }\n\n    try {\n      // @ts-ignore\n      for await (const { [name]: icon } of AVAILABLE_ICONS_IMPORT) {\n        if (icon) {\n          this.injector = Injector.create({\n            providers: [provideIcons({ [name]: icon })],\n            parent: this.parentInjector\n          });\n          break;\n        }\n        this.injector = this.parentInjector;\n      }\n    } catch (err) {\n      console.error('Error loading icon:', err);\n      this.injector = this.parentInjector;\n    }\n  }\n}\n",
+            "sourceCode": "import { NgClass, NgComponentOutlet } from '@angular/common';\nimport { Component, inject, Injector, input, InputSignal } from '@angular/core';\n\nimport { provideIcons, IconName as NgIconName, NgIcon } from '@ng-icons/core';\n\nconst AVAILABLE_ICONS_IMPORT = [\n  import('@ng-icons/heroicons/outline'),\n  import('@ng-icons/lucide')\n];\n\ntype HeroIconName = Extract<\n  Exclude<\n    NgIconName,\n    `hero${string}Solid` | `hero${string}Mini` | `hero${string}Micro`\n  >,\n  `hero${string}`\n>;\n\ntype LucideIconName = Extract<NgIconName, `lucide${string}`>;\n\ntype IconName = HeroIconName | LucideIconName;\n\nexport type IconInput = IconName | (string & {});\n\ninterface IconBaseComponentProps {\n  name: InputSignal<IconInput>;\n  size: InputSignal<string>;\n  strokeWidth?: InputSignal<number>;\n  class?: InputSignal<string>;\n  ngClass?: InputSignal<string | string[] | Record<string, boolean>>;\n  style?: InputSignal<Record<string, string>>;\n}\n\n@Component({\n  standalone: true,\n  template: ''\n})\nabstract class IconBaseComponent implements IconBaseComponentProps {\n  readonly name = input.required<IconInput>();\n  readonly size = input<string>('');\n  readonly strokeWidth = input<number>(1.5);\n  readonly class = input<string>('');\n  readonly ngClass = input<string | string[] | Record<string, boolean>>('');\n  readonly style = input<Record<string, string>>({});\n}\n\n@Component({\n  selector: 'ds-icon-render',\n  imports: [NgIcon, NgClass],\n  template: `\n    @if (name(); as name) {\n      <ng-icon\n        [name]=\"name\"\n        [size]=\"size()\"\n        [strokeWidth]=\"strokeWidth()\"\n        [class]=\"class()\"\n        [ngClass]=\"ngClass()\"\n        [style]=\"style()\"\n      />\n    }\n  `\n})\nclass IconRenderComponent extends IconBaseComponent {}\n\n@Component({\n  selector: 'ds-icon',\n  imports: [NgComponentOutlet],\n  templateUrl: './icon.component.html',\n  styleUrl: './icon.component.css'\n})\nexport class IconComponent extends IconBaseComponent {\n  private readonly parentInjector = inject(Injector);\n\n  protected injector: Injector | null = null;\n  protected child = IconRenderComponent;\n\n  async ngOnInit() {\n    const name = this.name();\n\n    if (!name) {\n      this.injector = this.parentInjector;\n      throw new Error('Icon name is required');\n    }\n\n    const isCustomIcon =\n      typeof name === 'string' &&\n      !name.startsWith('hero') &&\n      !name.startsWith('lucide');\n\n    if (isCustomIcon) {\n      this.injector = Injector.create({\n        providers: [],\n        parent: this.parentInjector\n      });\n      return;\n    }\n\n    try {\n      // @ts-ignore\n      for await (const { [name]: icon } of AVAILABLE_ICONS_IMPORT) {\n        if (icon) {\n          this.injector = Injector.create({\n            providers: [provideIcons({ [name]: icon })],\n            parent: this.parentInjector\n          });\n          break;\n        }\n        this.injector = this.parentInjector;\n      }\n    } catch (err) {\n      console.error('Error loading icon:', err);\n      this.injector = this.parentInjector;\n    }\n  }\n}\n",
             "properties": [
                 {
                     "name": "class",
@@ -44,7 +44,7 @@
                     "name": "size",
                     "deprecated": false,
                     "deprecationMessage": "",
-                    "type": "InputSignal<string | undefined>",
+                    "type": "InputSignal<string>",
                     "indexKey": "",
                     "optional": false,
                     "description": "",
@@ -178,7 +178,7 @@
         },
         {
             "name": "IconBaseComponent",
-            "id": "component-IconBaseComponent-ed54d651b328b7d5b8f7ebd21119ee9f3f8d84be9879036292b9e0fcc97a36622c250a27d12a52f908218c7baac00eae5e21d39159eb76654d23c82cb4e25e6f",
+            "id": "component-IconBaseComponent-cb2da62e7cc4374a1c945fa6588396b7cfc1c27088659f8a277a5d5ad69be0bdad8995fe1139a50a6b52c27c1bf5e09f74c68e4ee785b88dbd8aa84d3a9deee9",
             "file": "projects/design-system/components/icon/icon.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -238,6 +238,7 @@
                 },
                 {
                     "name": "size",
+                    "defaultValue": "''",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "string",
@@ -293,7 +294,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { NgClass, NgComponentOutlet } from '@angular/common';\nimport { Component, inject, Injector, input, InputSignal } from '@angular/core';\n\nimport { provideIcons, IconName as NgIconName, NgIcon } from '@ng-icons/core';\n\nconst AVAILABLE_ICONS_IMPORT = [\n  import('@ng-icons/heroicons/outline'),\n  import('@ng-icons/lucide')\n];\n\ntype HeroIconName = Extract<\n  Exclude<\n    NgIconName,\n    `hero${string}Solid` | `hero${string}Mini` | `hero${string}Micro`\n  >,\n  `hero${string}`\n>;\n\ntype LucideIconName = Extract<NgIconName, `lucide${string}`>;\n\ntype IconName = HeroIconName | LucideIconName;\n\nexport type IconInput = IconName | (string & {});\n\ninterface IconBaseComponentProps {\n  name: InputSignal<IconInput>;\n  size: InputSignal<string | undefined>;\n  strokeWidth?: InputSignal<number>;\n  class?: InputSignal<string>;\n  ngClass?: InputSignal<string | string[] | Record<string, boolean>>;\n  style?: InputSignal<Record<string, string>>;\n}\n\n@Component({\n  standalone: true,\n  template: ''\n})\nabstract class IconBaseComponent implements IconBaseComponentProps {\n  readonly name = input.required<IconInput>();\n  readonly size = input<string>();\n  readonly strokeWidth = input<number>(1.5);\n  readonly class = input<string>('');\n  readonly ngClass = input<string | string[] | Record<string, boolean>>('');\n  readonly style = input<Record<string, string>>({});\n}\n\n@Component({\n  selector: 'ds-icon-render',\n  imports: [NgIcon, NgClass],\n  template: `\n    @if (name(); as name) {\n      <ng-icon\n        [name]=\"name\"\n        [size]=\"size()\"\n        [strokeWidth]=\"strokeWidth()\"\n        [class]=\"class()\"\n        [ngClass]=\"ngClass()\"\n        [style]=\"style()\"\n      />\n    }\n  `\n})\nclass IconRenderComponent extends IconBaseComponent {}\n\n@Component({\n  selector: 'ds-icon',\n  imports: [NgComponentOutlet],\n  templateUrl: './icon.component.html',\n  styleUrl: './icon.component.css'\n})\nexport class IconComponent extends IconBaseComponent {\n  private readonly parentInjector = inject(Injector);\n\n  protected injector: Injector | null = null;\n  protected child = IconRenderComponent;\n\n  async ngOnInit() {\n    const name = this.name();\n\n    if (!name) {\n      this.injector = this.parentInjector;\n      throw new Error('Icon name is required');\n    }\n\n    const isCustomIcon =\n      typeof name === 'string' &&\n      !name.startsWith('hero') &&\n      !name.startsWith('lucide');\n\n    if (isCustomIcon) {\n      this.injector = Injector.create({\n        providers: [],\n        parent: this.parentInjector\n      });\n      return;\n    }\n\n    try {\n      // @ts-ignore\n      for await (const { [name]: icon } of AVAILABLE_ICONS_IMPORT) {\n        if (icon) {\n          this.injector = Injector.create({\n            providers: [provideIcons({ [name]: icon })],\n            parent: this.parentInjector\n          });\n          break;\n        }\n        this.injector = this.parentInjector;\n      }\n    } catch (err) {\n      console.error('Error loading icon:', err);\n      this.injector = this.parentInjector;\n    }\n  }\n}\n",
+            "sourceCode": "import { NgClass, NgComponentOutlet } from '@angular/common';\nimport { Component, inject, Injector, input, InputSignal } from '@angular/core';\n\nimport { provideIcons, IconName as NgIconName, NgIcon } from '@ng-icons/core';\n\nconst AVAILABLE_ICONS_IMPORT = [\n  import('@ng-icons/heroicons/outline'),\n  import('@ng-icons/lucide')\n];\n\ntype HeroIconName = Extract<\n  Exclude<\n    NgIconName,\n    `hero${string}Solid` | `hero${string}Mini` | `hero${string}Micro`\n  >,\n  `hero${string}`\n>;\n\ntype LucideIconName = Extract<NgIconName, `lucide${string}`>;\n\ntype IconName = HeroIconName | LucideIconName;\n\nexport type IconInput = IconName | (string & {});\n\ninterface IconBaseComponentProps {\n  name: InputSignal<IconInput>;\n  size: InputSignal<string>;\n  strokeWidth?: InputSignal<number>;\n  class?: InputSignal<string>;\n  ngClass?: InputSignal<string | string[] | Record<string, boolean>>;\n  style?: InputSignal<Record<string, string>>;\n}\n\n@Component({\n  standalone: true,\n  template: ''\n})\nabstract class IconBaseComponent implements IconBaseComponentProps {\n  readonly name = input.required<IconInput>();\n  readonly size = input<string>('');\n  readonly strokeWidth = input<number>(1.5);\n  readonly class = input<string>('');\n  readonly ngClass = input<string | string[] | Record<string, boolean>>('');\n  readonly style = input<Record<string, string>>({});\n}\n\n@Component({\n  selector: 'ds-icon-render',\n  imports: [NgIcon, NgClass],\n  template: `\n    @if (name(); as name) {\n      <ng-icon\n        [name]=\"name\"\n        [size]=\"size()\"\n        [strokeWidth]=\"strokeWidth()\"\n        [class]=\"class()\"\n        [ngClass]=\"ngClass()\"\n        [style]=\"style()\"\n      />\n    }\n  `\n})\nclass IconRenderComponent extends IconBaseComponent {}\n\n@Component({\n  selector: 'ds-icon',\n  imports: [NgComponentOutlet],\n  templateUrl: './icon.component.html',\n  styleUrl: './icon.component.css'\n})\nexport class IconComponent extends IconBaseComponent {\n  private readonly parentInjector = inject(Injector);\n\n  protected injector: Injector | null = null;\n  protected child = IconRenderComponent;\n\n  async ngOnInit() {\n    const name = this.name();\n\n    if (!name) {\n      this.injector = this.parentInjector;\n      throw new Error('Icon name is required');\n    }\n\n    const isCustomIcon =\n      typeof name === 'string' &&\n      !name.startsWith('hero') &&\n      !name.startsWith('lucide');\n\n    if (isCustomIcon) {\n      this.injector = Injector.create({\n        providers: [],\n        parent: this.parentInjector\n      });\n      return;\n    }\n\n    try {\n      // @ts-ignore\n      for await (const { [name]: icon } of AVAILABLE_ICONS_IMPORT) {\n        if (icon) {\n          this.injector = Injector.create({\n            providers: [provideIcons({ [name]: icon })],\n            parent: this.parentInjector\n          });\n          break;\n        }\n        this.injector = this.parentInjector;\n      }\n    } catch (err) {\n      console.error('Error loading icon:', err);\n      this.injector = this.parentInjector;\n    }\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -304,7 +305,7 @@
         },
         {
             "name": "IconComponent",
-            "id": "component-IconComponent-ed54d651b328b7d5b8f7ebd21119ee9f3f8d84be9879036292b9e0fcc97a36622c250a27d12a52f908218c7baac00eae5e21d39159eb76654d23c82cb4e25e6f",
+            "id": "component-IconComponent-cb2da62e7cc4374a1c945fa6588396b7cfc1c27088659f8a277a5d5ad69be0bdad8995fe1139a50a6b52c27c1bf5e09f74c68e4ee785b88dbd8aa84d3a9deee9",
             "file": "projects/design-system/components/icon/icon.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -375,6 +376,7 @@
                 },
                 {
                     "name": "size",
+                    "defaultValue": "''",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "string",
@@ -502,7 +504,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { NgClass, NgComponentOutlet } from '@angular/common';\nimport { Component, inject, Injector, input, InputSignal } from '@angular/core';\n\nimport { provideIcons, IconName as NgIconName, NgIcon } from '@ng-icons/core';\n\nconst AVAILABLE_ICONS_IMPORT = [\n  import('@ng-icons/heroicons/outline'),\n  import('@ng-icons/lucide')\n];\n\ntype HeroIconName = Extract<\n  Exclude<\n    NgIconName,\n    `hero${string}Solid` | `hero${string}Mini` | `hero${string}Micro`\n  >,\n  `hero${string}`\n>;\n\ntype LucideIconName = Extract<NgIconName, `lucide${string}`>;\n\ntype IconName = HeroIconName | LucideIconName;\n\nexport type IconInput = IconName | (string & {});\n\ninterface IconBaseComponentProps {\n  name: InputSignal<IconInput>;\n  size: InputSignal<string | undefined>;\n  strokeWidth?: InputSignal<number>;\n  class?: InputSignal<string>;\n  ngClass?: InputSignal<string | string[] | Record<string, boolean>>;\n  style?: InputSignal<Record<string, string>>;\n}\n\n@Component({\n  standalone: true,\n  template: ''\n})\nabstract class IconBaseComponent implements IconBaseComponentProps {\n  readonly name = input.required<IconInput>();\n  readonly size = input<string>();\n  readonly strokeWidth = input<number>(1.5);\n  readonly class = input<string>('');\n  readonly ngClass = input<string | string[] | Record<string, boolean>>('');\n  readonly style = input<Record<string, string>>({});\n}\n\n@Component({\n  selector: 'ds-icon-render',\n  imports: [NgIcon, NgClass],\n  template: `\n    @if (name(); as name) {\n      <ng-icon\n        [name]=\"name\"\n        [size]=\"size()\"\n        [strokeWidth]=\"strokeWidth()\"\n        [class]=\"class()\"\n        [ngClass]=\"ngClass()\"\n        [style]=\"style()\"\n      />\n    }\n  `\n})\nclass IconRenderComponent extends IconBaseComponent {}\n\n@Component({\n  selector: 'ds-icon',\n  imports: [NgComponentOutlet],\n  templateUrl: './icon.component.html',\n  styleUrl: './icon.component.css'\n})\nexport class IconComponent extends IconBaseComponent {\n  private readonly parentInjector = inject(Injector);\n\n  protected injector: Injector | null = null;\n  protected child = IconRenderComponent;\n\n  async ngOnInit() {\n    const name = this.name();\n\n    if (!name) {\n      this.injector = this.parentInjector;\n      throw new Error('Icon name is required');\n    }\n\n    const isCustomIcon =\n      typeof name === 'string' &&\n      !name.startsWith('hero') &&\n      !name.startsWith('lucide');\n\n    if (isCustomIcon) {\n      this.injector = Injector.create({\n        providers: [],\n        parent: this.parentInjector\n      });\n      return;\n    }\n\n    try {\n      // @ts-ignore\n      for await (const { [name]: icon } of AVAILABLE_ICONS_IMPORT) {\n        if (icon) {\n          this.injector = Injector.create({\n            providers: [provideIcons({ [name]: icon })],\n            parent: this.parentInjector\n          });\n          break;\n        }\n        this.injector = this.parentInjector;\n      }\n    } catch (err) {\n      console.error('Error loading icon:', err);\n      this.injector = this.parentInjector;\n    }\n  }\n}\n",
+            "sourceCode": "import { NgClass, NgComponentOutlet } from '@angular/common';\nimport { Component, inject, Injector, input, InputSignal } from '@angular/core';\n\nimport { provideIcons, IconName as NgIconName, NgIcon } from '@ng-icons/core';\n\nconst AVAILABLE_ICONS_IMPORT = [\n  import('@ng-icons/heroicons/outline'),\n  import('@ng-icons/lucide')\n];\n\ntype HeroIconName = Extract<\n  Exclude<\n    NgIconName,\n    `hero${string}Solid` | `hero${string}Mini` | `hero${string}Micro`\n  >,\n  `hero${string}`\n>;\n\ntype LucideIconName = Extract<NgIconName, `lucide${string}`>;\n\ntype IconName = HeroIconName | LucideIconName;\n\nexport type IconInput = IconName | (string & {});\n\ninterface IconBaseComponentProps {\n  name: InputSignal<IconInput>;\n  size: InputSignal<string>;\n  strokeWidth?: InputSignal<number>;\n  class?: InputSignal<string>;\n  ngClass?: InputSignal<string | string[] | Record<string, boolean>>;\n  style?: InputSignal<Record<string, string>>;\n}\n\n@Component({\n  standalone: true,\n  template: ''\n})\nabstract class IconBaseComponent implements IconBaseComponentProps {\n  readonly name = input.required<IconInput>();\n  readonly size = input<string>('');\n  readonly strokeWidth = input<number>(1.5);\n  readonly class = input<string>('');\n  readonly ngClass = input<string | string[] | Record<string, boolean>>('');\n  readonly style = input<Record<string, string>>({});\n}\n\n@Component({\n  selector: 'ds-icon-render',\n  imports: [NgIcon, NgClass],\n  template: `\n    @if (name(); as name) {\n      <ng-icon\n        [name]=\"name\"\n        [size]=\"size()\"\n        [strokeWidth]=\"strokeWidth()\"\n        [class]=\"class()\"\n        [ngClass]=\"ngClass()\"\n        [style]=\"style()\"\n      />\n    }\n  `\n})\nclass IconRenderComponent extends IconBaseComponent {}\n\n@Component({\n  selector: 'ds-icon',\n  imports: [NgComponentOutlet],\n  templateUrl: './icon.component.html',\n  styleUrl: './icon.component.css'\n})\nexport class IconComponent extends IconBaseComponent {\n  private readonly parentInjector = inject(Injector);\n\n  protected injector: Injector | null = null;\n  protected child = IconRenderComponent;\n\n  async ngOnInit() {\n    const name = this.name();\n\n    if (!name) {\n      this.injector = this.parentInjector;\n      throw new Error('Icon name is required');\n    }\n\n    const isCustomIcon =\n      typeof name === 'string' &&\n      !name.startsWith('hero') &&\n      !name.startsWith('lucide');\n\n    if (isCustomIcon) {\n      this.injector = Injector.create({\n        providers: [],\n        parent: this.parentInjector\n      });\n      return;\n    }\n\n    try {\n      // @ts-ignore\n      for await (const { [name]: icon } of AVAILABLE_ICONS_IMPORT) {\n        if (icon) {\n          this.injector = Injector.create({\n            providers: [provideIcons({ [name]: icon })],\n            parent: this.parentInjector\n          });\n          break;\n        }\n        this.injector = this.parentInjector;\n      }\n    } catch (err) {\n      console.error('Error loading icon:', err);\n      this.injector = this.parentInjector;\n    }\n  }\n}\n",
             "styleUrl": "./icon.component.css",
             "assetsDirs": [],
             "styleUrlsData": "",
@@ -514,7 +516,7 @@
         },
         {
             "name": "IconRenderComponent",
-            "id": "component-IconRenderComponent-ed54d651b328b7d5b8f7ebd21119ee9f3f8d84be9879036292b9e0fcc97a36622c250a27d12a52f908218c7baac00eae5e21d39159eb76654d23c82cb4e25e6f",
+            "id": "component-IconRenderComponent-cb2da62e7cc4374a1c945fa6588396b7cfc1c27088659f8a277a5d5ad69be0bdad8995fe1139a50a6b52c27c1bf5e09f74c68e4ee785b88dbd8aa84d3a9deee9",
             "file": "projects/design-system/components/icon/icon.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -584,6 +586,7 @@
                 },
                 {
                     "name": "size",
+                    "defaultValue": "''",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "string",
@@ -655,7 +658,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { NgClass, NgComponentOutlet } from '@angular/common';\nimport { Component, inject, Injector, input, InputSignal } from '@angular/core';\n\nimport { provideIcons, IconName as NgIconName, NgIcon } from '@ng-icons/core';\n\nconst AVAILABLE_ICONS_IMPORT = [\n  import('@ng-icons/heroicons/outline'),\n  import('@ng-icons/lucide')\n];\n\ntype HeroIconName = Extract<\n  Exclude<\n    NgIconName,\n    `hero${string}Solid` | `hero${string}Mini` | `hero${string}Micro`\n  >,\n  `hero${string}`\n>;\n\ntype LucideIconName = Extract<NgIconName, `lucide${string}`>;\n\ntype IconName = HeroIconName | LucideIconName;\n\nexport type IconInput = IconName | (string & {});\n\ninterface IconBaseComponentProps {\n  name: InputSignal<IconInput>;\n  size: InputSignal<string | undefined>;\n  strokeWidth?: InputSignal<number>;\n  class?: InputSignal<string>;\n  ngClass?: InputSignal<string | string[] | Record<string, boolean>>;\n  style?: InputSignal<Record<string, string>>;\n}\n\n@Component({\n  standalone: true,\n  template: ''\n})\nabstract class IconBaseComponent implements IconBaseComponentProps {\n  readonly name = input.required<IconInput>();\n  readonly size = input<string>();\n  readonly strokeWidth = input<number>(1.5);\n  readonly class = input<string>('');\n  readonly ngClass = input<string | string[] | Record<string, boolean>>('');\n  readonly style = input<Record<string, string>>({});\n}\n\n@Component({\n  selector: 'ds-icon-render',\n  imports: [NgIcon, NgClass],\n  template: `\n    @if (name(); as name) {\n      <ng-icon\n        [name]=\"name\"\n        [size]=\"size()\"\n        [strokeWidth]=\"strokeWidth()\"\n        [class]=\"class()\"\n        [ngClass]=\"ngClass()\"\n        [style]=\"style()\"\n      />\n    }\n  `\n})\nclass IconRenderComponent extends IconBaseComponent {}\n\n@Component({\n  selector: 'ds-icon',\n  imports: [NgComponentOutlet],\n  templateUrl: './icon.component.html',\n  styleUrl: './icon.component.css'\n})\nexport class IconComponent extends IconBaseComponent {\n  private readonly parentInjector = inject(Injector);\n\n  protected injector: Injector | null = null;\n  protected child = IconRenderComponent;\n\n  async ngOnInit() {\n    const name = this.name();\n\n    if (!name) {\n      this.injector = this.parentInjector;\n      throw new Error('Icon name is required');\n    }\n\n    const isCustomIcon =\n      typeof name === 'string' &&\n      !name.startsWith('hero') &&\n      !name.startsWith('lucide');\n\n    if (isCustomIcon) {\n      this.injector = Injector.create({\n        providers: [],\n        parent: this.parentInjector\n      });\n      return;\n    }\n\n    try {\n      // @ts-ignore\n      for await (const { [name]: icon } of AVAILABLE_ICONS_IMPORT) {\n        if (icon) {\n          this.injector = Injector.create({\n            providers: [provideIcons({ [name]: icon })],\n            parent: this.parentInjector\n          });\n          break;\n        }\n        this.injector = this.parentInjector;\n      }\n    } catch (err) {\n      console.error('Error loading icon:', err);\n      this.injector = this.parentInjector;\n    }\n  }\n}\n",
+            "sourceCode": "import { NgClass, NgComponentOutlet } from '@angular/common';\nimport { Component, inject, Injector, input, InputSignal } from '@angular/core';\n\nimport { provideIcons, IconName as NgIconName, NgIcon } from '@ng-icons/core';\n\nconst AVAILABLE_ICONS_IMPORT = [\n  import('@ng-icons/heroicons/outline'),\n  import('@ng-icons/lucide')\n];\n\ntype HeroIconName = Extract<\n  Exclude<\n    NgIconName,\n    `hero${string}Solid` | `hero${string}Mini` | `hero${string}Micro`\n  >,\n  `hero${string}`\n>;\n\ntype LucideIconName = Extract<NgIconName, `lucide${string}`>;\n\ntype IconName = HeroIconName | LucideIconName;\n\nexport type IconInput = IconName | (string & {});\n\ninterface IconBaseComponentProps {\n  name: InputSignal<IconInput>;\n  size: InputSignal<string>;\n  strokeWidth?: InputSignal<number>;\n  class?: InputSignal<string>;\n  ngClass?: InputSignal<string | string[] | Record<string, boolean>>;\n  style?: InputSignal<Record<string, string>>;\n}\n\n@Component({\n  standalone: true,\n  template: ''\n})\nabstract class IconBaseComponent implements IconBaseComponentProps {\n  readonly name = input.required<IconInput>();\n  readonly size = input<string>('');\n  readonly strokeWidth = input<number>(1.5);\n  readonly class = input<string>('');\n  readonly ngClass = input<string | string[] | Record<string, boolean>>('');\n  readonly style = input<Record<string, string>>({});\n}\n\n@Component({\n  selector: 'ds-icon-render',\n  imports: [NgIcon, NgClass],\n  template: `\n    @if (name(); as name) {\n      <ng-icon\n        [name]=\"name\"\n        [size]=\"size()\"\n        [strokeWidth]=\"strokeWidth()\"\n        [class]=\"class()\"\n        [ngClass]=\"ngClass()\"\n        [style]=\"style()\"\n      />\n    }\n  `\n})\nclass IconRenderComponent extends IconBaseComponent {}\n\n@Component({\n  selector: 'ds-icon',\n  imports: [NgComponentOutlet],\n  templateUrl: './icon.component.html',\n  styleUrl: './icon.component.css'\n})\nexport class IconComponent extends IconBaseComponent {\n  private readonly parentInjector = inject(Injector);\n\n  protected injector: Injector | null = null;\n  protected child = IconRenderComponent;\n\n  async ngOnInit() {\n    const name = this.name();\n\n    if (!name) {\n      this.injector = this.parentInjector;\n      throw new Error('Icon name is required');\n    }\n\n    const isCustomIcon =\n      typeof name === 'string' &&\n      !name.startsWith('hero') &&\n      !name.startsWith('lucide');\n\n    if (isCustomIcon) {\n      this.injector = Injector.create({\n        providers: [],\n        parent: this.parentInjector\n      });\n      return;\n    }\n\n    try {\n      // @ts-ignore\n      for await (const { [name]: icon } of AVAILABLE_ICONS_IMPORT) {\n        if (icon) {\n          this.injector = Injector.create({\n            providers: [provideIcons({ [name]: icon })],\n            parent: this.parentInjector\n          });\n          break;\n        }\n        this.injector = this.parentInjector;\n      }\n    } catch (err) {\n      console.error('Error loading icon:', err);\n      this.injector = this.parentInjector;\n    }\n  }\n}\n",
             "assetsDirs": [],
             "styleUrlsData": "",
             "stylesData": "",
@@ -698,6 +701,46 @@
                 "defaultValue": "{\n  args: {\n    variant: 'primary',\n    disabled: true,\n    content: 'Disabled Button'\n  }\n}"
             },
             {
+                "name": "heroIcons",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/design-system/components/icon/icon.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "[]",
+                "defaultValue": "[\n  'heroArrowDown',\n  'heroArrowLeft',\n  'heroArrowRight',\n  'heroArrowUp',\n  'heroArrowUpCircle',\n  'heroArrowUpTray',\n  'heroArrowUturnDown',\n  'heroArrowUturnLeft',\n  'heroArrowUturnRight',\n  'heroArrowUturnUp'\n]"
+            },
+            {
+                "name": "HeroIconsShowcase",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/design-system/components/icon/icon.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "object",
+                "defaultValue": "{\n  render: () => ({\n    template: `\n      <div style=\"display: flex; gap: 16px; flex-wrap: wrap;\">\n        ${heroIcons.map((name) => `<ds-icon name=\"${name}\" />`).join('')}\n      </div>\n    `\n  })\n}"
+            },
+            {
+                "name": "lucideIcons",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/design-system/components/icon/icon.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "[]",
+                "defaultValue": "[\n  'lucideAlignJustify',\n  'lucideAmbulance',\n  'lucideAmpersand',\n  'lucideAnchor',\n  'lucideAngry',\n  'lucideAnnoyed',\n  'lucideAntenna',\n  'lucideAnvil',\n  'lucideAperture',\n  'lucideApple'\n]"
+            },
+            {
+                "name": "LucideIconsShowcase",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/design-system/components/icon/icon.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "object",
+                "defaultValue": "{\n  render: () => ({\n    template: `\n      <div style=\"display: flex; gap: 16px; flex-wrap: wrap;\">\n        ${lucideIcons.map((name) => `<ds-icon name=\"${name}\" />`).join('')}\n      </div>\n    `\n  })\n}"
+            },
+            {
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
@@ -715,17 +758,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<IconStory>",
-                "defaultValue": "{\n  title: 'Components/Icon',\n  component: IconComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    name: {\n      control: {\n        type: 'text'\n      }\n    }\n  }\n}"
-            },
-            {
-                "name": "Normal",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/design-system/components/icon/icon.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "StoryObj<IconStory>",
-                "defaultValue": "{\n  args: {\n    name: 'heroUser'\n  }\n}"
+                "defaultValue": "{\n  title: 'Components/Icon',\n  component: IconComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    name: {\n      control: {\n        type: 'text'\n      }\n    },\n    size: {\n      control: {\n        type: 'text'\n      }\n    },\n    strokeWidth: {\n      control: { type: 'number' }\n    },\n    class: {\n      control: { type: 'text' }\n    },\n    ngClass: {\n      control: { type: 'object' }\n    },\n    style: {\n      control: { type: 'text' }\n    }\n  }\n}"
             },
             {
                 "name": "preview",
@@ -766,16 +799,6 @@
                 "deprecationMessage": "",
                 "type": "StoryObj<ButtonStory>",
                 "defaultValue": "{\n  args: {\n    variant: 'tertiary',\n    disabled: false,\n    content: 'Tertiary Button'\n  }\n}"
-            },
-            {
-                "name": "WithStrongStroke",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/design-system/components/icon/icon.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "StoryObj<IconStory>",
-                "defaultValue": "{\n  args: {\n    strokeWidth: 2.5,\n    name: 'lucideUserCheck'\n  }\n}"
             }
         ],
         "functions": [],
@@ -949,6 +972,46 @@
             ],
             "projects/design-system/components/icon/icon.component.stories.ts": [
                 {
+                    "name": "heroIcons",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/design-system/components/icon/icon.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "[]",
+                    "defaultValue": "[\n  'heroArrowDown',\n  'heroArrowLeft',\n  'heroArrowRight',\n  'heroArrowUp',\n  'heroArrowUpCircle',\n  'heroArrowUpTray',\n  'heroArrowUturnDown',\n  'heroArrowUturnLeft',\n  'heroArrowUturnRight',\n  'heroArrowUturnUp'\n]"
+                },
+                {
+                    "name": "HeroIconsShowcase",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/design-system/components/icon/icon.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "object",
+                    "defaultValue": "{\n  render: () => ({\n    template: `\n      <div style=\"display: flex; gap: 16px; flex-wrap: wrap;\">\n        ${heroIcons.map((name) => `<ds-icon name=\"${name}\" />`).join('')}\n      </div>\n    `\n  })\n}"
+                },
+                {
+                    "name": "lucideIcons",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/design-system/components/icon/icon.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "[]",
+                    "defaultValue": "[\n  'lucideAlignJustify',\n  'lucideAmbulance',\n  'lucideAmpersand',\n  'lucideAnchor',\n  'lucideAngry',\n  'lucideAnnoyed',\n  'lucideAntenna',\n  'lucideAnvil',\n  'lucideAperture',\n  'lucideApple'\n]"
+                },
+                {
+                    "name": "LucideIconsShowcase",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/design-system/components/icon/icon.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "object",
+                    "defaultValue": "{\n  render: () => ({\n    template: `\n      <div style=\"display: flex; gap: 16px; flex-wrap: wrap;\">\n        ${lucideIcons.map((name) => `<ds-icon name=\"${name}\" />`).join('')}\n      </div>\n    `\n  })\n}"
+                },
+                {
                     "name": "meta",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
@@ -956,27 +1019,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<IconStory>",
-                    "defaultValue": "{\n  title: 'Components/Icon',\n  component: IconComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    name: {\n      control: {\n        type: 'text'\n      }\n    }\n  }\n}"
-                },
-                {
-                    "name": "Normal",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/design-system/components/icon/icon.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "StoryObj<IconStory>",
-                    "defaultValue": "{\n  args: {\n    name: 'heroUser'\n  }\n}"
-                },
-                {
-                    "name": "WithStrongStroke",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/design-system/components/icon/icon.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "StoryObj<IconStory>",
-                    "defaultValue": "{\n  args: {\n    strokeWidth: 2.5,\n    name: 'lucideUserCheck'\n  }\n}"
+                    "defaultValue": "{\n  title: 'Components/Icon',\n  component: IconComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    name: {\n      control: {\n        type: 'text'\n      }\n    },\n    size: {\n      control: {\n        type: 'text'\n      }\n    },\n    strokeWidth: {\n      control: { type: 'number' }\n    },\n    class: {\n      control: { type: 'text' }\n    },\n    ngClass: {\n      control: { type: 'object' }\n    },\n    style: {\n      control: { type: 'text' }\n    }\n  }\n}"
                 }
             ],
             "projects/design-system/.storybook/preview.ts": [
@@ -1216,27 +1259,47 @@
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
+                "name": "heroIcons",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/design-system/components/icon/icon.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "HeroIconsShowcase",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/design-system/components/icon/icon.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "lucideIcons",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/design-system/components/icon/icon.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
+                "name": "LucideIconsShowcase",
+                "coveragePercent": 0,
+                "coverageCount": "0/1",
+                "status": "low"
+            },
+            {
+                "filePath": "projects/design-system/components/icon/icon.component.stories.ts",
+                "type": "variable",
+                "linktype": "miscellaneous",
+                "linksubtype": "variable",
                 "name": "meta",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "projects/design-system/components/icon/icon.component.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Normal",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "projects/design-system/components/icon/icon.component.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "WithStrongStroke",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"

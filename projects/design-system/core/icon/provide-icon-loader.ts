@@ -25,14 +25,12 @@ type ProvideIconLoaderOptions = {
  * provideIconLoader((iconName) => fetch(`/cdn/${iconName}.svg`).then(r => r.text()), { cache: false })
  * ```
  */
+
 export default function provideIconLoader(
   loader: (
     iconName: string
   ) => Promise<string> | import('rxjs').Observable<string>,
   options: ProvideIconLoaderOptions = { cache: true }
-) {
-  return [
-    provideNgIconLoader(loader),
-    ...(options.cache ? [withCaching()] : [])
-  ];
+): ReturnType<typeof provideNgIconLoader> {
+  return provideNgIconLoader(loader, ...(options.cache ? [withCaching()] : []));
 }

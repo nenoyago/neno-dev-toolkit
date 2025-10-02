@@ -24,7 +24,7 @@ export type IconInput = IconName | (string & {});
 
 interface IconBaseComponentProps {
   name: InputSignal<IconInput>;
-  size: InputSignal<string | undefined>;
+  size: InputSignal<string>;
   strokeWidth?: InputSignal<number>;
   class?: InputSignal<string>;
   ngClass?: InputSignal<string | string[] | Record<string, boolean>>;
@@ -37,7 +37,7 @@ interface IconBaseComponentProps {
 })
 abstract class IconBaseComponent implements IconBaseComponentProps {
   readonly name = input.required<IconInput>();
-  readonly size = input<string>();
+  readonly size = input<string>('');
   readonly strokeWidth = input<number>(1.5);
   readonly class = input<string>('');
   readonly ngClass = input<string | string[] | Record<string, boolean>>('');
