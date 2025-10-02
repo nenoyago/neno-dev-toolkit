@@ -1,22 +1,25 @@
 {
   "name": "@nenoyago/configs-model",
   "version": "2.0.0",
-  "description": "ESLint and Prettier shared config for Eleva projects.",
+  "description": "ESLint and Prettier shared configurations for Angular projects.",
   "main": "eslint.config.cjs",
   "exports": {
     ".": "./eslint.config.cjs",
     "./prettier.config.cjs": "./prettier.config.cjs",
-    "./eslint.config.cjs": "./eslint.config.cjs"
+    "./eslint.config.cjs": "./eslint.config.cjs",
+    "./changelog.config.cjs": "./changelog.config.cjs",
+    "./commitlint.config.cjs": "./commitlint.config.cjs"
   },
   "files": [
     "eslint.config.cjs",
-    "prettier.config.cjs"
+    "prettier.config.cjs",
+    "changelog.config.cjs",
+    "commitlint.config.cjs"
   ],
   "keywords": [
     "eslint",
     "prettier",
-    "config",
-    "eleva"
+    "config"
   ],
   "author": "Yago Neno <developer.neno@gmail.com>",
   "license": "MIT",
@@ -24,16 +27,16 @@
     "registry": "https://npm.pkg.github.com/"
   },
   "peerDependencies": {
-    "eslint": ">=8.0.0",
-    "prettier": ">=2.0.0",
-    "@typescript-eslint/parser": ">=5.0.0",
-    "@typescript-eslint/eslint-plugin": ">=5.0.0",
-    "@angular-eslint/eslint-plugin": ">=17.0.0",
-    "@angular-eslint/eslint-plugin-template": ">=17.0.0",
-    "@angular-eslint/template-parser": ">=17.0.0",
-    "eslint-plugin-unused-imports": ">=3.0.0",
-    "eslint-plugin-prettier": ">=4.0.0",
-    "eslint-plugin-import": ">=2.0.0"
+    "eslint": ">=9.1.0",
+    "prettier": ">=3.6.2",
+    "eslint-plugin-import": ">=2.31.0",
+    "eslint-plugin-prettier": ">=5.4.1",
+    "eslint-plugin-unused-imports": ">=4.1.4",
+    "@typescript-eslint/parser": ">=8.34.0",
+    "@typescript-eslint/eslint-plugin": ">=8.34.0",
+    "@angular-eslint/eslint-plugin": ">=18.0.0",
+    "@angular-eslint/eslint-plugin-template": ">=18.0.0",
+    "@angular-eslint/template-parser": ">=18.0.0"
   },
   "private": false
 }
