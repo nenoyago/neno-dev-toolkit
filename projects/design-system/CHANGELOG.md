@@ -1,5 +1,11 @@
 # @neno-liv/design-system
 
+## 2.2.0
+
+### Minor Changes
+
+- b9e1ed0: add button type
+
 ## 2.1.0
 
 ### Minor Changes
