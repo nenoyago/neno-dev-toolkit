@@ -15,7 +15,7 @@ const meta: Meta<ButtonStory> = {
   argTypes: {
     variant: {
       control: { type: 'select' },
-      options: ['primary', 'secondary', 'tertiary']
+      options: ['primary', 'secondary']
     },
     disabled: { control: 'boolean' }
   },
@@ -42,7 +42,7 @@ export const Primary: StoryObj<ButtonStory> = {
 export const Secondary: StoryObj<ButtonStory> = {
   args: {
     variant: 'secondary',
-    disabled: true,
+    disabled: false,
     content: 'Secondary Button'
   }
 };
