@@ -45,7 +45,7 @@ abstract class IconBaseComponent implements IconBaseComponentProps {
 }
 
 @Component({
-  selector: 'ds-icon-render',
+  selector: 'liv-icon-render',
   imports: [NgIcon, NgClass],
   template: `
     @if (name(); as name) {
@@ -63,7 +63,7 @@ abstract class IconBaseComponent implements IconBaseComponentProps {
 class IconRenderComponent extends IconBaseComponent {}
 
 @Component({
-  selector: 'ds-icon',
+  selector: 'liv-icon',
   imports: [NgComponentOutlet],
   templateUrl: './icon.component.html',
   styleUrl: './icon.component.css'

@@ -2,12 +2,11 @@ import {
   AfterViewInit,
   Directive,
   ElementRef,
-  EventEmitter,
   HostBinding,
   OnDestroy,
-  Output,
   booleanAttribute,
-  input
+  input,
+  output
 } from '@angular/core';
 
 import { Subscription, fromEvent } from 'rxjs';
@@ -18,12 +17,12 @@ import { filter } from 'rxjs/operators';
   standalone: true
 })
 export class OverlayDirective implements AfterViewInit, OnDestroy {
-  @Output() clickOutside = new EventEmitter<void>();
-
-  activeOverlay = input(false, {
+  readonly activeOverlay = input(false, {
     alias: 'livOverlay',
     transform: booleanAttribute
   });
+
+  readonly clickOutside = output<void>();
 
   private _documentClickSubscription: Subscription | undefined;
 

@@ -4,7 +4,7 @@ import { booleanAttribute, Component, input } from '@angular/core';
 type Variant = 'primary' | 'secondary' | 'tertiary';
 
 @Component({
-  selector: 'ds-button',
+  selector: 'liv-button',
   imports: [NgClass],
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.css']

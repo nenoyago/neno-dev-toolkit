@@ -52,7 +52,7 @@ export const HeroIconsShowcase = {
   render: () => ({
     template: `
       <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-        ${heroIcons.map((name) => `<ds-icon name="${name}" />`).join('')}
+        ${heroIcons.map((name) => `<liv-icon name="${name}" />`).join('')}
       </div>
     `
   })
@@ -72,10 +72,14 @@ const lucideIcons = [
 ];
 
 export const LucideIconsShowcase = {
+  args: {
+    class: '',
+    style: 'color: red;'
+  },
   render: () => ({
     template: `
       <div style="display: flex; gap: 16px; flex-wrap: wrap;">
-        ${lucideIcons.map((name) => `<ds-icon name="${name}" />`).join('')}
+        ${lucideIcons.map((name) => `<liv-icon name="${name}" />`).join('')}
       </div>
     `
   })

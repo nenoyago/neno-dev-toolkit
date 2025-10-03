@@ -81,6 +81,9 @@ importers:
       '@compodoc/compodoc':
         specifier: ^1.1.30
         version: 1.1.30(typescript@5.7.3)
+      '@nenoyago/configs-model':
+        specifier: workspace:*
+        version: link:projects/configs-model
       '@storybook/addon-docs':
         specifier: ^9.1.10
         version: 9.1.10(@types/react@19.2.0)(storybook@9.1.10(@testing-library/dom@10.4.1)(prettier@3.6.2)(vite@6.3.6(@types/node@24.6.2)(jiti@2.6.1)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.39.0)(yaml@2.8.1)))
