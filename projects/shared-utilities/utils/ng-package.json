@@ -1,0 +1,11 @@
+{
+  {
+    "$schema": "../../../node_modules/ng-packagr/ng-package.schema.json",
+    "$schema": "../../../../node_modules/ng-packagr/ng-package.schema.json",
+    "lib": {
+      "lib": {
+        "entryFile": "public-api.ts""entryFile": "public-api.ts"
+      }
+    }
+  }
+}

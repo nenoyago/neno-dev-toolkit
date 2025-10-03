@@ -1,4 +1,4 @@
-# @neno-liv/design-system
+# @nenoyago/design-system
 
 ## 2.3.0
 

@@ -1,6 +1,6 @@
-export * from './theme/default-theme';
-export * from './theme/theme-config';
-export * from './theme/theme.provider';
-export * from './theme/theme.token';
+export * from './src/theme/default-theme';
+export * from './src/theme/theme-config';
+export * from './src/theme/theme.provider';
+export * from './src/theme/theme.token';
 
-export * from './icon/provide-icon-loader';
+export * from './src/icon/provide-icon-loader';
