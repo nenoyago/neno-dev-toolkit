@@ -1,4 +1,4 @@
-const prettierConfig = require('./prettier.config.cjs');
+const prettierConfig = require('@nenoyago/configs-model/prettier.config.cjs');
 const tsParser = require('@typescript-eslint/parser');
 const tsEslint = require('@typescript-eslint/eslint-plugin');
 const angularEslint = require('@angular-eslint/eslint-plugin');
@@ -7,6 +7,7 @@ const unusedImports = require('eslint-plugin-unused-imports');
 const eslintPluginPrettier = require('eslint-plugin-prettier');
 const eslintPluginImport = require('eslint-plugin-import');
 const templateParser = require('@angular-eslint/template-parser');
+const eslintConfigPrettier = require('eslint-config-prettier');
 
 module.exports = [
   {
@@ -19,6 +20,7 @@ module.exports = [
       parserOptions: {
         ecmaVersion: 'latest',
         sourceType: 'module',
+        project: true
       }
     },
     plugins: {
@@ -29,11 +31,10 @@ module.exports = [
       import: eslintPluginImport
     },
     rules: {
-      // Prettier controla formatação
+      // Prettier integration (como 'plugin:prettier/recommended')
       'prettier/prettier': ['error', prettierConfig],
-      'comma-dangle': 'off',
-      semi: 'off',
-
+      'arrow-body-style': 'off',
+      'prefer-arrow-callback': 'off',
       // Imports
       'unused-imports/no-unused-imports': 'error',
       'unused-imports/no-unused-vars': [
@@ -97,25 +98,10 @@ module.exports = [
       '@typescript-eslint/no-unsafe-assignment': 'off',
       '@typescript-eslint/ban-types': 'off',
       '@typescript-eslint/explicit-module-boundary-types': 'off',
-      'max-len': [
-        'error',
-        {
-          code: 120,
-          tabWidth: 4,
-          ignoreUrls: true,
-          ignoreStrings: true,
-          ignoreRegExpLiterals: true
-        }
-      ],
-      'max-lines-per-function': [
-        'error',
-        { max: 45, skipBlankLines: true, skipComments: true }
-      ],
       'prefer-spread': 'warn',
       'prefer-const': 'error',
       'rest-spread-spacing': ['warn'],
       'max-nested-callbacks': ['error', 4],
-      'no-trailing-spaces': ['error', { skipBlankLines: true }],
       'object-shorthand': 'warn',
       '@typescript-eslint/no-explicit-any': 'warn',
       'no-duplicate-imports': ['error', { includeExports: true }],
@@ -132,5 +118,7 @@ module.exports = [
       '@angular-eslint/template/no-negated-async': 'error',
       '@angular-eslint/template/banana-in-box': 'warn'
     }
-  }
+  },
+  // eslint-config-prettier: DEVE ser o último - desabilita regras que conflitam
+  eslintConfigPrettier
 ];

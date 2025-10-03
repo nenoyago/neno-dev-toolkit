@@ -18,8 +18,8 @@
     "storybook": "ng run design-system:storybook",
     "build:storybook": "ng run design-system:build-storybook",
     "prepare": "husky",
-    "lint": "pnpm lint",
-    "lint:fix": "pnpm lint --fix",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "format": "prettier --write \"**/*.{ts,html}\"",
     "changeset:empty": "HUSKY=0 pnpm changeset --empty",
     "changeset:bump": "HUSKY=0 pnpm changeset"
