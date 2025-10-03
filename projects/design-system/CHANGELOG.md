@@ -1,5 +1,11 @@
 # @nenoyago/design-system
 
+## 4.0.0
+
+### Major Changes
+
+- d5a2537: change theme
+
 ## 3.1.0
 
 ### Minor Changes
