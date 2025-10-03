@@ -1,5 +1,11 @@
 # @nenoyago/design-system
 
+## 4.0.3
+
+### Patch Changes
+
+- 3ec025f: theme
+
 ## 4.0.2
 
 ### Patch Changes
