@@ -8,9 +8,8 @@
     "declarationMap": true,
     "inlineSources": true,
     "types": [],
-    "baseUrl": "../..",
     "paths": {
-      "@common-utilities": [
+      "@nenoyago/common-utilities": [
         "./dist/common-utilities"
       ]
     }

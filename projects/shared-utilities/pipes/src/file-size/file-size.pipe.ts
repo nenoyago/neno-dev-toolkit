@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { formatBytes } from '@common-utilities';
+import { formatBytes } from '@nenoyago/common-utilities';
 
 @Pipe({
   name: 'fileSize',
