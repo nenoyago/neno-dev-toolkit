@@ -5,7 +5,7 @@
     "build:css": "tailwindcss -i ./src/styles/index.css -o ./src/styles/output.css --minify"
   },
   "exports": {
-    "./styles/index.css": {
+    "./styles": {
       "default": "./src/styles/output.css"
     }
   },

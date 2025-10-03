@@ -13,7 +13,7 @@ import { THEME_CONFIG } from './theme.token';
 export function provideTheme(
   config?: ThemeConfig
 ): [Provider, EnvironmentProviders] {
-  const theme = config ?? DEFAULT_THEME;
+  const theme = { ...DEFAULT_THEME, ...config };
 
   return [
     {

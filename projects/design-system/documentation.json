@@ -85,7 +85,7 @@
     "components": [
         {
             "name": "ButtonComponent",
-            "id": "component-ButtonComponent-60101c509c22f2f3d08a82134676fee4d59b458ae51f6a370487eb7e9053df1c4968f063a6e461b435c9c2de7cede43541367cf705bbbd6a50fbd33b83b5b79b",
+            "id": "component-ButtonComponent-1fac4397a4fe8b7eb580753d8f68a2cfa5c1e231776fba79a7cee29ce37df5ea0461616ed984a43c023071fbf1a98c7671849427db9a4823735a616cefe0ca5c",
             "file": "projects/design-system/components/src/button/button.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -164,7 +164,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { NgClass } from '@angular/common';\nimport { booleanAttribute, Component, input } from '@angular/core';\n\ntype Variant = 'primary' | 'secondary' | 'tertiary';\n\n@Component({\n  selector: 'liv-button',\n  imports: [NgClass],\n  templateUrl: './button.component.html',\n  styleUrls: ['./button.component.css']\n})\nexport class ButtonComponent {\n  readonly variant = input<Variant>('primary');\n  readonly disabled = input(false, {\n    transform: booleanAttribute\n  });\n  readonly htmlType = input<'button' | 'submit' | 'reset'>('button');\n}\n",
+            "sourceCode": "import { NgClass } from '@angular/common';\nimport { booleanAttribute, Component, input } from '@angular/core';\n\ntype Variant = 'primary' | 'secondary';\n\n@Component({\n  selector: 'liv-button',\n  imports: [NgClass],\n  templateUrl: './button.component.html',\n  styleUrls: ['./button.component.css']\n})\nexport class ButtonComponent {\n  readonly variant = input<Variant>('primary');\n  readonly disabled = input(false, {\n    transform: booleanAttribute\n  });\n  readonly htmlType = input<'button' | 'submit' | 'reset'>('button');\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -174,7 +174,7 @@
             ],
             "stylesData": "",
             "extends": [],
-            "templateData": "<button\n  [type]=\"htmlType()\"\n  [disabled]=\"disabled()\"\n  [ngClass]=\"[\n    'px-4 py-2 text-sm font-semibold rounded transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-offset-2',\n    variant() === 'primary'\n      ? 'bg-main-primary-600 text-white enabled:hover:bg-main-primary-500 enabled:focus:ring-main-primary-500 enabled:focus:ring-offset-main-primary-100 enabled:focus:bg-main-primary-700 enabled:active:bg-main-primary-700'\n      : '',\n    variant() === 'secondary'\n      ? 'bg-main-secondary-500 text-white enabled:hover:bg-main-secondary-400 enabled:focus:ring-main-secondary-400 enabled:focus:ring-offset-main-secondary-100 enabled:focus:bg-main-secondary-700 enabled:active:bg-main-secondary-700'\n      : '',\n    variant() === 'tertiary'\n      ? 'bg-transparent text-main-primary-600 border border-main-primary-600 enabled:hover:bg-main-primary-100 enabled:focus:ring-main-primary-500 enabled:focus:ring-offset-main-primary-100 enabled:focus:bg-main-primary-500 enabled:active:bg-main-primary-700 enabled:active:text-white'\n      : ''\n  ]\"\n>\n  <ng-content />\n</button>\n"
+            "templateData": "<button\n  [type]=\"htmlType()\"\n  [disabled]=\"disabled()\"\n  [ngClass]=\"[\n    'px-4 py-2 text-sm font-semibold rounded transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-offset-2',\n    variant() === 'primary'\n      ? 'bg-main-primary-600 text-white enabled:focus:ring-main-primary-300 enabled:hover:bg-main-primary-400'\n      : '',\n    variant() === 'secondary'\n      ? 'bg-transparent text-main-secondary-800 enabled:hover:text-main-secondary-600 enabled:focus:ring-main-secondary-600  border border-main-secondary-800 enabled:hover:border-main-secondary-600'\n      : ''\n  ]\"\n>\n  <ng-content />\n</button>\n"
         },
         {
             "name": "IconBaseComponent",
@@ -744,21 +744,21 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/design-system/components/src/icon/icon.component.stories.ts",
+                "file": "projects/design-system/components/src/button/button.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "Meta<IconStory>",
-                "defaultValue": "{\n  title: 'Components/Icon',\n  component: IconComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    name: {\n      control: {\n        type: 'text'\n      }\n    },\n    size: {\n      control: {\n        type: 'text'\n      }\n    },\n    strokeWidth: {\n      control: { type: 'number' }\n    },\n    class: {\n      control: { type: 'text' }\n    },\n    ngClass: {\n      control: { type: 'object' }\n    },\n    style: {\n      control: { type: 'text' }\n    }\n  }\n}"
+                "type": "Meta<ButtonStory>",
+                "defaultValue": "{\n  title: 'Components/Button',\n  component: ButtonComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: {\n      control: { type: 'select' },\n      options: ['primary', 'secondary']\n    },\n    disabled: { control: 'boolean' }\n  },\n  args: {\n    variant: 'primary',\n    disabled: false\n  },\n  render: (args) => ({\n    props: args,\n    template: `<liv-button [variant]=\"variant\" [disabled]=\"disabled\">{{content}}</liv-button>`\n  })\n}"
             },
             {
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/design-system/components/src/button/button.component.stories.ts",
+                "file": "projects/design-system/components/src/icon/icon.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
-                "type": "Meta<ButtonStory>",
-                "defaultValue": "{\n  title: 'Components/Button',\n  component: ButtonComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: {\n      control: { type: 'select' },\n      options: ['primary', 'secondary', 'tertiary']\n    },\n    disabled: { control: 'boolean' }\n  },\n  args: {\n    variant: 'primary',\n    disabled: false\n  },\n  render: (args) => ({\n    props: args,\n    template: `<liv-button [variant]=\"variant\" [disabled]=\"disabled\">{{content}}</liv-button>`\n  })\n}"
+                "type": "Meta<IconStory>",
+                "defaultValue": "{\n  title: 'Components/Icon',\n  component: IconComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    name: {\n      control: {\n        type: 'text'\n      }\n    },\n    size: {\n      control: {\n        type: 'text'\n      }\n    },\n    strokeWidth: {\n      control: { type: 'number' }\n    },\n    class: {\n      control: { type: 'text' }\n    },\n    ngClass: {\n      control: { type: 'object' }\n    },\n    style: {\n      control: { type: 'text' }\n    }\n  }\n}"
             },
             {
                 "name": "preview",
@@ -788,17 +788,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "StoryObj<ButtonStory>",
-                "defaultValue": "{\n  args: {\n    variant: 'secondary',\n    disabled: false,\n    content: 'Secondary Button'\n  }\n}"
-            },
-            {
-                "name": "Tertiary",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
-                "file": "projects/design-system/components/src/button/button.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "StoryObj<ButtonStory>",
-                "defaultValue": "{\n  args: {\n    variant: 'tertiary',\n    disabled: false,\n    content: 'Tertiary Button'\n  }\n}"
+                "defaultValue": "{\n  args: {\n    variant: 'secondary',\n    disabled: true,\n    content: 'Secondary Button'\n  }\n}"
             }
         ],
         "functions": [],
@@ -884,7 +874,7 @@
                 "name": "Variant",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "\"primary\" | \"secondary\" | \"tertiary\"",
+                "rawtype": "\"primary\" | \"secondary\"",
                 "file": "projects/design-system/components/src/button/button.component.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
@@ -937,7 +927,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<ButtonStory>",
-                    "defaultValue": "{\n  title: 'Components/Button',\n  component: ButtonComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: {\n      control: { type: 'select' },\n      options: ['primary', 'secondary', 'tertiary']\n    },\n    disabled: { control: 'boolean' }\n  },\n  args: {\n    variant: 'primary',\n    disabled: false\n  },\n  render: (args) => ({\n    props: args,\n    template: `<liv-button [variant]=\"variant\" [disabled]=\"disabled\">{{content}}</liv-button>`\n  })\n}"
+                    "defaultValue": "{\n  title: 'Components/Button',\n  component: ButtonComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: {\n      control: { type: 'select' },\n      options: ['primary', 'secondary']\n    },\n    disabled: { control: 'boolean' }\n  },\n  args: {\n    variant: 'primary',\n    disabled: false\n  },\n  render: (args) => ({\n    props: args,\n    template: `<liv-button [variant]=\"variant\" [disabled]=\"disabled\">{{content}}</liv-button>`\n  })\n}"
                 },
                 {
                     "name": "Primary",
@@ -957,17 +947,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "StoryObj<ButtonStory>",
-                    "defaultValue": "{\n  args: {\n    variant: 'secondary',\n    disabled: false,\n    content: 'Secondary Button'\n  }\n}"
-                },
-                {
-                    "name": "Tertiary",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/design-system/components/src/button/button.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "StoryObj<ButtonStory>",
-                    "defaultValue": "{\n  args: {\n    variant: 'tertiary',\n    disabled: false,\n    content: 'Tertiary Button'\n  }\n}"
+                    "defaultValue": "{\n  args: {\n    variant: 'secondary',\n    disabled: true,\n    content: 'Secondary Button'\n  }\n}"
                 }
             ],
             "projects/design-system/components/src/icon/icon.component.stories.ts": [
@@ -1126,7 +1106,7 @@
                     "name": "Variant",
                     "ctype": "miscellaneous",
                     "subtype": "typealias",
-                    "rawtype": "\"primary\" | \"secondary\" | \"tertiary\"",
+                    "rawtype": "\"primary\" | \"secondary\"",
                     "file": "projects/design-system/components/src/button/button.component.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
@@ -1201,16 +1181,6 @@
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
                 "name": "Secondary",
-                "coveragePercent": 0,
-                "coverageCount": "0/1",
-                "status": "low"
-            },
-            {
-                "filePath": "projects/design-system/components/src/button/button.component.stories.ts",
-                "type": "variable",
-                "linktype": "miscellaneous",
-                "linksubtype": "variable",
-                "name": "Tertiary",
                 "coveragePercent": 0,
                 "coverageCount": "0/1",
                 "status": "low"

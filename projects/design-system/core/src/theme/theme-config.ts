@@ -1,4 +1,4 @@
-export interface ThemeConfig {
+type Theme = {
   colors: {
     // Main - Primário
     'main-primary-50': string;
@@ -94,4 +94,6 @@ export interface ThemeConfig {
     dark: string;
     'dark-alt': string;
   };
-}
+};
+
+export type ThemeConfig = Partial<Theme>;
