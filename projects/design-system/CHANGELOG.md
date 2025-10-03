@@ -1,5 +1,11 @@
 # @nenoyago/design-system
 
+## 4.1.0
+
+### Minor Changes
+
+- 3ac5a35: build theme
+
 ## 4.0.3
 
 ### Patch Changes
