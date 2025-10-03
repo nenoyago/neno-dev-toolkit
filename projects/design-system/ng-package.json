@@ -14,6 +14,8 @@
     "@nenoyago/shared-utilities"
   ],
   "assets": [
-    "src/styles/output.css"
+    "src/styles/index.css",
+    "src/styles/output.css",
+    "src/styles/theme.css"
   ]
 }
