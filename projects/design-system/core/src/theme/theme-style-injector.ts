@@ -4,9 +4,21 @@ import { ThemeConfig } from './theme-config';
 const STYLE_ELEMENT_ID = 'liv-design-system-theme';
 
 export const injectThemeCss = (theme: ThemeConfig) => {
-  const cssVars = Object.entries(theme.colors)
-    .map(([key, value]) => `--color-${key}: ${value};`)
-    .join('\n');
+  const cssVars = [
+    ...Object.entries(theme.colors).map(
+      ([key, value]) => `--color-${key}: ${value};`
+    ),
+    ...Object.entries(theme.opacities).map(
+      ([key, value]) => `--opacity-${key}: ${value};`
+    ),
+    ...Object.entries(theme.shadows).map(
+      ([key, value]) => `--shadow-${key}: ${value};`
+    ),
+    ...Object.entries(theme.gradients).map(
+      ([key, value]) => `--gradient-${key}: ${value};`
+    )
+  ].join('\n');
+
   let style = document.getElementById(
     STYLE_ELEMENT_ID
   ) as HTMLStyleElement | null;

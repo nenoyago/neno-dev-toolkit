@@ -4,13 +4,10 @@
   [ngClass]="[
     'px-4 py-2 text-sm font-semibold rounded transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-offset-2',
     variant() === 'primary'
-      ? 'bg-brand-primary-pure text-white enabled:hover:bg-brand-primary-light enabled:focus:ring-brand-primary-light enabled:focus:ring-offset-brand-primary-lightest enabled:focus:bg-brand-primary-dark enabled:active:bg-brand-primary-dark'
+      ? 'bg-main-primary-600 text-white enabled:focus:ring-main-primary-300 enabled:hover:bg-main-primary-400'
       : '',
     variant() === 'secondary'
-      ? 'bg-brand-secondary-pure text-white enabled:hover:bg-brand-secondary-light enabled:focus:ring-brand-secondary-light enabled:focus:ring-offset-brand-secondary-lightest enabled:focus:bg-brand-secondary-dark enabled:active:bg-brand-secondary-dark'
-      : '',
-    variant() === 'tertiary'
-      ? 'bg-transparent text-brand-primary-pure border border-brand-primary-pure enabled:hover:bg-brand-primary-lightest enabled:focus:ring-brand-primary-light enabled:focus:ring-offset-brand-primary-lightest enabled:focus:bg-brand-primary-light enabled:active:bg-brand-primary-dark enabled:active:text-white'
+      ? 'bg-white text-main-secondary-800 enabled:hover:text-main-secondary-600 enabled:focus:ring-main-secondary-600  border border-main-secondary-800 enabled:hover:border-main-secondary-600'
       : ''
   ]"
 >

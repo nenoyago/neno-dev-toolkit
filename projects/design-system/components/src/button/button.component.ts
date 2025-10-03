@@ -1,7 +1,7 @@
 import { NgClass } from '@angular/common';
 import { booleanAttribute, Component, input } from '@angular/core';
 
-type Variant = 'primary' | 'secondary' | 'tertiary';
+type Variant = 'primary' | 'secondary';
 
 @Component({
   selector: 'liv-button',
