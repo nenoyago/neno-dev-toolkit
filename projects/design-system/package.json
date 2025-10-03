@@ -5,13 +5,13 @@
     "build:css": "tailwindcss -i ./src/styles/tailwind.css -o ./src/styles/output.css --minify"
   },
   "exports": {
-    "./styles": {
+    "./styles/index.css": {
       "default": "./src/styles/index.css"
     },
-    "./styles/tailwind": {
+    "./styles/tailwind.css": {
       "default": "./src/styles/output.css"
     },
-    "./styles/theme": {
+    "./styles/theme.css": {
       "default": "./src/styles/theme.css"
     }
   },
