@@ -1,6 +1,6 @@
-import { ThemeConfig } from './theme-config';
+import { FullTheme } from './theme-config';
 
-export const DEFAULT_THEME: ThemeConfig = {
+export const DEFAULT_THEME: FullTheme = {
   colors: {
     // Main - Primário
     'main-primary-50': '#FFFFFF',
