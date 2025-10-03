@@ -1,0 +1,29 @@
+{
+  "name": "@nenoyago/common-utils",
+  "version": "1.0.0",
+  "description": "Common utilities with Angular support - Internal use only",
+  "type": "module",
+  "main": "./index.js",
+  "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "default": "./index.js"
+    }
+  },
+  "scripts": {
+    "build": "tsc",
+    "clean": "rm -rf ../../dist/common-utils"
+  },
+  "keywords": ["utilities", "typescript", "angular"],
+  "private": true,
+  "peerDependencies": {
+    "@angular/common": "^19.0.0",
+    "@angular/core": "^19.0.0"
+  },
+  "devDependencies": {
+    "@angular/common": "^19.2.0",
+    "@angular/core": "^19.2.0",
+    "typescript": "~5.7.2"
+  }
+}

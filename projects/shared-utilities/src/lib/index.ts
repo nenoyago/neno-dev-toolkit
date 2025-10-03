@@ -1,1 +1,1 @@
-export * from '@common-utilities';
+export * from '@common-utils';
