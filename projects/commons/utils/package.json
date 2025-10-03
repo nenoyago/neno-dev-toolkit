@@ -15,11 +15,15 @@
     "build": "tsc",
     "clean": "rm -rf ../../dist/common-utils"
   },
-  "keywords": ["utilities", "typescript", "angular"],
+  "keywords": [
+    "utilities",
+    "typescript",
+    "angular"
+  ],
   "private": true,
   "peerDependencies": {
-    "@angular/common": "^19.0.0",
-    "@angular/core": "^19.0.0"
+    "@angular/common": "^19.2.0",
+    "@angular/core": "^19.2.0"
   },
   "devDependencies": {
     "@angular/common": "^19.2.0",

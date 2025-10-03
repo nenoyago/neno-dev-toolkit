@@ -9,7 +9,7 @@
     "typecheck": "tsc --noEmit --project tsconfig.build.json",
     "check-env": "node ./scripts/check-env.js",
     "check-versions": "node ./scripts/check-internal-versions.js",
-    "prebuild:packages": "pnpm run clean && pnpm run check-env && cd commons/utils && pnpm run build && cd ../.. && pnpm run typecheck",
+    "prebuild:packages": "pnpm run clean && pnpm run check-env && cd projects/commons/utils && pnpm run build && cd ../../.. && pnpm run typecheck",
     "build:packages": "NODE_OPTIONS='--max-old-space-size=4096' ng build shared-utilities && cd projects/design-system && pnpm run build:css && cd ../.. && NODE_OPTIONS='--max-old-space-size=4096' ng build design-system",
     "storybook": "ng run design-system:storybook",
     "build:storybook": "ng run design-system:build-storybook",

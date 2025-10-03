@@ -1,4 +1,16 @@
-# @nenoyago/common-utils
+# @nenoya## 🏗️ Arquitetura
+
+- **Localização**: `projects/commons/utils` (código interno, não publicável)
+- **Build**: TypeScript Compiler (`tsc`)
+- **Output**: `dist/common-utils`
+- **Uso**: Importado via alias `@common-utilities` nos outros pacotes
+
+## 🚀 Build
+
+```bash
+cd projects/commons/utils
+pnpm run build
+```ls
 
 Utilities comuns em TypeScript com suporte ao Angular.
 
@@ -9,7 +21,7 @@ Ele é buildado com TypeScript puro usando `tsc` e é **interno** - não deve se
 
 ## 🏗️ Arquitetura
 
-- **Localização**: `projects/common-utils`
+- **Localização**: `commons/utils` (código interno, não publicável)
 - **Build**: TypeScript Compiler (`tsc`)
 - **Output**: `dist/common-utils`
 - **Uso**: Importado via alias `@common-utils` nos outros pacotes
@@ -17,7 +29,7 @@ Ele é buildado com TypeScript puro usando `tsc` e é **interno** - não deve se
 ## 🚀 Build
 
 ```bash
-cd projects/common-utils
+cd commons/utils
 pnpm run build
 ```
 
