@@ -10,7 +10,8 @@
     "postcss",
     "@ng-icons/core",
     "@ng-icons/heroicons",
-    "@ng-icons/lucide"
+    "@ng-icons/lucide",
+    "@nenoyago/shared-utilities"
   ],
   "assets": [
     "src/styles/output.css"

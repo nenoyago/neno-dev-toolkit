@@ -14,10 +14,14 @@
       "@configs-model": [
         "./projects/configs-model"
       ],
+      "@shared-utilities": [
+        "./projects/shared-utilities"
+      ],
       "@shared-utilities/*": [
         "./projects/shared-utilities/*"
       ],
       "@common-utilities": [
+        "./projects/common-utilities/src/public-api.ts",
         "./dist/common-utilities"
       ]
     },
