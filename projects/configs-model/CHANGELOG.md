@@ -1,4 +1,4 @@
-# @neno-liv/configs-model
+# @nenoyago/configs-model
 
 ## 2.1.0
 

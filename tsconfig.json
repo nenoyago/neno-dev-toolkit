@@ -5,12 +5,21 @@
   "compilerOptions": {
     "baseUrl": ".",
     "paths": {
-      "@nenoyago/design-system": [
-        "./dist/design-system"
+      "@design-system": [
+        "./projects/design-system"
       ],
-      "@nenoyago/configs-model": [
+      "@design-system/*": [
+        "./projects/design-system/*"
+      ],
+      "@configs-model": [
         "./projects/configs-model"
       ],
+      "@shared-utilities/*": [
+        "./projects/shared-utilities/*"
+      ],
+      "@common-utils": [
+        "./dist/common-utils"
+      ]
     },
     "outDir": "./dist/out-tsc",
     "strict": true,

@@ -6,11 +6,7 @@ module.exports = [
     files: ['**/*.ts'],
     languageOptions: {
       parserOptions: {
-        project: [
-          './projects/design-system/tsconfig.lib.json',
-          './projects/design-system/tsconfig.lib.prod.json',
-          './projects/design-system/tsconfig.spec.json'
-        ]
+        project: ['./tsconfig.json', './projects/*/tsconfig*.json']
       }
     }
   },

@@ -4,7 +4,7 @@
         {
             "name": "IconBaseComponentProps",
             "id": "interface-IconBaseComponentProps-cb2da62e7cc4374a1c945fa6588396b7cfc1c27088659f8a277a5d5ad69be0bdad8995fe1139a50a6b52c27c1bf5e09f74c68e4ee785b88dbd8aa84d3a9deee9",
-            "file": "projects/design-system/components/icon/icon.component.ts",
+            "file": "projects/design-system/components/src/icon/icon.component.ts",
             "deprecated": false,
             "deprecationMessage": "",
             "type": "interface",
@@ -86,7 +86,7 @@
         {
             "name": "ButtonComponent",
             "id": "component-ButtonComponent-fe667a86d8e49ca0df61b13329bb2331bc4dcd964ba522cdd036d1d50064817234277bb783f5e33046e06be8a9e1ce09d0054b6af4b216353736ae9e5db28e49",
-            "file": "projects/design-system/components/button/button.component.ts",
+            "file": "projects/design-system/components/src/button/button.component.ts",
             "encapsulation": [],
             "entryComponents": [],
             "inputs": [],
@@ -179,7 +179,7 @@
         {
             "name": "IconBaseComponent",
             "id": "component-IconBaseComponent-cb2da62e7cc4374a1c945fa6588396b7cfc1c27088659f8a277a5d5ad69be0bdad8995fe1139a50a6b52c27c1bf5e09f74c68e4ee785b88dbd8aa84d3a9deee9",
-            "file": "projects/design-system/components/icon/icon.component.ts",
+            "file": "projects/design-system/components/src/icon/icon.component.ts",
             "encapsulation": [],
             "entryComponents": [],
             "inputs": [],
@@ -306,7 +306,7 @@
         {
             "name": "IconComponent",
             "id": "component-IconComponent-cb2da62e7cc4374a1c945fa6588396b7cfc1c27088659f8a277a5d5ad69be0bdad8995fe1139a50a6b52c27c1bf5e09f74c68e4ee785b88dbd8aa84d3a9deee9",
-            "file": "projects/design-system/components/icon/icon.component.ts",
+            "file": "projects/design-system/components/src/icon/icon.component.ts",
             "encapsulation": [],
             "entryComponents": [],
             "inputs": [],
@@ -517,7 +517,7 @@
         {
             "name": "IconRenderComponent",
             "id": "component-IconRenderComponent-cb2da62e7cc4374a1c945fa6588396b7cfc1c27088659f8a277a5d5ad69be0bdad8995fe1139a50a6b52c27c1bf5e09f74c68e4ee785b88dbd8aa84d3a9deee9",
-            "file": "projects/design-system/components/icon/icon.component.ts",
+            "file": "projects/design-system/components/src/icon/icon.component.ts",
             "encapsulation": [],
             "entryComponents": [],
             "inputs": [],
@@ -674,7 +674,7 @@
                 "name": "AVAILABLE_ICONS_IMPORT",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/design-system/components/icon/icon.component.ts",
+                "file": "projects/design-system/components/src/icon/icon.component.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "[]",
@@ -688,13 +688,13 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "StorybookConfig",
-                "defaultValue": "{\n  stories: [\n    '../components/**/*.mdx',\n    '../components/**/*.stories.@(js|jsx|mjs|ts|tsx)'\n  ],\n  addons: ['@storybook/addon-docs', '@storybook/addon-styling-webpack'],\n  framework: {\n    name: '@storybook/angular',\n    options: {}\n  }\n}"
+                "defaultValue": "{\n  stories: [\n    '../components/src/**/*.mdx',\n    '../components/src/**/*.stories.@(js|jsx|mjs|ts|tsx)'\n  ],\n  addons: ['@storybook/addon-docs', '@storybook/addon-styling-webpack'],\n  framework: {\n    name: '@storybook/angular',\n    options: {}\n  }\n}"
             },
             {
                 "name": "Disabled",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/design-system/components/button/button.component.stories.ts",
+                "file": "projects/design-system/components/src/button/button.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "StoryObj<ButtonStory>",
@@ -704,7 +704,7 @@
                 "name": "heroIcons",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/design-system/components/icon/icon.component.stories.ts",
+                "file": "projects/design-system/components/src/icon/icon.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "[]",
@@ -714,7 +714,7 @@
                 "name": "HeroIconsShowcase",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/design-system/components/icon/icon.component.stories.ts",
+                "file": "projects/design-system/components/src/icon/icon.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "object",
@@ -724,7 +724,7 @@
                 "name": "lucideIcons",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/design-system/components/icon/icon.component.stories.ts",
+                "file": "projects/design-system/components/src/icon/icon.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "[]",
@@ -734,7 +734,7 @@
                 "name": "LucideIconsShowcase",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/design-system/components/icon/icon.component.stories.ts",
+                "file": "projects/design-system/components/src/icon/icon.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "object",
@@ -744,7 +744,7 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/design-system/components/button/button.component.stories.ts",
+                "file": "projects/design-system/components/src/button/button.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<ButtonStory>",
@@ -754,7 +754,7 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/design-system/components/icon/icon.component.stories.ts",
+                "file": "projects/design-system/components/src/icon/icon.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<IconStory>",
@@ -774,7 +774,7 @@
                 "name": "Primary",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/design-system/components/button/button.component.stories.ts",
+                "file": "projects/design-system/components/src/button/button.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "StoryObj<ButtonStory>",
@@ -784,7 +784,7 @@
                 "name": "Secondary",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/design-system/components/button/button.component.stories.ts",
+                "file": "projects/design-system/components/src/button/button.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "StoryObj<ButtonStory>",
@@ -794,7 +794,7 @@
                 "name": "Tertiary",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/design-system/components/button/button.component.stories.ts",
+                "file": "projects/design-system/components/src/button/button.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "StoryObj<ButtonStory>",
@@ -808,7 +808,7 @@
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
                 "rawtype": "",
-                "file": "projects/design-system/components/button/button.component.stories.ts",
+                "file": "projects/design-system/components/src/button/button.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -819,7 +819,7 @@
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
                 "rawtype": "Extract<Exclude<NgIconName, template literal type | template literal type | template literal type> | template literal type>",
-                "file": "projects/design-system/components/icon/icon.component.ts",
+                "file": "projects/design-system/components/src/icon/icon.component.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -830,7 +830,7 @@
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
                 "rawtype": "IconName | ",
-                "file": "projects/design-system/components/icon/icon.component.ts",
+                "file": "projects/design-system/components/src/icon/icon.component.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -841,7 +841,7 @@
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
                 "rawtype": "HeroIconName | LucideIconName",
-                "file": "projects/design-system/components/icon/icon.component.ts",
+                "file": "projects/design-system/components/src/icon/icon.component.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -852,7 +852,7 @@
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
                 "rawtype": "IconComponent",
-                "file": "projects/design-system/components/icon/icon.component.stories.ts",
+                "file": "projects/design-system/components/src/icon/icon.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -863,7 +863,7 @@
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
                 "rawtype": "Extract<NgIconName | template literal type>",
-                "file": "projects/design-system/components/icon/icon.component.ts",
+                "file": "projects/design-system/components/src/icon/icon.component.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -874,7 +874,7 @@
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
                 "rawtype": "literal type",
-                "file": "projects/design-system/components/button/button.component.stories.ts",
+                "file": "projects/design-system/components/src/button/button.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -885,7 +885,7 @@
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
                 "rawtype": "\"primary\" | \"secondary\" | \"tertiary\"",
-                "file": "projects/design-system/components/button/button.component.ts",
+                "file": "projects/design-system/components/src/button/button.component.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -894,12 +894,12 @@
         ],
         "enumerations": [],
         "groupedVariables": {
-            "projects/design-system/components/icon/icon.component.ts": [
+            "projects/design-system/components/src/icon/icon.component.ts": [
                 {
                     "name": "AVAILABLE_ICONS_IMPORT",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "projects/design-system/components/icon/icon.component.ts",
+                    "file": "projects/design-system/components/src/icon/icon.component.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "[]",
@@ -915,15 +915,15 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "StorybookConfig",
-                    "defaultValue": "{\n  stories: [\n    '../components/**/*.mdx',\n    '../components/**/*.stories.@(js|jsx|mjs|ts|tsx)'\n  ],\n  addons: ['@storybook/addon-docs', '@storybook/addon-styling-webpack'],\n  framework: {\n    name: '@storybook/angular',\n    options: {}\n  }\n}"
+                    "defaultValue": "{\n  stories: [\n    '../components/src/**/*.mdx',\n    '../components/src/**/*.stories.@(js|jsx|mjs|ts|tsx)'\n  ],\n  addons: ['@storybook/addon-docs', '@storybook/addon-styling-webpack'],\n  framework: {\n    name: '@storybook/angular',\n    options: {}\n  }\n}"
                 }
             ],
-            "projects/design-system/components/button/button.component.stories.ts": [
+            "projects/design-system/components/src/button/button.component.stories.ts": [
                 {
                     "name": "Disabled",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "projects/design-system/components/button/button.component.stories.ts",
+                    "file": "projects/design-system/components/src/button/button.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "StoryObj<ButtonStory>",
@@ -933,7 +933,7 @@
                     "name": "meta",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "projects/design-system/components/button/button.component.stories.ts",
+                    "file": "projects/design-system/components/src/button/button.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<ButtonStory>",
@@ -943,7 +943,7 @@
                     "name": "Primary",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "projects/design-system/components/button/button.component.stories.ts",
+                    "file": "projects/design-system/components/src/button/button.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "StoryObj<ButtonStory>",
@@ -953,7 +953,7 @@
                     "name": "Secondary",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "projects/design-system/components/button/button.component.stories.ts",
+                    "file": "projects/design-system/components/src/button/button.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "StoryObj<ButtonStory>",
@@ -963,19 +963,19 @@
                     "name": "Tertiary",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "projects/design-system/components/button/button.component.stories.ts",
+                    "file": "projects/design-system/components/src/button/button.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "StoryObj<ButtonStory>",
                     "defaultValue": "{\n  args: {\n    variant: 'tertiary',\n    disabled: false,\n    content: 'Tertiary Button'\n  }\n}"
                 }
             ],
-            "projects/design-system/components/icon/icon.component.stories.ts": [
+            "projects/design-system/components/src/icon/icon.component.stories.ts": [
                 {
                     "name": "heroIcons",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "projects/design-system/components/icon/icon.component.stories.ts",
+                    "file": "projects/design-system/components/src/icon/icon.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "[]",
@@ -985,7 +985,7 @@
                     "name": "HeroIconsShowcase",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "projects/design-system/components/icon/icon.component.stories.ts",
+                    "file": "projects/design-system/components/src/icon/icon.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "object",
@@ -995,7 +995,7 @@
                     "name": "lucideIcons",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "projects/design-system/components/icon/icon.component.stories.ts",
+                    "file": "projects/design-system/components/src/icon/icon.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "[]",
@@ -1005,7 +1005,7 @@
                     "name": "LucideIconsShowcase",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "projects/design-system/components/icon/icon.component.stories.ts",
+                    "file": "projects/design-system/components/src/icon/icon.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "object",
@@ -1015,7 +1015,7 @@
                     "name": "meta",
                     "ctype": "miscellaneous",
                     "subtype": "variable",
-                    "file": "projects/design-system/components/icon/icon.component.stories.ts",
+                    "file": "projects/design-system/components/src/icon/icon.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<IconStory>",
@@ -1038,13 +1038,13 @@
         "groupedFunctions": {},
         "groupedEnumerations": {},
         "groupedTypeAliases": {
-            "projects/design-system/components/button/button.component.stories.ts": [
+            "projects/design-system/components/src/button/button.component.stories.ts": [
                 {
                     "name": "ButtonStory",
                     "ctype": "miscellaneous",
                     "subtype": "typealias",
                     "rawtype": "",
-                    "file": "projects/design-system/components/button/button.component.stories.ts",
+                    "file": "projects/design-system/components/src/button/button.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -1055,20 +1055,20 @@
                     "ctype": "miscellaneous",
                     "subtype": "typealias",
                     "rawtype": "literal type",
-                    "file": "projects/design-system/components/button/button.component.stories.ts",
+                    "file": "projects/design-system/components/src/button/button.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
                     "kind": 187
                 }
             ],
-            "projects/design-system/components/icon/icon.component.ts": [
+            "projects/design-system/components/src/icon/icon.component.ts": [
                 {
                     "name": "HeroIconName",
                     "ctype": "miscellaneous",
                     "subtype": "typealias",
                     "rawtype": "Extract<Exclude<NgIconName, template literal type | template literal type | template literal type> | template literal type>",
-                    "file": "projects/design-system/components/icon/icon.component.ts",
+                    "file": "projects/design-system/components/src/icon/icon.component.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -1079,7 +1079,7 @@
                     "ctype": "miscellaneous",
                     "subtype": "typealias",
                     "rawtype": "IconName | ",
-                    "file": "projects/design-system/components/icon/icon.component.ts",
+                    "file": "projects/design-system/components/src/icon/icon.component.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -1090,7 +1090,7 @@
                     "ctype": "miscellaneous",
                     "subtype": "typealias",
                     "rawtype": "HeroIconName | LucideIconName",
-                    "file": "projects/design-system/components/icon/icon.component.ts",
+                    "file": "projects/design-system/components/src/icon/icon.component.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -1101,33 +1101,33 @@
                     "ctype": "miscellaneous",
                     "subtype": "typealias",
                     "rawtype": "Extract<NgIconName | template literal type>",
-                    "file": "projects/design-system/components/icon/icon.component.ts",
+                    "file": "projects/design-system/components/src/icon/icon.component.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
                     "kind": 183
                 }
             ],
-            "projects/design-system/components/icon/icon.component.stories.ts": [
+            "projects/design-system/components/src/icon/icon.component.stories.ts": [
                 {
                     "name": "IconStory",
                     "ctype": "miscellaneous",
                     "subtype": "typealias",
                     "rawtype": "IconComponent",
-                    "file": "projects/design-system/components/icon/icon.component.stories.ts",
+                    "file": "projects/design-system/components/src/icon/icon.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
                     "kind": 183
                 }
             ],
-            "projects/design-system/components/button/button.component.ts": [
+            "projects/design-system/components/src/button/button.component.ts": [
                 {
                     "name": "Variant",
                     "ctype": "miscellaneous",
                     "subtype": "typealias",
                     "rawtype": "\"primary\" | \"secondary\" | \"tertiary\"",
-                    "file": "projects/design-system/components/button/button.component.ts",
+                    "file": "projects/design-system/components/src/button/button.component.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
@@ -1166,7 +1166,7 @@
                 "status": "low"
             },
             {
-                "filePath": "projects/design-system/components/button/button.component.stories.ts",
+                "filePath": "projects/design-system/components/src/button/button.component.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
@@ -1176,7 +1176,7 @@
                 "status": "low"
             },
             {
-                "filePath": "projects/design-system/components/button/button.component.stories.ts",
+                "filePath": "projects/design-system/components/src/button/button.component.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
@@ -1186,7 +1186,7 @@
                 "status": "low"
             },
             {
-                "filePath": "projects/design-system/components/button/button.component.stories.ts",
+                "filePath": "projects/design-system/components/src/button/button.component.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
@@ -1196,7 +1196,7 @@
                 "status": "low"
             },
             {
-                "filePath": "projects/design-system/components/button/button.component.stories.ts",
+                "filePath": "projects/design-system/components/src/button/button.component.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
@@ -1206,7 +1206,7 @@
                 "status": "low"
             },
             {
-                "filePath": "projects/design-system/components/button/button.component.stories.ts",
+                "filePath": "projects/design-system/components/src/button/button.component.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
@@ -1216,7 +1216,7 @@
                 "status": "low"
             },
             {
-                "filePath": "projects/design-system/components/button/button.component.stories.ts",
+                "filePath": "projects/design-system/components/src/button/button.component.stories.ts",
                 "type": "type alias",
                 "linktype": "miscellaneous",
                 "linksubtype": "typealias",
@@ -1226,7 +1226,7 @@
                 "status": "low"
             },
             {
-                "filePath": "projects/design-system/components/button/button.component.stories.ts",
+                "filePath": "projects/design-system/components/src/button/button.component.stories.ts",
                 "type": "type alias",
                 "linktype": "miscellaneous",
                 "linksubtype": "typealias",
@@ -1236,7 +1236,7 @@
                 "status": "low"
             },
             {
-                "filePath": "projects/design-system/components/button/button.component.ts",
+                "filePath": "projects/design-system/components/src/button/button.component.ts",
                 "type": "component",
                 "linktype": "component",
                 "name": "ButtonComponent",
@@ -1245,7 +1245,7 @@
                 "status": "low"
             },
             {
-                "filePath": "projects/design-system/components/button/button.component.ts",
+                "filePath": "projects/design-system/components/src/button/button.component.ts",
                 "type": "type alias",
                 "linktype": "miscellaneous",
                 "linksubtype": "typealias",
@@ -1255,7 +1255,7 @@
                 "status": "low"
             },
             {
-                "filePath": "projects/design-system/components/icon/icon.component.stories.ts",
+                "filePath": "projects/design-system/components/src/icon/icon.component.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
@@ -1265,7 +1265,7 @@
                 "status": "low"
             },
             {
-                "filePath": "projects/design-system/components/icon/icon.component.stories.ts",
+                "filePath": "projects/design-system/components/src/icon/icon.component.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
@@ -1275,7 +1275,7 @@
                 "status": "low"
             },
             {
-                "filePath": "projects/design-system/components/icon/icon.component.stories.ts",
+                "filePath": "projects/design-system/components/src/icon/icon.component.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
@@ -1285,7 +1285,7 @@
                 "status": "low"
             },
             {
-                "filePath": "projects/design-system/components/icon/icon.component.stories.ts",
+                "filePath": "projects/design-system/components/src/icon/icon.component.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
@@ -1295,7 +1295,7 @@
                 "status": "low"
             },
             {
-                "filePath": "projects/design-system/components/icon/icon.component.stories.ts",
+                "filePath": "projects/design-system/components/src/icon/icon.component.stories.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
@@ -1305,7 +1305,7 @@
                 "status": "low"
             },
             {
-                "filePath": "projects/design-system/components/icon/icon.component.stories.ts",
+                "filePath": "projects/design-system/components/src/icon/icon.component.stories.ts",
                 "type": "type alias",
                 "linktype": "miscellaneous",
                 "linksubtype": "typealias",
@@ -1315,7 +1315,7 @@
                 "status": "low"
             },
             {
-                "filePath": "projects/design-system/components/icon/icon.component.ts",
+                "filePath": "projects/design-system/components/src/icon/icon.component.ts",
                 "type": "component",
                 "linktype": "component",
                 "name": "IconBaseComponent",
@@ -1324,7 +1324,7 @@
                 "status": "low"
             },
             {
-                "filePath": "projects/design-system/components/icon/icon.component.ts",
+                "filePath": "projects/design-system/components/src/icon/icon.component.ts",
                 "type": "component",
                 "linktype": "component",
                 "name": "IconComponent",
@@ -1333,7 +1333,7 @@
                 "status": "low"
             },
             {
-                "filePath": "projects/design-system/components/icon/icon.component.ts",
+                "filePath": "projects/design-system/components/src/icon/icon.component.ts",
                 "type": "component",
                 "linktype": "component",
                 "name": "IconRenderComponent",
@@ -1342,7 +1342,7 @@
                 "status": "low"
             },
             {
-                "filePath": "projects/design-system/components/icon/icon.component.ts",
+                "filePath": "projects/design-system/components/src/icon/icon.component.ts",
                 "type": "interface",
                 "linktype": "interface",
                 "name": "IconBaseComponentProps",
@@ -1351,7 +1351,7 @@
                 "status": "low"
             },
             {
-                "filePath": "projects/design-system/components/icon/icon.component.ts",
+                "filePath": "projects/design-system/components/src/icon/icon.component.ts",
                 "type": "variable",
                 "linktype": "miscellaneous",
                 "linksubtype": "variable",
@@ -1361,7 +1361,7 @@
                 "status": "low"
             },
             {
-                "filePath": "projects/design-system/components/icon/icon.component.ts",
+                "filePath": "projects/design-system/components/src/icon/icon.component.ts",
                 "type": "type alias",
                 "linktype": "miscellaneous",
                 "linksubtype": "typealias",
@@ -1371,7 +1371,7 @@
                 "status": "low"
             },
             {
-                "filePath": "projects/design-system/components/icon/icon.component.ts",
+                "filePath": "projects/design-system/components/src/icon/icon.component.ts",
                 "type": "type alias",
                 "linktype": "miscellaneous",
                 "linksubtype": "typealias",
@@ -1381,7 +1381,7 @@
                 "status": "low"
             },
             {
-                "filePath": "projects/design-system/components/icon/icon.component.ts",
+                "filePath": "projects/design-system/components/src/icon/icon.component.ts",
                 "type": "type alias",
                 "linktype": "miscellaneous",
                 "linksubtype": "typealias",
@@ -1391,7 +1391,7 @@
                 "status": "low"
             },
             {
-                "filePath": "projects/design-system/components/icon/icon.component.ts",
+                "filePath": "projects/design-system/components/src/icon/icon.component.ts",
                 "type": "type alias",
                 "linktype": "miscellaneous",
                 "linksubtype": "typealias",

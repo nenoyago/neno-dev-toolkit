@@ -1,7 +1,7 @@
 import { setCompodocJson } from '@storybook/addon-docs/angular';
 import { type Preview } from '@storybook/angular';
 
-import { initDefaultThemeCss } from '../core/theme/theme-style-injector';
+import { initDefaultThemeCss } from '../core/src/theme/theme-style-injector';
 import docJson from '../documentation.json';
 
 setCompodocJson(docJson);
