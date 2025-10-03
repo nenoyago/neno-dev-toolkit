@@ -23,6 +23,13 @@
       "@common-utilities": [
         "./projects/common-utilities/src/public-api",
         "./dist/common-utilities"
+      ],
+      "@common-utilities/*": [
+        "./projects/common-utilities/*"
+      ],
+      "@nenoyago/common-utilities": [
+        "./projects/common-utilities/src/public-api",
+        "./dist/common-utilities"
       ]
     },
     "outDir": "./dist/out-tsc",
