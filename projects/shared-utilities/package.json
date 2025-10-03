@@ -6,10 +6,10 @@
     "@angular/core": "^19.2.0"
   },
   "devDependencies": {
+    "@nenoyago/common-utilities": "workspace:*",
     "@nenoyago/configs-model": "workspace:*"
   },
   "dependencies": {
-    "@nenoyago/common-utilities": "workspace:*",
     "tslib": "^2.8.1"
   },
   "sideEffects": false,

@@ -3,8 +3,5 @@
   "dest": "../../dist/shared-utilities",
   "lib": {
     "entryFile": "src/public-api.ts"
-  },
-  "allowedNonPeerDependencies": [
-    "@nenoyago/common-utilities"
-  ]
+  }
 }
