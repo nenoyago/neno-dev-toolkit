@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { getRemoteErrorMessage } from '@common-utilities';
+import { getRemoteErrorMessage } from '@common-utils';
 import { Observable, isObservable, map, startWith, catchError, of } from 'rxjs';
 
 enum RequestStateEnum {

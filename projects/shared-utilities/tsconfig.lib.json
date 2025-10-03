@@ -10,11 +10,11 @@
     "types": [],
     "baseUrl": "../..",
     "paths": {
-      "@common-utilities": [
-        "./dist/common-utilities"
+      "@common-utils": [
+        "./dist/common-utils"
       ],
-      "@common-utilities/*": [
-        "./dist/common-utilities/*"
+      "@common-utils/*": [
+        "./dist/common-utils/*"
       ]
     }
   },
