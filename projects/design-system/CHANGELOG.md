@@ -1,5 +1,11 @@
 # @nenoyago/design-system
 
+## 3.0.0
+
+### Major Changes
+
+- cc1aa33: create shared utilities package
+
 ## 2.3.0
 
 ### Minor Changes
