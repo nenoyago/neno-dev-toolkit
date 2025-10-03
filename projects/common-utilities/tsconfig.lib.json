@@ -7,13 +7,7 @@
     "declaration": true,
     "declarationMap": true,
     "inlineSources": true,
-    "types": [],
-    "baseUrl": "../..",
-    "paths": {
-      "@common-utilities": [
-        "./dist/common-utilities"
-      ]
-    }
+    "types": []
   },
   "exclude": [
     "**/*.spec.ts"

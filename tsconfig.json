@@ -20,8 +20,9 @@
       "@shared-utilities/*": [
         "./projects/shared-utilities/*"
       ],
-      "@common-utils": [
-        "./dist/common-utils"
+      "@common-utilities": [
+        "./projects/common-utilities/src/public-api",
+        "./dist/common-utilities"
       ]
     },
     "outDir": "./dist/out-tsc",

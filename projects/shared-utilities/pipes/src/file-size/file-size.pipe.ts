@@ -1,6 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
 
-import { formatBytes } from '@common-utils';
+import { formatBytes } from '@common-utilities';
 
 @Pipe({
   name: 'fileSize',
