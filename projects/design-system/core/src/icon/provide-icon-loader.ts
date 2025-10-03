@@ -1,4 +1,3 @@
-/* eslint-disable max-len */
 import { withCaching, provideNgIconLoader } from '@ng-icons/core';
 
 /**
@@ -26,7 +25,7 @@ type ProvideIconLoaderOptions = {
  * ```
  */
 
-export default function provideIconLoader(
+export function provideIconLoader(
   loader: (
     iconName: string
   ) => Promise<string> | import('rxjs').Observable<string>,

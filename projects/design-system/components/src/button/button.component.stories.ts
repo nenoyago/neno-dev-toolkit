@@ -25,7 +25,7 @@ const meta: Meta<ButtonStory> = {
   },
   render: (args) => ({
     props: args,
-    template: `<ds-button [variant]="variant" [disabled]="disabled">{{content}}</ds-button>`
+    template: `<liv-button [variant]="variant" [disabled]="disabled">{{content}}</liv-button>`
   })
 };
 
