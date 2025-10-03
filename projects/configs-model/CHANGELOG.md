@@ -1,5 +1,11 @@
 # @nenoyago/configs-model
 
+## 3.0.1
+
+### Patch Changes
+
+- 389b7c4: test
+
 ## 3.0.0
 
 ### Major Changes

@@ -1,5 +1,11 @@
 # @nenoyago/shared-utilities
 
+## 1.0.3
+
+### Patch Changes
+
+- 389b7c4: test
+
 ## 1.0.2
 
 ### Patch Changes
