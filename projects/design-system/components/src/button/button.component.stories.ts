@@ -42,16 +42,8 @@ export const Primary: StoryObj<ButtonStory> = {
 export const Secondary: StoryObj<ButtonStory> = {
   args: {
     variant: 'secondary',
-    disabled: false,
+    disabled: true,
     content: 'Secondary Button'
-  }
-};
-
-export const Tertiary: StoryObj<ButtonStory> = {
-  args: {
-    variant: 'tertiary',
-    disabled: false,
-    content: 'Tertiary Button'
   }
 };
 

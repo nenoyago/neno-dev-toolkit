@@ -1,61 +1,97 @@
 export interface ThemeConfig {
   colors: {
-    'neutral-hight-pure': string;
-    'neutral-hight-light': string;
-    'neutral-hight-medium': string;
-    'neutral-hight-dark': string;
+    // Main - Primário
+    'main-primary-50': string;
+    'main-primary-100': string;
+    'main-primary-200': string;
+    'main-primary-300': string;
+    'main-primary-400': string;
+    'main-primary-500': string;
+    'main-primary-600': string;
+    'main-primary-700': string;
+    'main-primary-800': string;
+    'main-primary-900': string;
+    'main-primary-950': string;
 
-    'neutral-low-pure': string;
-    'neutral-low-light': string;
-    'neutral-low-medium': string;
-    'neutral-low-dark': string;
+    // Main - Secundário
+    'main-secondary-50': string;
+    'main-secondary-100': string;
+    'main-secondary-200': string;
+    'main-secondary-300': string;
+    'main-secondary-400': string;
+    'main-secondary-500': string;
+    'main-secondary-600': string;
+    'main-secondary-700': string;
+    'main-secondary-800': string;
+    'main-secondary-900': string;
+    'main-secondary-950': string;
 
-    'brand-primary-pure': string;
-    'brand-primary-lightest': string;
-    'brand-primary-lighter': string;
-    'brand-primary-light': string;
-    'brand-primary-dark': string;
+    // Neutral
+    'neutral-50': string;
+    'neutral-100': string;
+    'neutral-200': string;
+    'neutral-300': string;
+    'neutral-400': string;
+    'neutral-500': string;
+    'neutral-600': string;
+    'neutral-700': string;
+    'neutral-800': string;
+    'neutral-900': string;
+    'neutral-950': string;
+    'neutral-1000': string;
 
-    'brand-secondary-pure': string;
-    'brand-secondary-lightest': string;
-    'brand-secondary-lighter': string;
-    'brand-secondary-light': string;
-    'brand-secondary-dark': string;
-
-    'brand-tertiary-pure': string;
-    'brand-tertiary-lightest': string;
-    'brand-tertiary-lighter': string;
-    'brand-tertiary-light': string;
-    'brand-tertiary-pure-dark': string;
-
-    'brand-quaternary-pure': string;
-    'brand-quaternary-lightest': string;
-    'brand-quaternary-lighter': string;
-    'brand-quaternary-light': string;
-    'brand-quaternary-dark': string;
-
-    'brand-quintenary-pure': string;
-    'brand-quintenary-lightest': string;
-    'brand-quintenary-lighter': string;
-    'brand-quintenary-light': string;
-    'brand-quintenary-pure-dark': string;
-
-    'brand-sextenary-pure': string;
-    'brand-sextenary-lightest': string;
-    'brand-sextenary-lighter': string;
-    'brand-sextenary-light': string;
-    'brand-sextenary-dark': string;
-
-    'feedback-warning-pure': string;
-    'feedback-warning-light': string;
-    'feedback-warning-medium': string;
-
-    'feedback-helper-pure': string;
-    'feedback-helper-light': string;
-    'feedback-helper-medium': string;
-
-    'feedback-success-pure': string;
+    // Feedback
     'feedback-success-light': string;
     'feedback-success-medium': string;
+    'feedback-success-dark': string;
+    'feedback-warning-light': string;
+    'feedback-warning-medium': string;
+    'feedback-warning-dark': string;
+    'feedback-error-light': string;
+    'feedback-error-medium': string;
+    'feedback-error-dark': string;
+    'feedback-info-light': string;
+    'feedback-info-medium': string;
+    'feedback-info-dark': string;
+
+    // Text
+    'text-light': string;
+    'text-medium': string;
+    'text-dark': string;
+    'text-heading': string;
+    'text-link': string;
+
+    // Backgrounds
+    'background-dark': string;
+    'background-medium': string;
+    'background-light': string;
+    'background-primary-white': string;
+    'background-primary-dark': string;
+  };
+  opacities: {
+    // Dark
+    'dark-50': string;
+    'dark-100': string;
+    'dark-200': string;
+    'dark-400': string;
+    'dark-800': string;
+
+    // Light
+    'light-50': string;
+    'light-100': string;
+    'light-200': string;
+    'light-400': string;
+    'light-800': string;
+  };
+  shadows: {
+    soft: string;
+    medium: string;
+    strong: string;
+  };
+  gradients: {
+    scrim: string;
+    light: string;
+    dark: string;
+    'dark-alt': string;
   };
 }

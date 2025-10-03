@@ -174,7 +174,7 @@
             ],
             "stylesData": "",
             "extends": [],
-            "templateData": "<button\n  [type]=\"htmlType()\"\n  [disabled]=\"disabled()\"\n  [ngClass]=\"[\n    'px-4 py-2 text-sm font-semibold rounded transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-offset-2',\n    variant() === 'primary'\n      ? 'bg-brand-primary-pure text-white enabled:hover:bg-brand-primary-light enabled:focus:ring-brand-primary-light enabled:focus:ring-offset-brand-primary-lightest enabled:focus:bg-brand-primary-dark enabled:active:bg-brand-primary-dark'\n      : '',\n    variant() === 'secondary'\n      ? 'bg-brand-secondary-pure text-white enabled:hover:bg-brand-secondary-light enabled:focus:ring-brand-secondary-light enabled:focus:ring-offset-brand-secondary-lightest enabled:focus:bg-brand-secondary-dark enabled:active:bg-brand-secondary-dark'\n      : '',\n    variant() === 'tertiary'\n      ? 'bg-transparent text-brand-primary-pure border border-brand-primary-pure enabled:hover:bg-brand-primary-lightest enabled:focus:ring-brand-primary-light enabled:focus:ring-offset-brand-primary-lightest enabled:focus:bg-brand-primary-light enabled:active:bg-brand-primary-dark enabled:active:text-white'\n      : ''\n  ]\"\n>\n  <ng-content />\n</button>\n"
+            "templateData": "<button\n  [type]=\"htmlType()\"\n  [disabled]=\"disabled()\"\n  [ngClass]=\"[\n    'px-4 py-2 text-sm font-semibold rounded transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-offset-2',\n    variant() === 'primary'\n      ? 'bg-main-primary-600 text-white enabled:hover:bg-main-primary-500 enabled:focus:ring-main-primary-500 enabled:focus:ring-offset-main-primary-100 enabled:focus:bg-main-primary-700 enabled:active:bg-main-primary-700'\n      : '',\n    variant() === 'secondary'\n      ? 'bg-main-secondary-500 text-white enabled:hover:bg-main-secondary-400 enabled:focus:ring-main-secondary-400 enabled:focus:ring-offset-main-secondary-100 enabled:focus:bg-main-secondary-700 enabled:active:bg-main-secondary-700'\n      : '',\n    variant() === 'tertiary'\n      ? 'bg-transparent text-main-primary-600 border border-main-primary-600 enabled:hover:bg-main-primary-100 enabled:focus:ring-main-primary-500 enabled:focus:ring-offset-main-primary-100 enabled:focus:bg-main-primary-500 enabled:active:bg-main-primary-700 enabled:active:text-white'\n      : ''\n  ]\"\n>\n  <ng-content />\n</button>\n"
         },
         {
             "name": "IconBaseComponent",
@@ -718,7 +718,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "object",
-                "defaultValue": "{\n  render: () => ({\n    template: `\n      <div style=\"display: flex; gap: 16px; flex-wrap: wrap;\">\n        ${heroIcons.map((name) => `<ds-icon name=\"${name}\" />`).join('')}\n      </div>\n    `\n  })\n}"
+                "defaultValue": "{\n  render: () => ({\n    template: `\n      <div style=\"display: flex; gap: 16px; flex-wrap: wrap;\">\n        ${heroIcons.map((name) => `<liv-icon name=\"${name}\" />`).join('')}\n      </div>\n    `\n  })\n}"
             },
             {
                 "name": "lucideIcons",
@@ -738,7 +738,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "object",
-                "defaultValue": "{\n  args: {\n    class: '',\n    style: 'color: red;'\n  },\n  render: () => ({\n    template: `\n      <div style=\"display: flex; gap: 16px; flex-wrap: wrap;\">\n        ${lucideIcons.map((name) => `<ds-icon name=\"${name}\" />`).join('')}\n      </div>\n    `\n  })\n}"
+                "defaultValue": "{\n  args: {\n    class: '',\n    style: 'color: red;'\n  },\n  render: () => ({\n    template: `\n      <div style=\"display: flex; gap: 16px; flex-wrap: wrap;\">\n        ${lucideIcons.map((name) => `<liv-icon name=\"${name}\" />`).join('')}\n      </div>\n    `\n  })\n}"
             },
             {
                 "name": "meta",
@@ -758,7 +758,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<ButtonStory>",
-                "defaultValue": "{\n  title: 'Components/Button',\n  component: ButtonComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: {\n      control: { type: 'select' },\n      options: ['primary', 'secondary', 'tertiary']\n    },\n    disabled: { control: 'boolean' }\n  },\n  args: {\n    variant: 'primary',\n    disabled: false\n  },\n  render: (args) => ({\n    props: args,\n    template: `<ds-button [variant]=\"variant\" [disabled]=\"disabled\">{{content}}</ds-button>`\n  })\n}"
+                "defaultValue": "{\n  title: 'Components/Button',\n  component: ButtonComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: {\n      control: { type: 'select' },\n      options: ['primary', 'secondary', 'tertiary']\n    },\n    disabled: { control: 'boolean' }\n  },\n  args: {\n    variant: 'primary',\n    disabled: false\n  },\n  render: (args) => ({\n    props: args,\n    template: `<liv-button [variant]=\"variant\" [disabled]=\"disabled\">{{content}}</liv-button>`\n  })\n}"
             },
             {
                 "name": "preview",
@@ -937,7 +937,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<ButtonStory>",
-                    "defaultValue": "{\n  title: 'Components/Button',\n  component: ButtonComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: {\n      control: { type: 'select' },\n      options: ['primary', 'secondary', 'tertiary']\n    },\n    disabled: { control: 'boolean' }\n  },\n  args: {\n    variant: 'primary',\n    disabled: false\n  },\n  render: (args) => ({\n    props: args,\n    template: `<ds-button [variant]=\"variant\" [disabled]=\"disabled\">{{content}}</ds-button>`\n  })\n}"
+                    "defaultValue": "{\n  title: 'Components/Button',\n  component: ButtonComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: {\n      control: { type: 'select' },\n      options: ['primary', 'secondary', 'tertiary']\n    },\n    disabled: { control: 'boolean' }\n  },\n  args: {\n    variant: 'primary',\n    disabled: false\n  },\n  render: (args) => ({\n    props: args,\n    template: `<liv-button [variant]=\"variant\" [disabled]=\"disabled\">{{content}}</liv-button>`\n  })\n}"
                 },
                 {
                     "name": "Primary",
@@ -989,7 +989,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "object",
-                    "defaultValue": "{\n  render: () => ({\n    template: `\n      <div style=\"display: flex; gap: 16px; flex-wrap: wrap;\">\n        ${heroIcons.map((name) => `<ds-icon name=\"${name}\" />`).join('')}\n      </div>\n    `\n  })\n}"
+                    "defaultValue": "{\n  render: () => ({\n    template: `\n      <div style=\"display: flex; gap: 16px; flex-wrap: wrap;\">\n        ${heroIcons.map((name) => `<liv-icon name=\"${name}\" />`).join('')}\n      </div>\n    `\n  })\n}"
                 },
                 {
                     "name": "lucideIcons",
@@ -1009,7 +1009,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "object",
-                    "defaultValue": "{\n  args: {\n    class: '',\n    style: 'color: red;'\n  },\n  render: () => ({\n    template: `\n      <div style=\"display: flex; gap: 16px; flex-wrap: wrap;\">\n        ${lucideIcons.map((name) => `<ds-icon name=\"${name}\" />`).join('')}\n      </div>\n    `\n  })\n}"
+                    "defaultValue": "{\n  args: {\n    class: '',\n    style: 'color: red;'\n  },\n  render: () => ({\n    template: `\n      <div style=\"display: flex; gap: 16px; flex-wrap: wrap;\">\n        ${lucideIcons.map((name) => `<liv-icon name=\"${name}\" />`).join('')}\n      </div>\n    `\n  })\n}"
                 },
                 {
                     "name": "meta",

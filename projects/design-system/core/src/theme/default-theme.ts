@@ -2,62 +2,98 @@ import { ThemeConfig } from './theme-config';
 
 export const DEFAULT_THEME: ThemeConfig = {
   colors: {
-    'neutral-hight-pure': '#f8f9fd',
-    'neutral-hight-light': '#f8f9fd',
-    'neutral-hight-medium': '#e0e2e9',
-    'neutral-hight-dark': '#c9cbd4',
+    // Main - Primário
+    'main-primary-50': '#FFFFFF',
+    'main-primary-100': '#DDD7EA',
+    'main-primary-200': '#BCAAE4',
+    'main-primary-300': '#9E84D7',
+    'main-primary-400': '#7F5DCB',
+    'main-primary-500': '#5E30C5',
+    'main-primary-600': '#4E2F92',
+    'main-primary-700': '#3E2574',
+    'main-primary-800': '#251645',
+    'main-primary-900': '#100A1F',
+    'main-primary-950': '#000000',
 
-    'neutral-low-pure': '#06040c',
-    'neutral-low-light': '#9da0ab',
-    'neutral-low-medium': '#60636e',
-    'neutral-low-dark': '#2d2a34',
+    // Main - Secundário
+    'main-secondary-50': '#EEEEEE',
+    'main-secondary-100': '#EFEFEF',
+    'main-secondary-200': '#C9D8E9',
+    'main-secondary-300': '#9EBEE1',
+    'main-secondary-400': '#77A4D4',
+    'main-secondary-500': '#4F89C8',
+    'main-secondary-600': '#3770AF',
+    'main-secondary-700': '#3470B1',
+    'main-secondary-800': '#1E3E61',
+    'main-secondary-900': '#12253A',
+    'main-secondary-950': '#000000',
 
-    'brand-primary-pure': '#4e2f92',
-    'brand-primary-lightest': '#f6f4f9',
-    'brand-primary-lighter': '#dcd5e9',
-    'brand-primary-light': '#7159a8',
-    'brand-primary-dark': '#020046',
+    // Neutral
+    'neutral-50': '#FFFFFF',
+    'neutral-100': '#FAF9FA',
+    'neutral-200': '#DFDDE4',
+    'neutral-300': '#C5C1CD',
+    'neutral-400': '#AAA5B6',
+    'neutral-500': '#8F899F',
+    'neutral-600': '#756D87',
+    'neutral-700': '#5D576B',
+    'neutral-800': '#44404F',
+    'neutral-900': '#2D2A34',
+    'neutral-950': '#141217',
+    'neutral-1000': '#000000',
 
-    'brand-secondary-pure': '#40a299',
-    'brand-secondary-lightest': '#d9eceb',
-    'brand-secondary-lighter': '#b3dad6',
-    'brand-secondary-light': '#66b5ad',
-    'brand-secondary-dark': '#003c33',
+    // Feedback
+    'feedback-success-light': '#93B2B7',
+    'feedback-success-medium': '#5A82AA',
+    'feedback-success-dark': '#397770',
+    'feedback-warning-light': '#FFE6CD',
+    'feedback-warning-medium': '#FAD05F',
+    'feedback-warning-dark': '#F7C050',
+    'feedback-error-light': '#F7B7B7',
+    'feedback-error-medium': '#E41112',
+    'feedback-error-dark': '#B4010E',
+    'feedback-info-light': '#FAF3FA',
+    'feedback-info-medium': '#44404F',
+    'feedback-info-dark': '#2D2A34',
 
-    'brand-tertiary-pure': '#d81d6a',
-    'brand-tertiary-lightest': '#f7d2e1',
-    'brand-tertiary-lighter': '#efa5c3',
-    'brand-tertiary-light': '#e04a88',
-    'brand-tertiary-pure-dark': '#590000',
+    // Text
+    'text-light': '#AAA5B6', // Neutral 400
+    'text-medium': '#756D87', // Neutral 600
+    'text-dark': '#2D2A34', // Neutral 900
+    'text-heading': '#3E2574', // Main Secondary 700
+    'text-link': '#4F89C8', // Main Secondary 500
 
-    'brand-quaternary-pure': '#ffbe12',
-    'brand-quaternary-lightest': '#fff2d0',
-    'brand-quaternary-lighter': '#ffe5a0',
-    'brand-quaternary-light': '#ffd871',
-    'brand-quaternary-dark': '#662500',
+    // Backgrounds
+    'background-dark': '#141217', // Neutral 950
+    'background-medium': '#251645', // Main Primary 800
+    'background-light': '#DFDDE4', // Neutral 200
+    'background-primary-white': '#FAF9FA', // Neutral 100
+    'background-primary-dark': '#DDD7EA' // Main Primary 100
+  },
+  opacities: {
+    // Dark
+    'dark-50': '#dadada',
+    'dark-100': '#c2c2c2',
+    'dark-200': '#91919133',
+    'dark-400': '#61616166',
+    'dark-800': '#303030cc',
 
-    'brand-quintenary-pure': '#ff5b07',
-    'brand-quintenary-lightest': '#ffdecd',
-    'brand-quintenary-lighter': '#ffbd9c',
-    'brand-quintenary-light': '#ff7c39',
-    'brand-quintenary-pure-dark': '#800000',
-
-    'brand-sextenary-pure': '#4f89c8',
-    'brand-sextenary-lightest': '#dce7f4',
-    'brand-sextenary-lighter': '#b9d0e9',
-    'brand-sextenary-light': '#72a1d3',
-    'brand-sextenary-dark': '#002362',
-
-    'feedback-warning-pure': '#f03738',
-    'feedback-warning-light': '#ffbfbf',
-    'feedback-warning-medium': '#8a0a0a',
-
-    'feedback-helper-pure': '#ffb800',
-    'feedback-helper-light': '#ffebb7',
-    'feedback-helper-medium': '#d69b00',
-
-    'feedback-success-pure': '#42d38b',
-    'feedback-success-light': '#caffe5',
-    'feedback-success-medium': '#1e8f57'
+    // Light
+    'light-50': '#ffffff0d',
+    'light-100': '#ffffff1a',
+    'light-200': '#ffffff33',
+    'light-400': '#ffffff66',
+    'light-800': '#ffffffcc'
+  },
+  shadows: {
+    soft: '2px 0px 2px 0px rgba(0,0,0,0.15)',
+    medium: '8px 0px 4px 0px rgba(0,0,0,0.15)',
+    strong: '16px 0px 8px 0px rgba(0,0,0,0.20)'
+  },
+  gradients: {
+    scrim: 'linear-gradient(90deg, #919191 0%, #dadada 100%)',
+    light: 'linear-gradient(90deg, #ffffff 0%, #dadada 100%)',
+    dark: 'linear-gradient(90deg, #3e2574 0%, #4e2f92 100%)',
+    'dark-alt': 'linear-gradient(90deg, #7f5dcb 0%, #4e2f92 100%)'
   }
 };
