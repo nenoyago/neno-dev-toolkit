@@ -96,4 +96,5 @@ type Theme = {
   };
 };
 
+export type FullTheme = Theme;
 export type ThemeConfig = Partial<Theme>;

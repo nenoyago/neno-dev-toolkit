@@ -2,11 +2,17 @@
   "name": "@nenoyago/design-system",
   "version": "4.0.2",
   "scripts": {
-    "build:css": "tailwindcss -i ./src/styles/index.css -o ./src/styles/output.css --minify"
+    "build:css": "tailwindcss -i ./src/styles/tailwind.css -o ./src/styles/output.css --minify"
   },
   "exports": {
     "./styles": {
+      "default": "./src/styles/index.css"
+    },
+    "./styles/tailwind": {
       "default": "./src/styles/output.css"
+    },
+    "./styles/theme": {
+      "default": "./src/styles/theme.css"
     }
   },
   "peerDependencies": {
