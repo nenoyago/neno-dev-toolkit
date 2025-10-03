@@ -1,5 +1,11 @@
 # @nenoyago/configs-model
 
+## 3.0.2
+
+### Patch Changes
+
+- 4b8c11e: eslint config
+
 ## 3.0.1
 
 ### Patch Changes
