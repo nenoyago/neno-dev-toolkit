@@ -1,6 +1,6 @@
 {
   "name": "@nenoyago/common-utilities",
-  "version": "0.0.1",
+  "version": "1.0.0",
   "description": "Common TypeScript utilities with Angular support",
   "peerDependencies": {
     "@angular/common": "^19.2.0",

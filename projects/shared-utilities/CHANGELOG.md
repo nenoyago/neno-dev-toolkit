@@ -1,5 +1,16 @@
 # @nenoyago/shared-utilities
 
+## 2.0.0
+
+### Major Changes
+
+- 8a32277: common utilities
+
+### Patch Changes
+
+- Updated dependencies [8a32277]
+  - @nenoyago/common-utilities@1.0.0
+
 ## 1.0.3
 
 ### Patch Changes
