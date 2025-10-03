@@ -144,7 +144,7 @@ jobs:
           fi
 
   publish:
-    name: 📦 Publish to npm
+    name: 📦 Publish packages
     environment: Semver
     runs-on: ubuntu-latest
     needs: version-and-pr

@@ -1,5 +1,5 @@
 {
-  "name": "@nenoyago/common-utils",
+  "name": "@nenoyago/common-utilities",
   "version": "1.0.0",
   "private": true,
   "peerDependencies": {

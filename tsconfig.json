@@ -17,8 +17,8 @@
       "@shared-utilities/*": [
         "./projects/shared-utilities/*"
       ],
-      "@common-utils": [
-        "./dist/common-utils"
+      "@common-utilities": [
+        "./dist/common-utilities"
       ]
     },
     "outDir": "./dist/out-tsc",

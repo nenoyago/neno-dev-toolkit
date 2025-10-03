@@ -1,63 +1,53 @@
-# SharedUtilities
+# @nenoyago/shared-utilities
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.0.
+Utilitários Angular compartilhados incluindo diretivas, pipes e serviços para projetos Eleva.
 
-## Code scaffolding
+## Estrutura
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- `directives/` — Diretivas reutilizáveis
+- `pipes/` — Pipes customizados
+- `services/` — Serviços compartilhados
 
-```bash
-ng generate component component-name
-```
+## Recursos Disponíveis
 
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
+### Diretivas
+- `drag-and-drop-file-upload` — Upload de arquivos com drag & drop
+- `image-preload` — Pré-carregamento de imagens
+- `overlay` — Sistema de overlay
+- `route-transform` — Transformação de rotas
 
-```bash
-ng generate --help
-```
+### Pipes
+- `file-size` — Formatação de tamanho de arquivos
+- `obs-with-status` — Observables com status
+- `safe-transform` — Transformações seguras (sanitização)
 
-## Building
+### Serviços
+- `copy-clipboard` — Cópia para área de transferência
+- `platform` — Detecção de plataforma
+- `screen` — Detecção de tamanho de tela
+- `share` — Compartilhamento de conteúdo
 
-To build the library, run:
+## Uso
 
-```bash
-ng build shared-utilities
-```
-
-This command will compile your project, and the build artifacts will be placed in the `dist/` directory.
-
-### Publishing the Library
-
-Once the project is built, you can publish your library by following these steps:
-
-1. Navigate to the `dist` directory:
-   ```bash
-   cd dist/shared-utilities
-   ```
-
-2. Run the `npm publish` command to publish your library to the npm registry:
-   ```bash
-   npm publish
-   ```
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
+Instale no seu projeto:
 
 ```bash
-ng test
+pnpm add @nenoyago/shared-utilities
 ```
 
-## Running end-to-end tests
+Importe os recursos desejados no seu projeto Angular:
 
-For end-to-end (e2e) testing, run:
+```typescript
+// Diretivas
+import { DragAndDropFileUploadDirective } from '@nenoyago/shared-utilities/directives';
 
-```bash
-ng e2e
+// Pipes
+import { FileSizePipe } from '@nenoyago/shared-utilities/pipes';
+
+// Serviços
+import { CopyClipboardService } from '@nenoyago/shared-utilities/services';
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+---
 
-## Additional Resources
-
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Este pacote é publicado automaticamente pelo Changeset.

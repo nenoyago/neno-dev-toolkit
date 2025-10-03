@@ -1,5 +1,5 @@
 /*
- * Public API Surface of common-utils
+ * Public API Surface of common-utilities
  */
 
 export * from './lib/file';

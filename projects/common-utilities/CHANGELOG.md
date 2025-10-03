@@ -1,4 +1,4 @@
-# @nenoyago/common-utils
+# @nenoyago/common-utilities
 
 ## 1.0.0
 
