@@ -76,7 +76,7 @@
       "projectType": "library",
       "root": "projects/shared-utilities",
       "sourceRoot": "projects/shared-utilities/src",
-      "prefix": "lib",
+      "prefix": "liv",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
@@ -97,6 +97,39 @@
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
             "tsConfig": "projects/shared-utilities/tsconfig.spec.json",
+            "polyfills": [
+              "zone.js",
+              "zone.js/testing"
+            ]
+          }
+        }
+      }
+    },
+    "common-utilities": {
+      "projectType": "library",
+      "root": "projects/common-utilities",
+      "sourceRoot": "projects/common-utilities/src",
+      "prefix": "liv",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:ng-packagr",
+          "options": {
+            "project": "projects/common-utilities/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "projects/common-utilities/tsconfig.lib.prod.json"
+            },
+            "development": {
+              "tsConfig": "projects/common-utilities/tsconfig.lib.json"
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "tsConfig": "projects/common-utilities/tsconfig.spec.json",
             "polyfills": [
               "zone.js",
               "zone.js/testing"
