@@ -1,5 +1,11 @@
 # @nenoyago/design-system
 
+## 4.0.1
+
+### Patch Changes
+
+- 982b8d0: button secondary background
+
 ## 4.0.0
 
 ### Major Changes
