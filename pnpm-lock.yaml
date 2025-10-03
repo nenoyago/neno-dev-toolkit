@@ -241,9 +241,6 @@ importers:
       '@angular/core':
         specifier: ^19.2.0
         version: 19.2.15(rxjs@7.8.2)(zone.js@0.15.1)
-      '@nenoyago/shared-utilities':
-        specifier: workspace:*
-        version: link:../../dist/shared-utilities
       '@ng-icons/core':
         specifier: 31.4.0
         version: 31.4.0(@angular/common@19.2.15(@angular/core@19.2.15(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@19.2.15(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2)
@@ -269,6 +266,9 @@ importers:
       '@nenoyago/configs-model':
         specifier: workspace:*
         version: link:../configs-model
+      '@nenoyago/shared-utilities':
+        specifier: workspace:*
+        version: link:../../dist/shared-utilities
       '@tailwindcss/cli':
         specifier: ^4.1.14
         version: 4.1.14
@@ -282,13 +282,13 @@ importers:
       '@angular/core':
         specifier: ^19.2.0
         version: 19.2.15(rxjs@7.8.2)(zone.js@0.15.1)
-      '@nenoyago/common-utilities':
-        specifier: workspace:*
-        version: link:../common-utilities
       tslib:
         specifier: ^2.8.1
         version: 2.8.1
     devDependencies:
+      '@nenoyago/common-utilities':
+        specifier: workspace:*
+        version: link:../common-utilities
       '@nenoyago/configs-model':
         specifier: workspace:*
         version: link:../configs-model
