@@ -1,5 +1,11 @@
 # @nenoyago/design-system
 
+## 3.1.0
+
+### Minor Changes
+
+- 27e2106: change default library prefix
+
 ## 3.0.3
 
 ### Patch Changes
