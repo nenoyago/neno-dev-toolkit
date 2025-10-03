@@ -18,6 +18,7 @@
     "@tailwindcss/cli": "^4.1.14"
   },
   "dependencies": {
+    "@nenoyago/shared-utilities": "workspace:*",
     "@ng-icons/core": "31.4.0",
     "@ng-icons/heroicons": "31.4.0",
     "@ng-icons/lucide": "31.4.0",

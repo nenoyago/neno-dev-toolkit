@@ -26,7 +26,7 @@ export class ScreenService {
   }
 
   onResize$(
-    { breakpoint, debounce }: ResizeProps = {
+    { breakpoint = MOBILE_WIDTH_SIZE, debounce = 75 }: ResizeProps = {
       breakpoint: MOBILE_WIDTH_SIZE,
       debounce: 75
     }
