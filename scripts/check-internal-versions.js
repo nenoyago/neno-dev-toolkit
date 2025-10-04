@@ -3,7 +3,7 @@ const path = require('path');
 
 console.log('🔍 Checking internal package versions...\n');
 
-const packages = ['common-utilities', 'shared-utilities', 'design-system', 'configs-model'];
+const packages = ['common-utilities', 'shared-utilities', 'design-system', 'configs-model', 'http-connect'];
 const versions = {};
 
 packages.forEach(pkg => {
