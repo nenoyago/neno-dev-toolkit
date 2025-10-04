@@ -142,7 +142,7 @@
       "projectType": "library",
       "root": "projects/http-connect",
       "sourceRoot": "projects/http-connect/src",
-      "prefix": "lib",
+      "prefix": "liv",
       "architect": {
         "build": {
           "builder": "@angular-devkit/build-angular:ng-packagr",
