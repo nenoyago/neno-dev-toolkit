@@ -1,0 +1,19 @@
+{
+  "name": "@nenoyago/http-connect",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^19.2.0",
+    "@angular/core": "^19.2.0"
+  },
+  "devDependencies": {
+    "@nenoyago/configs-model": "workspace:*"
+  },
+  "dependencies": {
+    "tslib": "^2.8.1"
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/",
+    "directory": "../../dist/http-connect"
+  }
+}
