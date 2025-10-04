@@ -14,6 +14,13 @@
       "@nenoyago/configs-model": [
         "./projects/configs-model"
       ],
+      "@nenoyago/http-connect": [
+        "./projects/http-connect/src/public-api",
+        "./dist/http-connect"
+      ],
+      "@nenoyago/http-connect/*": [
+        "./projects/http-connect"
+      ],
       "@nenoyago/shared-utilities": [
         "./projects/shared-utilities"
       ],
@@ -26,7 +33,7 @@
       ],
       "@nenoyago/common-utilities/*": [
         "./projects/common-utilities/*"
-      ]
+      ],
     },
     "outDir": "./dist/out-tsc",
     "strict": true,
