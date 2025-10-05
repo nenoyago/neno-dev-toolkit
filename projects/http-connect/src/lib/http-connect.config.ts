@@ -21,6 +21,13 @@ export interface HttpConnectConfig {
    * @default 100
    */
   cacheMaxSize?: number;
+
+  /**
+   * Define a chave da propriedade a ser extraída do corpo da resposta (ex: 'data', 'result').
+   * Se for `false`, o desembrulhamento é desativado.
+   * @default 'data'
+   */
+  unwrapResponseKey?: string | false;
 }
 
 export const HTTP_CONNECT_CONFIG = new InjectionToken<HttpConnectConfig>(
