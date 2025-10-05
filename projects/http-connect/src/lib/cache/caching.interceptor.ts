@@ -6,22 +6,31 @@ import { of, tap } from 'rxjs';
 import { HttpCacheService } from './http-cache.service';
 import { CACHE_TTL_MS } from '../context/request-config.context';
 
+/**
+ * HTTP interceptor that provides caching functionality for GET requests.
+ * Caches responses based on the TTL specified in the request context.
+ * Only caches GET requests with a valid TTL.
+ *
+ * @example
+ * The interceptor is automatically registered when using `provideHttpConnect`.
+ * Cache behavior is controlled via the `cacheTtl` option in request options or global config.
+ */
 export const cachingInterceptor: HttpInterceptorFn = (req, next) => {
   const cacheService = inject(HttpCacheService);
   const ttl = req.context.get(CACHE_TTL_MS);
 
-  // Continua sem cache se não for GET ou se o TTL não for definido ou for 0
+  // Continue without caching if not a GET request or if TTL is not defined/zero
   if (req.method !== 'GET' || !ttl) {
     return next(req);
   }
 
-  // Tenta obter do cache
+  // Try to get from cache
   const cachedResponse = cacheService.get(req.urlWithParams);
   if (cachedResponse) {
     return of(cachedResponse.clone());
   }
 
-  // Se não estiver no cache, faz a requisição e armazena a resposta
+  // If not in cache, make the request and store the response
   return next(req).pipe(
     tap((event) => {
       if (event instanceof HttpResponse) {

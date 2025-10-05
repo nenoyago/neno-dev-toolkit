@@ -1,7 +1,12 @@
 import { HttpContextToken } from '@angular/common/http';
 
 /**
- * Token de contexto HTTP para especificar um tempo de vida de cache (TTL)
- * em milissegundos para uma requisição GET específica.
+ * HTTP context token for specifying a cache Time-To-Live (TTL) in milliseconds
+ * for a specific GET request.
+ *
+ * @example
+ * ```typescript
+ * const context = new HttpContext().set(CACHE_TTL_MS, 60000); // Cache for 1 minute
+ * ```
  */
 export const CACHE_TTL_MS = new HttpContextToken<number>(() => 0);
