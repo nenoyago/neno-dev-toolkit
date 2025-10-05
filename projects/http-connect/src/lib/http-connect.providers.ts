@@ -1,3 +1,4 @@
+import { HttpInterceptorFn } from '@angular/common/http';
 import { EnvironmentProviders, makeEnvironmentProviders } from '@angular/core';
 
 import { cachingInterceptor } from './cache/caching.interceptor';
@@ -31,6 +32,33 @@ export function provideHttpConnect(
       useValue: config
     }
   ]);
+}
+
+/**
+ * Returns the essential interceptors for HttpConnect functionality.
+ *
+ * This function provides a collection of interceptors that handle response unwrapping
+ * and caching. It should be used within `provideHttpClient(withInterceptors([...]))`.
+ *
+ * @returns An array of `HttpInterceptorFn` containing the response unwrapping and caching interceptors.
+ *
+ * @example
+ * ```typescript
+ * // In app.config.ts
+ * export const appConfig: ApplicationConfig = {
+ *   providers: [
+ *     provideHttpClient(
+ *       withInterceptors([
+ *         ...withHttpConnectInterceptors()
+ *       ])
+ *     ),
+ *     provideHttpConnect({ baseUrl: 'https://api.example.com' })
+ *   ]
+ * };
+ * ```
+ */
+export function withHttpConnectInterceptors(): HttpInterceptorFn[] {
+  return [responseUnwrappingInterceptor, cachingInterceptor];
 }
 
 /**
