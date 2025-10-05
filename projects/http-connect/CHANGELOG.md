@@ -1,5 +1,11 @@
 # @nenoyago/http-connect
 
+## 1.2.0
+
+### Minor Changes
+
+- 2272138: connect 5
+
 ## 1.1.2
 
 ### Patch Changes
