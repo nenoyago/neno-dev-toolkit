@@ -1,5 +1,11 @@
 # @nenoyago/http-connect
 
+## 1.1.2
+
+### Patch Changes
+
+- 240b87f: connect 4
+
 ## 1.1.1
 
 ### Patch Changes
