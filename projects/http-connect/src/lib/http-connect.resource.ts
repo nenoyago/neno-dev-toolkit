@@ -2,6 +2,7 @@ import { EnvironmentInjector, Injector, inject } from '@angular/core';
 
 import { HTTP_CONNECT_CONFIG, HttpConnectConfig } from './http-connect.config';
 import { HttpConnectService } from './http-connect.service';
+import { joinUrl } from './utils/url.utils';
 
 /**
  * Options for creating an HTTP resource instance.
@@ -55,8 +56,10 @@ export function createHttpResource(
   const { extend = false, cacheTtl } = options;
 
   const newConfig: HttpConnectConfig = {
-    baseUrl: extend && parentConfig ? `${parentConfig.baseUrl}/${path}` : path,
-    cacheTtl: cacheTtl ?? parentConfig?.cacheTtl
+    baseUrl:
+      extend && parentConfig ? joinUrl(parentConfig.baseUrl, path) : path,
+    cacheTtl: cacheTtl ?? parentConfig?.cacheTtl,
+    unwrapResponseKey: parentConfig?.unwrapResponseKey
   };
 
   return Injector.create({
