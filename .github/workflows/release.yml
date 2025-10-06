@@ -22,6 +22,8 @@ jobs:
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ubuntu-latest
     timeout-minutes: 30
+    outputs:
+      has_changes: ${{ steps.check.outputs.has_changes }}
     steps:
       - name: 📥 Checkout repository
         uses: actions/checkout@v4
@@ -57,6 +59,7 @@ jobs:
           if [ ! "$(ls -A .changeset/*.md 2>/dev/null | grep -v 'README.md' | grep -v 'config.json')" ]; then
             echo "✅ No changesets found"
             echo "CHANGES=false" >> $GITHUB_ENV
+            echo "has_changes=false" >> $GITHUB_OUTPUT
             exit 0
           fi
 
@@ -84,9 +87,11 @@ jobs:
           if [ $REAL_COUNT -eq 0 ]; then
             echo "✅ No real changesets to release (only empty changesets)"
             echo "CHANGES=false" >> $GITHUB_ENV
+            echo "has_changes=false" >> $GITHUB_OUTPUT
           else
             echo "🚀 Real changesets found, proceeding with release"
             echo "CHANGES=true" >> $GITHUB_ENV
+            echo "has_changes=true" >> $GITHUB_OUTPUT
           fi
 
       - name: 📝 Version packages
@@ -177,7 +182,10 @@ jobs:
     environment: Semver
     runs-on: ubuntu-latest
     needs: version-and-pr
-    if: github.ref == 'refs/heads/main' && !contains(github.event.head_commit.message, '[skip ci]')
+    if: |
+      github.ref == 'refs/heads/main' && 
+      !contains(github.event.head_commit.message, '[skip ci]') &&
+      needs.version-and-pr.outputs.has_changes == 'true'
     steps:
       - name: 📥 Checkout updated main
         uses: actions/checkout@v4
