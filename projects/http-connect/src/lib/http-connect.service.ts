@@ -11,6 +11,7 @@ import { Observable } from 'rxjs';
 import { CACHE_TTL_MS } from './context/request-config.context';
 import { UNWRAP_RESPONSE_KEY } from './context/unwrap-response.context';
 import { HTTP_CONNECT_CONFIG } from './http-connect.config';
+import { joinUrl } from './utils/url.utils';
 
 /**
  * Extended HTTP request options for the HttpConnect library.
@@ -125,10 +126,13 @@ export class HttpConnectService {
    */
   public get<T>(endpoint: string, options: RequestOptions = {}): Observable<T> {
     const [context, httpOptions] = this.setContext(options);
-    return this.httpClient.get<T>(`${this.baseUrl}${endpoint}`, {
-      ...httpOptions,
-      context
-    });
+    return this.httpClient.get<T>(
+      joinUrl(joinUrl(`${this.baseUrl}${endpoint}`)),
+      {
+        ...httpOptions,
+        context
+      }
+    );
   }
 
   /**
@@ -145,10 +149,14 @@ export class HttpConnectService {
     options: RequestOptions = {}
   ): Observable<T> {
     const [context, httpOptions] = this.setContext(options);
-    return this.httpClient.post<T>(`${this.baseUrl}${endpoint}`, body, {
-      ...httpOptions,
-      context
-    });
+    return this.httpClient.post<T>(
+      joinUrl(`${this.baseUrl}${endpoint}`),
+      body,
+      {
+        ...httpOptions,
+        context
+      }
+    );
   }
 
   /**
@@ -165,7 +173,7 @@ export class HttpConnectService {
     options: RequestOptions = {}
   ): Observable<T> {
     const [context, httpOptions] = this.setContext(options);
-    return this.httpClient.put<T>(`${this.baseUrl}${endpoint}`, body, {
+    return this.httpClient.put<T>(joinUrl(`${this.baseUrl}${endpoint}`), body, {
       ...httpOptions,
       context
     });
@@ -185,10 +193,14 @@ export class HttpConnectService {
     options: RequestOptions = {}
   ): Observable<T> {
     const [context, httpOptions] = this.setContext(options);
-    return this.httpClient.patch<T>(`${this.baseUrl}${endpoint}`, body, {
-      ...httpOptions,
-      context
-    });
+    return this.httpClient.patch<T>(
+      joinUrl(`${this.baseUrl}${endpoint}`),
+      body,
+      {
+        ...httpOptions,
+        context
+      }
+    );
   }
 
   /**
@@ -203,7 +215,7 @@ export class HttpConnectService {
     options: RequestOptions = {}
   ): Observable<T> {
     const [context, httpOptions] = this.setContext(options);
-    return this.httpClient.delete<T>(`${this.baseUrl}${endpoint}`, {
+    return this.httpClient.delete<T>(joinUrl(`${this.baseUrl}${endpoint}`), {
       ...httpOptions,
       context
     });
