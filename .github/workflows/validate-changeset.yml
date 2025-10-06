@@ -27,11 +27,14 @@ jobs:
       - name: 🛠️ Setup Node.js and pnpm
         uses: actions/setup-node@v4
         with:
-          node-version: '20' # Ajuste para a sua versão
+          node-version: 22.14
+          # 👈 O cache: 'pnpm' é o que garante que o 'pnpm' seja instalado e fique disponível no PATH!
           cache: 'pnpm'
+          pnpm-version: '10.6.5'
 
       - name: 📦 Install dependencies
-        run: pnpm install --frozen-lockfile # Use o comando de instalação do seu gerenciador (npm, yarn, pnpm)
+        # Este step deve vir logo após o setup-node
+        run: pnpm install --frozen-lockfile
 
       # ---
 
