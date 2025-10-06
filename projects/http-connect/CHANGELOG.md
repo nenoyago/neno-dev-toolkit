@@ -1,5 +1,11 @@
 # @nenoyago/http-connect
 
+## 1.3.1
+
+### Patch Changes
+
+- e35d21d: connect
+
 ## 1.3.0
 
 ### Minor Changes
