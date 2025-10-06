@@ -7,6 +7,9 @@ on:
 jobs:
   validate-changeset:
     runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
     steps:
       # 1️⃣ Checkout
       - name: 📥 Checkout repository
@@ -57,9 +60,11 @@ jobs:
             echo "skip_changeset=false" >> "$GITHUB_OUTPUT"
           fi
 
-      # 5️⃣ Validate presence of changeset (CORRIGIDO)
+      # 5️⃣ Validate presence of changeset
       - name: 📝 Validate changeset presence
         if: steps.branch.outputs.skip_changeset == 'false'
+        id: validate_changeset
+        continue-on-error: true
         run: |
           # Método mais robusto para contar changesets
           if [ -d ".changeset" ]; then
@@ -67,13 +72,141 @@ jobs:
             echo "Changesets encontrados: $COUNT"
             
             if [ "$COUNT" -eq 0 ]; then
-              echo "❌ Nenhum changeset encontrado. Adicione um arquivo .md em .changeset/"
-              echo "💡 Execute: pnpm changeset"
+              echo "changeset_found=false" >> "$GITHUB_OUTPUT"
+              echo "changeset_count=0" >> "$GITHUB_OUTPUT"
+              echo "❌ Nenhum changeset encontrado."
               exit 1
             else
+              echo "changeset_found=true" >> "$GITHUB_OUTPUT"
+              echo "changeset_count=$COUNT" >> "$GITHUB_OUTPUT"
               echo "✅ Changeset(s) válido(s) encontrado(s): $COUNT"
             fi
           else
+            echo "changeset_found=false" >> "$GITHUB_OUTPUT"
+            echo "changeset_count=0" >> "$GITHUB_OUTPUT"
             echo "❌ Diretório .changeset não encontrado"
             exit 1
           fi
+
+      # 6️⃣ Find existing bot comment
+      - name: 🔍 Find existing comment
+        if: always() && steps.branch.outputs.skip_changeset == 'false'
+        uses: actions/github-script@v8
+        id: find_comment
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const comments = await github.rest.issues.listComments({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+            });
+
+            const botComment = comments.data.find(comment => 
+              comment.body.includes('## ❌ Changeset Não Encontrado') ||
+              comment.body.includes('## ✅ Changeset Encontrado')
+            );
+
+            return botComment ? botComment.id : null;
+
+      # 7️⃣ Update comment if changeset is missing
+      - name: 💬 Update comment (Missing)
+        if: always() && steps.branch.outputs.skip_changeset == 'false' && steps.validate_changeset.outputs.changeset_found == 'false'
+        uses: actions/github-script@v8
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const commentBody = `## ❌ Changeset Não Encontrado
+
+            Esta PR precisa de um **changeset** para documentar as mudanças.
+
+            ### 📋 Como adicionar um changeset:
+
+            **Opção 1: Changeset com descrição (recomendado)**
+            \`\`\`bash
+            pnpm changeset:bump
+            \`\`\`
+            ↳ Abre um prompt interativo para selecionar pacotes, tipo de versão e descrever mudanças.
+
+            **Opção 2: Changeset vazio (apenas para mudanças triviais)**
+            \`\`\`bash
+            pnpm changeset:empty
+            \`\`\`
+            ↳ Cria um changeset vazio sem bump de versão.
+
+            ### 🔍 Passos do changeset interativo:
+            1. ✅ Selecionar os pacotes afetados
+            2. 📊 Escolher o tipo de versão:
+               - \`patch\` (0.0.x) - correções de bugs
+               - \`minor\` (0.x.0) - novas features compatíveis
+               - \`major\` (x.0.0) - breaking changes
+            3. 📝 Descrever as mudanças
+
+            ### 📚 Documentação
+            - [Changesets Guide](https://github.com/changesets/changesets/blob/main/docs/intro-to-using-changesets.md)
+
+            ---
+            *🤖 Última verificação: ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}*`;
+
+            const commentId = ${{ steps.find_comment.outputs.result }};
+
+            if (commentId) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: commentId,
+                body: commentBody
+              });
+            } else {
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: commentBody
+              });
+            }
+
+      # 8️⃣ Update comment if changeset is found
+      - name: ✅ Update comment (Success)
+        if: always() && steps.branch.outputs.skip_changeset == 'false' && steps.validate_changeset.outputs.changeset_found == 'true'
+        uses: actions/github-script@v8
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const count = ${{ steps.validate_changeset.outputs.changeset_count }};
+            const commentBody = `## ✅ Changeset Encontrado
+
+            Perfeito! Esta PR contém **${count} changeset(s)** válido(s). ✨
+
+            ### 📦 Próximos passos:
+            - Os changesets serão processados automaticamente após o merge
+            - As versões dos pacotes serão atualizadas conforme especificado
+            - Um changelog será gerado automaticamente
+
+            ---
+            *🤖 Última verificação: ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}*`;
+
+            const commentId = ${{ steps.find_comment.outputs.result }};
+
+            if (commentId) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: commentId,
+                body: commentBody
+              });
+            } else {
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: commentBody
+              });
+            }
+
+      # 9️⃣ Final validation status
+      - name: 🎯 Final validation
+        if: steps.branch.outputs.skip_changeset == 'false' && steps.validate_changeset.outputs.changeset_found == 'false'
+        run: |
+          echo "❌ Workflow falhou: changeset não encontrado"
+          exit 1

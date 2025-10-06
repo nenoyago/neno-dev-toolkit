@@ -19,6 +19,9 @@ interface CreateHttpResourceOptions {
    * Overrides the cache TTL for this resource instance.
    */
   cacheTtl?: number;
+
+  /** Key to unwrap from responses, if applicable. */
+  unwrapResponseKey?: string;
 }
 
 /**
@@ -53,13 +56,13 @@ export function createHttpResource(
   const parentInjector = inject(EnvironmentInjector);
   const parentConfig = inject(HTTP_CONNECT_CONFIG, { optional: true });
 
-  const { extend = false, cacheTtl } = options;
+  const { extend = false, cacheTtl, unwrapResponseKey } = options;
 
   const newConfig: HttpConnectConfig = {
     baseUrl:
       extend && parentConfig ? joinUrl(parentConfig.baseUrl, path) : path,
     cacheTtl: cacheTtl ?? parentConfig?.cacheTtl,
-    unwrapResponseKey: parentConfig?.unwrapResponseKey
+    unwrapResponseKey: unwrapResponseKey ?? parentConfig?.unwrapResponseKey
   };
 
   return Injector.create({
