@@ -92,6 +92,6 @@ export const DEFAULT_THEME: FullTheme = {
     scrim: 'linear-gradient(90deg, #919191 0%, #dadada 100%)',
     light: 'linear-gradient(90deg, #ffffff 0%, #dadada 100%)',
     dark: 'linear-gradient(90deg, #3e2574 0%, #4e2f92 100%)',
-    medium: 'linear-gradient(90deg, #7f5dcb 0%, #4e2f92 100%)'
+    medium: 'linear-gradient(90deg, #7f5dcb 0%, #4e2f92 99%)'
   }
 };
