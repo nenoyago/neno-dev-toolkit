@@ -1,5 +1,11 @@
 # @nenoyago/design-system
 
+## 4.1.2
+
+### Patch Changes
+
+- 3b7c7f6: update theme structure and remove unused properties
+
 ## 4.1.1
 
 ### Patch Changes
