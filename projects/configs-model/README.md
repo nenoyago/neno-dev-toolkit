@@ -1,9 +1,59 @@
-## Instalação das dependências recomendadas
+# @nenoyago/configs-model
 
-Para instalar todas as dependências necessárias para uso dos configs compartilhados em um projeto externo, execute o comando abaixo no seu projeto:
+Configurações compartilhadas para ESLint, Prettier, Commitlint e Changelog para garantir a consistência de código e padronização de commits em projetos do monorepo.
+
+## Sumário
+
+- [Instalação](#instalação)
+- [Uso](#uso)
+- [Dependências Recomendadas](#dependências-recomendadas)
+
+## Instalação
 
 ```bash
-pnpm add eslint@^9.36.0 prettier@^3.6.2 @typescript-eslint/parser@^8.45.0 @typescript-eslint/eslint-plugin@^8.45.0 typescript-eslint@^8.45.0 @angular-eslint/eslint-plugin@^19.8.0 @angular-eslint/eslint-plugin-template@^19.8.0 @angular-eslint/template-parser@^19.8.0 eslint-plugin-unused-imports@^4.2.0 eslint-plugin-prettier@^5.5.4 eslint-plugin-import@^2.32.0 eslint-config-prettier@^10.1.8 prettier-eslint@^16.4.2 -D
+pnpm add @nenoyago/configs-model -D
 ```
 
-Isso irá instalar automaticamente todas as devDependencies recomendadas com as versões corretas.
+## Uso
+
+Crie arquivos de configuração na raiz do seu projeto e importe as configurações deste pacote.
+
+### ESLint
+
+```javascript
+// eslint.config.cjs
+module.exports = require('@nenoyago/configs-model/eslint.config.cjs');
+```
+
+### Prettier
+
+```javascript
+// prettier.config.cjs
+module.exports = require('@nenoyago/configs-model/prettier.config.cjs');
+```
+
+### Commitlint
+
+```javascript
+// commitlint.config.cjs
+module.exports = require('@nenoyago/configs-model/commitlint.config.cjs');
+```
+
+### Changelog
+
+```javascript
+// changelog.config.cjs
+module.exports = require('@nenoyago/configs-model/changelog.config.cjs');
+```
+
+## Dependências Recomendadas
+
+Para que as configurações funcionem corretamente, instale as seguintes dependências de desenvolvimento no seu projeto:
+
+```bash
+pnpm add eslint prettier @typescript-eslint/parser @typescript-eslint/eslint-plugin @angular-eslint/eslint-plugin @angular-eslint/eslint-plugin-template @angular-eslint/template-parser eslint-plugin-unused-imports eslint-plugin-prettier eslint-plugin-import eslint-config-prettier -D
+```
+
+---
+
+Este pacote é publicado automaticamente via Changesets.

@@ -1,63 +1,82 @@
-# HttpConnect
+# @nenoyago/http-connect
 
-This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 19.2.0.
+Um cliente HTTP poderoso e flexível para Angular, construído sobre o `HttpClient`. Ele simplifica as interações com APIs através de recursos como criação de instâncias, gerenciamento de `baseUrl` e configuração simplificada.
 
-## Code scaffolding
+## Sumário
 
-Angular CLI includes powerful code scaffolding tools. To generate a new component, run:
+- [Instalação](#instalação)
+- [Configuração](#configuração)
+- [Uso Básico](#uso-básico)
+- [Recursos Avançados](#recursos-avançados)
 
-```bash
-ng generate component component-name
-```
-
-For a complete list of available schematics (such as `components`, `directives`, or `pipes`), run:
-
-```bash
-ng generate --help
-```
-
-## Building
-
-To build the library, run:
+## Instalação
 
 ```bash
-ng build http-connect
+pnpm add @nenoyago/http-connect
 ```
 
-This command will compile your project, and the build artifacts will be placed in the `dist/` directory.
+## Configuração
 
-### Publishing the Library
+Forneça o `HttpConnectService` na raiz da sua aplicação usando `provideHttpConnect`, especificando a `baseUrl` da sua API.
 
-Once the project is built, you can publish your library by following these steps:
+```typescript
+// app.config.ts
+import { ApplicationConfig } from '@angular/core';
+import { provideHttpClient } from '@angular/common/http';
+import { provideHttpConnect } from '@nenoyago/http-connect';
 
-1. Navigate to the `dist` directory:
-   ```bash
-   cd dist/http-connect
-   ```
-
-2. Run the `npm publish` command to publish your library to the npm registry:
-   ```bash
-   npm publish
-   ```
-
-## Running unit tests
-
-To execute unit tests with the [Karma](https://karma-runner.github.io) test runner, use the following command:
-
-```bash
-ng test
+export const appConfig: ApplicationConfig = {
+  providers: [
+    provideHttpClient(), // Necessário para o HttpClient do Angular
+    provideHttpConnect({
+      baseUrl: 'https://api.example.com'
+    })
+  ]
+};
 ```
 
-## Running end-to-end tests
+## Uso Básico
 
-For end-to-end (e2e) testing, run:
+Injete o `HttpConnectService` em seus componentes ou serviços para fazer requisições HTTP.
 
-```bash
-ng e2e
+```typescript
+// user.service.ts
+import { Injectable, inject } from '@angular/core';
+import { HttpConnectService } from '@nenoyago/http-connect';
+
+@Injectable({ providedIn: 'root' })
+export class UserService {
+  private http = inject(HttpConnectService);
+
+  getUsers() {
+    // Faz uma requisição GET para https://api.example.com/users
+    return this.http.get('/users');
+  }
+}
 ```
 
-Angular CLI does not come with an end-to-end testing framework by default. You can choose one that suits your needs.
+## Recursos Avançados
 
-## Additional Resources
+### Criando um Recurso (`createHttpResource`)
 
-For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+Use `createHttpResource` para criar uma instância de serviço para um endpoint específico, herdando ou não a `baseUrl` principal.
+
+```typescript
+import { createHttpResource } from '@nenoyago/http-connect';
+
+// Cria um recurso que estende a baseUrl principal.
+// Todas as chamadas serão relativas a 'https://api.example.com/posts'
+const postsApi = createHttpResource('posts', { extend: true });
+
+postsApi.get('/'); // GET -> https://api.example.com/posts/
+postsApi.get('/1'); // GET -> https://api.example.com/posts/1
+
+// Cria um recurso para uma API externa, ignorando a baseUrl principal.
+const externalApi = createHttpResource('https://api.external.com/v2');
+
+externalApi.get('/data'); // GET -> https://api.external.com/v2/data
+```
+
+---
+
+Este pacote é publicado automaticamente via Changesets.
