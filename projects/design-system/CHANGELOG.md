@@ -1,5 +1,11 @@
 # @nenoyago/design-system
 
+## 4.2.1
+
+### Patch Changes
+
+- 5338030: test
+
 ## 4.2.0
 
 ### Minor Changes
