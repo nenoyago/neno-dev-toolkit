@@ -1,131 +1,101 @@
-name: 📝 Validação de Changeset
+name: Validate Changeset
 
 on:
   pull_request:
-    # Dispara a cada abertura, nova submissão de código (synchronize) e reabertura
     types: [opened, synchronize, reopened]
 
 jobs:
   validate-changeset:
-    # ⚠️ IMPORTANTE: Use o token padrão GITHUB_TOKEN.
-    # Ele é mais seguro e não precisa ser configurado como um segredo customizado.
     runs-on: ubuntu-latest
     permissions:
       contents: read
-      pull-requests: write # Necessário para criar/atualizar comentários e rodar a checagem de status
-
+      pull-requests: write
     steps:
       # 1️⃣ Checkout
       - name: 📥 Checkout repository
         uses: actions/checkout@v4
-        with:
-          # A profundidade de fetch (fetch-depth: 0) é crucial para que o Changesets
-          # consiga comparar o branch da PR com o branch principal (target branch).
-          fetch-depth: 0
 
-      - name: 📦 Setup pnpm
-        uses: pnpm/action-setup@v4
-        with:
-          version: 10.6.5
-
-      # 2️⃣ Instalação (Exemplo: se você usa Node.js e pnpm)
-      - name: 🛠️ Setup Node.js and pnpm
-        uses: actions/setup-node@v4
-        with:
-          node-version: 22.14
-          # 👈 O cache: 'pnpm' é o que garante que o 'pnpm' seja instalado e fique disponível no PATH!
-          cache: 'pnpm'
-
-      - name: 📦 Install dependencies
-        # Este step deve vir logo após o setup-node
-        run: pnpm install --frozen-lockfile
-
-      # ---
-
-      # 3️⃣ Skip CI for auto-release commits (Melhorado com lógica de tag)
+      # 2️⃣ Skip CI for auto-release commits
       - name: 🚫 Skip auto-release commits
         id: skip_commit
         run: |
-          # A melhor prática é checar se o commit é de um bot (por exemplo, dependabot ou o bot de release)
-          # ou se contém a tag de ignorar CI.
+          # Pega o último commit como uma única linha
           LAST_COMMIT_MSG=$(git log -1 --pretty=%B | tr '\n' ' ')
+          echo "Last commit: $LAST_COMMIT_MSG"
 
-          # A verificação 'github.actor == "github-actions[bot]"' no 'if' do job/step
-          # é o método preferido. Moveremos esta lógica para um 'if' principal.
-
-          if echo "$LAST_COMMIT_MSG" | grep -q '\[skip ci\]' || echo "$LAST_COMMIT_MSG" | grep -q 'Version Packages'; then
-            echo "⚠️ Commit de auto-release detectado. Ignorando validação."
-            echo "skip_changeset_validation=true" >> "$GITHUB_OUTPUT"
+          if echo "$LAST_COMMIT_MSG" | grep -q '\[skip ci\]'; then
+            echo "⚠️ Commit de auto-release detectado, pulando validação..."
+            echo "skip_commit=true" >> "$GITHUB_OUTPUT"
           else
-            echo "skip_changeset_validation=false" >> "$GITHUB_OUTPUT"
+            echo "skip_commit=false" >> "$GITHUB_OUTPUT"
           fi
 
-      # 4️⃣ Skip Branch Validation (Simplificado)
-      # Não é necessário um step separado para sair do workflow, o próximo step cuida disso.
-      - name: 🏷️ Validate branch name & skip logic
+      # 3️⃣ Stop workflow if auto-release commit
+      - name: ⏹️ Stop if auto-release commit
+        if: steps.skip_commit.outputs.skip_commit == 'true'
+        run: |
+          echo "Auto-release commit detected. Skipping changeset validation."
+          exit 0
+
+      # 4️⃣ Validate branch name & skip logic
+      - name: 🏷️ Validate branch name
         id: branch
-        if: steps.skip_commit.outputs.skip_changeset_validation == 'false'
         run: |
           BRANCH="${{ github.head_ref }}"
 
-          # Prefixo para ramos que DEVEM ter changeset (feat, fix, hotfix, refactor)
-          CHANGESET_REQUIRED_PREFIXES="^(feat/|feature/|fix/|hotfix/|refactor/)"
-
-          # Prefixos que NÃO DEVEM ter changeset (chore, docs, release, test)
-          CHANGESET_SKIPPED_PREFIXES="^(chore/|docs/|test/|release/|beta/)"
-
-          # 1. Valida Nomenclatura (Regra mais estrita)
-          ALLOWED_PREFIXES="^($CHANGESET_REQUIRED_PREFIXES|$CHANGESET_SKIPPED_PREFIXES)"
+          # Prefixos permitidos para PR branches
+          ALLOWED_PREFIXES="^(feat/|feature/|fix/|hotfix/|docs/|test/|refactor/|chore/|release/|beta/)"
           if [[ ! "$BRANCH" =~ $ALLOWED_PREFIXES ]]; then
-            echo "🚨 Branch inválido: $BRANCH. Use um dos prefixes permitidos (feat/, fix/, chore/, etc.)."
-            exit 1 # Falha o workflow
-          fi
-
-          # 2. Define o status de skip
-          if [[ "$BRANCH" =~ $CHANGESET_SKIPPED_PREFIXES ]]; then
-            echo "⚠️ Branch de manutenção (chore/docs/release) detectada ($BRANCH); pulando checagem de changeset."
-            echo "changeset_validation_needed=false" >> "$GITHUB_OUTPUT"
+            echo "🚨 Branch inválido: $BRANCH. Use um dos prefixes permitidos."
+            exit 1
           else
-            echo "changeset_validation_needed=true" >> "$GITHUB_OUTPUT"
+            echo "✅ Branch válido: $BRANCH"
           fi
 
-      # ---
+          # Pular checagem de changeset para release/chore branches
+          if [[ "$BRANCH" =~ ^(release/|chore/) ]]; then
+            echo "⚠️ Branch release ou chore detectada ($BRANCH); pulando validação de changeset."
+            echo "skip_changeset=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "skip_changeset=false" >> "$GITHUB_OUTPUT"
+          fi
 
-      # 5️⃣ Validate presence of changeset using Changesets CLI (A melhor prática)
-      - name: 📝 Validate changeset presence (Changesets CLI)
+      # 5️⃣ Validate presence of changeset
+      - name: 📝 Validate changeset presence
+        if: steps.branch.outputs.skip_changeset == 'false'
         id: validate_changeset
-        # Só executa se a validação de commit e branch não mandarem pular
-        if: steps.skip_commit.outputs.skip_changeset_validation == 'false' && steps.branch.outputs.changeset_validation_needed == 'true'
-        # Usamos continue-on-error: true pois queremos que a falha da CLI seja tratada
-        # pelo 'if' do step 9, mas permitimos que os steps de comentários rodem.
         continue-on-error: true
         run: |
-          # A CLI Changesets retorna um código de erro se não encontrar changesets desde 'main'
-          pnpm changeset status --since=main
-          EXIT_CODE=$?
-
-          if [ $EXIT_CODE -eq 0 ]; then
-            echo "changeset_found=true" >> "$GITHUB_OUTPUT"
-            echo "✅ Changeset(s) válido(s) encontrado(s)."
+          # Método mais robusto para contar changesets
+          if [ -d ".changeset" ]; then
+            COUNT=$(find .changeset -maxdepth 1 -name "*.md" -not -name "README.md" | wc -l | tr -d ' ')
+            echo "Changesets encontrados: $COUNT"
+            
+            if [ "$COUNT" -eq 0 ]; then
+              echo "changeset_found=false" >> "$GITHUB_OUTPUT"
+              echo "changeset_count=0" >> "$GITHUB_OUTPUT"
+              echo "❌ Nenhum changeset encontrado."
+              exit 1
+            else
+              echo "changeset_found=true" >> "$GITHUB_OUTPUT"
+              echo "changeset_count=$COUNT" >> "$GITHUB_OUTPUT"
+              echo "✅ Changeset(s) válido(s) encontrado(s): $COUNT"
+            fi
           else
             echo "changeset_found=false" >> "$GITHUB_OUTPUT"
-            echo "❌ Nenhum changeset encontrado."
+            echo "changeset_count=0" >> "$GITHUB_OUTPUT"
+            echo "❌ Diretório .changeset não encontrado"
+            exit 1
           fi
-
-      # ---
-      # Steps de Comentários (Simplificados e unificados)
-      # ---
 
       # 6️⃣ Find existing bot comment
       - name: 🔍 Find existing comment
-        id: find_comment
-        # Usa o token GITHUB_TOKEN padrão
+        if: always() && steps.branch.outputs.skip_changeset == 'false'
         uses: actions/github-script@v8
-        if: always() && steps.skip_commit.outputs.skip_changeset_validation == 'false' && steps.branch.outputs.changeset_validation_needed == 'true'
+        id: find_comment
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }} # 👈 Use GITHUB_TOKEN
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const BOT_COMMENT_MARKER = '';
             const comments = await github.rest.issues.listComments({
               issue_number: context.issue.number,
               owner: context.repo.owner,
@@ -133,66 +103,54 @@ jobs:
             });
 
             const botComment = comments.data.find(comment => 
-              comment.body.includes(BOT_COMMENT_MARKER)
+              comment.body.includes('## ❌ Changeset Não Encontrado') ||
+              comment.body.includes('## ✅ Changeset Encontrado')
             );
 
-            core.setOutput('comment_id', botComment ? botComment.id : '');
+            return botComment ? botComment.id : null;
 
-      # 7️⃣ Update/Create comment (Unificado)
-      - name: 💬 Manage Validation Comment
+      # 7️⃣ Update comment if changeset is missing
+      - name: 💬 Update comment (Missing)
+        if: always() && steps.branch.outputs.skip_changeset == 'false' && steps.validate_changeset.outputs.changeset_found == 'false'
         uses: actions/github-script@v8
-        if: always() && steps.skip_commit.outputs.skip_changeset_validation == 'false' && steps.branch.outputs.changeset_validation_needed == 'true'
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }} # 👈 Use GITHUB_TOKEN
+          github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            const commentId = "${{ steps.find_comment.outputs.comment_id }}";
-            const changesetFound = "${{ steps.validate_changeset.outputs.changeset_found }}" === 'true';
-            const BOT_COMMENT_MARKER = '';
+            const commentBody = `## ❌ Changeset Não Encontrado
 
-            let commentBody;
+            Esta PR precisa de um **changeset** para documentar as mudanças.
 
-            if (changesetFound) {
-              // Comentário de Sucesso
-              commentBody = `## ✅ Changeset Encontrado
-              
-              Perfeito! Esta PR está pronta para o merge e contém o(s) changeset(s) necessário(s). ✨
+            ### 📋 Como adicionar um changeset:
 
-              ### 📦 Próximos passos:
-              - Os changesets serão processados automaticamente após o merge.
-              - As versões dos pacotes e o changelog serão atualizados.
-              
-              ---
-              ${BOT_COMMENT_MARKER}
-              *🤖 Última verificação: ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}*`;
+            **Opção 1: Changeset com descrição (recomendado)**
+            \`\`\`bash
+            pnpm changeset:bump
+            \`\`\`
+            ↳ Abre um prompt interativo para selecionar pacotes, tipo de versão e descrever mudanças.
 
-            } else {
-              // Comentário de Falha
-              commentBody = `## ❌ Changeset Não Encontrado
-              
-              Esta PR precisa de um **changeset** para documentar as mudanças e habilitar a próxima versão.
+            **Opção 2: Changeset vazio (apenas para mudanças triviais)**
+            \`\`\`bash
+            pnpm changeset:empty
+            \`\`\`
+            ↳ Cria um changeset vazio sem bump de versão.
 
-              ### 📋 Como adicionar um changeset (usando \`pnpm\`):
+            ### 🔍 Passos do changeset interativo:
+            1. ✅ Selecionar os pacotes afetados
+            2. 📊 Escolher o tipo de versão:
+               - \`patch\` (0.0.x) - correções de bugs
+               - \`minor\` (0.x.0) - novas features compatíveis
+               - \`major\` (x.0.0) - breaking changes
+            3. 📝 Descrever as mudanças
 
-              **Opção 1: Interativo (Recomendado)**
-              \`\`\`bash
-              pnpm changeset
-              \`\`\`
-              
-              **Opção 2: Vazio (Apenas para mudanças triviais)**
-              \`\`\`bash
-              pnpm changeset add --empty
-              \`\`\`
+            ### 📚 Documentação
+            - [Changesets Guide](https://github.com/changesets/changesets/blob/main/docs/intro-to-using-changesets.md)
 
-              ### 📚 Documentação
-              - [Guia Changesets (EN)](https://github.com/changesets/changesets/blob/main/docs/intro-to-using-changesets.md)
+            ---
+            *🤖 Última verificação: ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}*`;
 
-              ---
-              ${BOT_COMMENT_MARKER}
-              *🤖 Última verificação: ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}*`;
-            }
+            const commentId = ${{ steps.find_comment.outputs.result }};
 
             if (commentId) {
-              // Atualiza comentário existente
               await github.rest.issues.updateComment({
                 owner: context.repo.owner,
                 repo: context.repo.repo,
@@ -200,7 +158,6 @@ jobs:
                 body: commentBody
               });
             } else {
-              // Cria novo comentário
               await github.rest.issues.createComment({
                 issue_number: context.issue.number,
                 owner: context.repo.owner,
@@ -209,9 +166,47 @@ jobs:
               });
             }
 
-      # 8️⃣ Final validation status (Faz a PR falhar se não houver changeset)
-      - name: 🎯 Final validation Failure
-        if: steps.branch.outputs.changeset_validation_needed == 'true' && steps.validate_changeset.outputs.changeset_found == 'false'
+      # 8️⃣ Update comment if changeset is found
+      - name: ✅ Update comment (Success)
+        if: always() && steps.branch.outputs.skip_changeset == 'false' && steps.validate_changeset.outputs.changeset_found == 'true'
+        uses: actions/github-script@v8
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const count = ${{ steps.validate_changeset.outputs.changeset_count }};
+            const commentBody = `## ✅ Changeset Encontrado
+
+            Perfeito! Esta PR contém **${count} changeset(s)** válido(s). ✨
+
+            ### 📦 Próximos passos:
+            - Os changesets serão processados automaticamente após o merge
+            - As versões dos pacotes serão atualizadas conforme especificado
+            - Um changelog será gerado automaticamente
+
+            ---
+            *🤖 Última verificação: ${new Date().toLocaleString('pt-BR', { timeZone: 'America/Sao_Paulo' })}*`;
+
+            const commentId = ${{ steps.find_comment.outputs.result }};
+
+            if (commentId) {
+              await github.rest.issues.updateComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                comment_id: commentId,
+                body: commentBody
+              });
+            } else {
+              await github.rest.issues.createComment({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                body: commentBody
+              });
+            }
+
+      # 9️⃣ Final validation status
+      - name: 🎯 Final validation
+        if: steps.branch.outputs.skip_changeset == 'false' && steps.validate_changeset.outputs.changeset_found == 'false'
         run: |
-          echo "❌ O Workflow falhou: o changeset é necessário e não foi encontrado."
+          echo "❌ Workflow falhou: changeset não encontrado"
           exit 1
