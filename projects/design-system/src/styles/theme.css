@@ -37,18 +37,20 @@
   --color-neutral-800: var(--color-neutral-800);
   --color-neutral-900: var(--color-neutral-900);
   --color-neutral-950: var(--color-neutral-950);
-  --color-neutral-1000: var(--color-neutral-1000);
 
   /* Feedback */
   --color-feedback-success-light: var(--color-feedback-success-light);
   --color-feedback-success-medium: var(--color-feedback-success-medium);
   --color-feedback-success-dark: var(--color-feedback-success-dark);
+
   --color-feedback-warning-light: var(--color-feedback-warning-light);
   --color-feedback-warning-medium: var(--color-feedback-warning-medium);
   --color-feedback-warning-dark: var(--color-feedback-warning-dark);
+
   --color-feedback-error-light: var(--color-feedback-error-light);
   --color-feedback-error-medium: var(--color-feedback-error-medium);
   --color-feedback-error-dark: var(--color-feedback-error-dark);
+
   --color-feedback-info-light: var(--color-feedback-info-light);
   --color-feedback-info-medium: var(--color-feedback-info-medium);
   --color-feedback-info-dark: var(--color-feedback-info-dark);
@@ -61,11 +63,10 @@
   --color-text-link: var(--color-text-link);
 
   /* Backgrounds */
+  --color-background-white: var(--color-background-white);
   --color-background-dark: var(--color-background-dark);
   --color-background-medium: var(--color-background-medium);
   --color-background-light: var(--color-background-light);
-  --color-background-primary-white: var(--color-background-primary-white);
-  --color-background-primary-dark: var(--color-background-primary-dark);
 
   /* Opacities - Dark */
   --opacity-dark-50: var(--opacity-dark-50);
@@ -90,5 +91,5 @@
   --gradient-scrim: var(--gradient-scrim);
   --gradient-light: var(--gradient-light);
   --gradient-dark: var(--gradient-dark);
-  --gradient-dark-alt: var(--gradient-dark-alt);
+  --gradient-medium: var(--gradient-dark-alt);
 }
