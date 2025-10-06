@@ -126,10 +126,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
-          gh label create "automated" --color 6366F1 --description "Automated changes" --force || true
-          gh label create "release" --color 059669 --description "Package releases" --force || true
-          gh label create "chore" --color D97706 --description "Maintenance and cleanup tasks" --force || true
-          gh label create "ci" --color 2563EB --description "CI/CD changes" --force || true
+          gh label create "🤖 automated" --color A855F7 --description "Automated changes" --force || true
+          gh label create "🚀 release" --color 22C55E --description "Package releases" --force || true
+          gh label create "🧹 chore" --color F59E0B --description "Maintenance and cleanup tasks" --force || true
+          gh label create "👷 ci" --color 3B82F6 --description "CI/CD changes" --force || true
 
       - name: 📬 Create Release PR
         if: env.CHANGES == 'true'
@@ -157,7 +157,7 @@ jobs:
 
           ---
           *🤖 This is an automated pull request created by the release workflow*"
-            LABELS="automated,release,ci"
+            LABELS="🤖 automated,🚀 release,👷 ci"
           else
             TITLE="chore: 🤖 remove empty changesets"
             BODY="## 🧹 Changesets Cleanup
@@ -176,7 +176,7 @@ jobs:
 
           ---
           *🤖 This is an automated pull request created by the release workflow*"
-            LABELS="automated,chore,ci"
+            LABELS="🤖 automated,🧹 chore,👷 ci"
           fi
 
           PR_INFO=$(gh pr create \
