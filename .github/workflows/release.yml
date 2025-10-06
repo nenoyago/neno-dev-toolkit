@@ -270,14 +270,13 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           echo "//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
-
-          # Verifica se há pacotes para publicar
-          if pnpm changeset publish 2>&1 | grep -q "No packages published"; then
-            echo "ℹ️ No packages to publish"
-          else
-            echo "✅ Packages published successfully"
-          fi
+          pnpm changeset publish
         continue-on-error: false
 
       - name: 🎉 Release summary
-        run: echo "✅ Packages published successfully!"
+        run: |
+          echo ""
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo "🎉 Release workflow completed successfully!"
+          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo ""
