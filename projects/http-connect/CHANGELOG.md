@@ -1,5 +1,11 @@
 # @nenoyago/http-connect
 
+## 1.3.0
+
+### Minor Changes
+
+- 8dd1b89: add joinUrl utility function and update HTTP methods to use it
+
 ## 1.2.0
 
 ### Minor Changes
