@@ -40,7 +40,6 @@ export const DEFAULT_THEME: FullTheme = {
     'neutral-800': '#44404F',
     'neutral-900': '#2D2A34',
     'neutral-950': '#141217',
-    'neutral-1000': '#000000',
 
     // Feedback
     'feedback-success-light': '#93B2B7',
@@ -64,11 +63,10 @@ export const DEFAULT_THEME: FullTheme = {
     'text-link': '#4F89C8', // Main Secondary 500
 
     // Backgrounds
-    'background-dark': '#141217', // Neutral 950
-    'background-medium': '#251645', // Main Primary 800
-    'background-light': '#DFDDE4', // Neutral 200
-    'background-primary-white': '#FAF9FA', // Neutral 100
-    'background-primary-dark': '#DDD7EA' // Main Primary 100
+    'background-white': '#FAF9FA',
+    'background-dark': '#141217',
+    'background-medium': '#251645',
+    'background-light': '#DFDDE4'
   },
   opacities: {
     // Dark
@@ -94,6 +92,6 @@ export const DEFAULT_THEME: FullTheme = {
     scrim: 'linear-gradient(90deg, #919191 0%, #dadada 100%)',
     light: 'linear-gradient(90deg, #ffffff 0%, #dadada 100%)',
     dark: 'linear-gradient(90deg, #3e2574 0%, #4e2f92 100%)',
-    'dark-alt': 'linear-gradient(90deg, #7f5dcb 0%, #4e2f92 100%)'
+    medium: 'linear-gradient(90deg, #7f5dcb 0%, #4e2f92 100%)'
   }
 };

@@ -38,18 +38,20 @@ type Theme = {
     'neutral-800': string;
     'neutral-900': string;
     'neutral-950': string;
-    'neutral-1000': string;
 
     // Feedback
     'feedback-success-light': string;
     'feedback-success-medium': string;
     'feedback-success-dark': string;
+
     'feedback-warning-light': string;
     'feedback-warning-medium': string;
     'feedback-warning-dark': string;
+
     'feedback-error-light': string;
     'feedback-error-medium': string;
     'feedback-error-dark': string;
+
     'feedback-info-light': string;
     'feedback-info-medium': string;
     'feedback-info-dark': string;
@@ -62,11 +64,10 @@ type Theme = {
     'text-link': string;
 
     // Backgrounds
+    'background-white': string;
     'background-dark': string;
     'background-medium': string;
     'background-light': string;
-    'background-primary-white': string;
-    'background-primary-dark': string;
   };
   opacities: {
     // Dark
@@ -92,7 +93,7 @@ type Theme = {
     scrim: string;
     light: string;
     dark: string;
-    'dark-alt': string;
+    medium: string;
   };
 };
 
