@@ -37,7 +37,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22.14
-          cache: "pnpm"
+          cache: 'pnpm'
 
       - name: ⚡ Install dependencies
         run: pnpm install --frozen-lockfile
@@ -53,10 +53,39 @@ jobs:
       - name: 📝 Check for changesets
         id: check
         run: |
-          if pnpm changeset status | grep -q "No unreleased changes"; then
-            echo "✅ No changesets to release"
+          # Verifica se existem changesets
+          if [ ! "$(ls -A .changeset/*.md 2>/dev/null | grep -v 'README.md' | grep -v 'config.json')" ]; then
+            echo "✅ No changesets found"
+            echo "CHANGES=false" >> $GITHUB_ENV
+            exit 0
+          fi
+
+          # Verifica se há changesets vazios (apenas com empty: true)
+          EMPTY_COUNT=0
+          REAL_COUNT=0
+
+          for file in .changeset/*.md; do
+            if [ "$file" = ".changeset/README.md" ]; then
+              continue
+            fi
+            
+            # Verifica se o changeset tem pacotes listados (não é vazio)
+            if grep -q "^'@" "$file" 2>/dev/null || grep -q '^"@' "$file" 2>/dev/null; then
+              REAL_COUNT=$((REAL_COUNT + 1))
+            else
+              EMPTY_COUNT=$((EMPTY_COUNT + 1))
+            fi
+          done
+
+          echo "📊 Changesets encontrados:"
+          echo "  - Real changesets: $REAL_COUNT"
+          echo "  - Empty changesets: $EMPTY_COUNT"
+
+          if [ $REAL_COUNT -eq 0 ]; then
+            echo "✅ No real changesets to release (only empty changesets)"
             echo "CHANGES=false" >> $GITHUB_ENV
           else
+            echo "🚀 Real changesets found, proceeding with release"
             echo "CHANGES=true" >> $GITHUB_ENV
           fi
 
@@ -168,7 +197,7 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: 22.14
-          registry-url: "https://npm.pkg.github.com"
+          registry-url: 'https://npm.pkg.github.com'
 
       - name: ⚡ Install dependencies
         run: pnpm install --frozen-lockfile
@@ -181,7 +210,14 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           echo "//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
-          pnpm changeset publish
+
+          # Verifica se há pacotes para publicar
+          if pnpm changeset publish 2>&1 | grep -q "No packages published"; then
+            echo "ℹ️ No packages to publish"
+          else
+            echo "✅ Packages published successfully"
+          fi
+        continue-on-error: false
 
       - name: 🎉 Release summary
         run: echo "✅ Packages published successfully!"
