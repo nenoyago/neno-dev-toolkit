@@ -1,5 +1,11 @@
 # @nenoyago/design-system
 
+## 4.2.0
+
+### Minor Changes
+
+- 3bea169: button form id
+
 ## 4.1.2
 
 ### Patch Changes
