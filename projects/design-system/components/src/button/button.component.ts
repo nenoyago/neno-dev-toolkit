@@ -14,6 +14,8 @@ export class ButtonComponent {
   readonly disabled = input(false, {
     transform: booleanAttribute
   });
-  readonly formId = input('');
+  readonly formId = input('', {
+    transform: (value) => (value === null ? '' : value)
+  });
   readonly htmlType = input<'button' | 'submit' | 'reset'>('button');
 }
