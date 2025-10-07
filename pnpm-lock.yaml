@@ -72,6 +72,9 @@ importers:
       '@changesets/cli':
         specifier: ^2.29.7
         version: 2.29.7(@types/node@24.6.2)
+      '@chromatic-com/storybook':
+        specifier: ^4.1.1
+        version: 4.1.1(storybook@9.1.10(@testing-library/dom@10.4.1)(prettier@3.6.2)(vite@6.3.6(@types/node@24.6.2)(jiti@2.6.1)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.39.0)(yaml@2.8.1)))
       '@commitlint/cli':
         specifier: 17.7.1
         version: 17.7.1
@@ -87,9 +90,6 @@ importers:
       '@storybook/addon-docs':
         specifier: ^9.1.10
         version: 9.1.10(@types/react@19.2.0)(storybook@9.1.10(@testing-library/dom@10.4.1)(prettier@3.6.2)(vite@6.3.6(@types/node@24.6.2)(jiti@2.6.1)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.39.0)(yaml@2.8.1)))
-      '@storybook/addon-styling-webpack':
-        specifier: ^2.0.0
-        version: 2.0.0(storybook@9.1.10(@testing-library/dom@10.4.1)(prettier@3.6.2)(vite@6.3.6(@types/node@24.6.2)(jiti@2.6.1)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.39.0)(yaml@2.8.1)))(webpack@5.102.0(esbuild@0.25.10))
       '@storybook/angular':
         specifier: ^9.1.10
         version: 9.1.10(8e85b82b42a0d0d3d03f503f1cd50eee)
@@ -108,6 +108,9 @@ importers:
       '@typescript-eslint/parser':
         specifier: ^8.46.0
         version: 8.46.0(eslint@9.36.0(jiti@2.6.1))(typescript@5.7.3)
+      chromatic:
+        specifier: ^13.3.0
+        version: 13.3.0
       commitizen:
         specifier: ^4.3.1
         version: 4.3.1(@types/node@24.6.2)(typescript@5.7.3)
@@ -1172,6 +1175,12 @@ packages:
   '@changesets/write@0.4.0':
     resolution: {integrity: sha512-CdTLvIOPiCNuH71pyDu3rA+Q0n65cmAbXnwWH84rKGiFumFzkmHNT8KHTMEchcxN+Kl8I54xGUhJ7l3E7X396Q==}
 
+  '@chromatic-com/storybook@4.1.1':
+    resolution: {integrity: sha512-+Ib4cHtEjKl/Do+4LyU0U1FhLPbIU2Q/zgbOKHBCV+dTC4T3/vGzPqiGsgkdnZyTsK/zXg96LMPSPC4jjOiapg==}
+    engines: {node: '>=20.0.0', yarn: '>=1.22.18'}
+    peerDependencies:
+      storybook: ^0.0.0-0 || ^9.0.0 || ^9.1.0-0 || ^9.2.0-0 || ^10.0.0-0
+
   '@colors/colors@1.5.0':
     resolution: {integrity: sha512-ooWCrlZP11i8GImSjTHYHLkvFDP48nS4+204nGb1RiX/WXYHmJA2III9/e2DWVabCESdW7hBAEzHRqUn9OUVvQ==}
     engines: {node: '>=0.1.90'}
@@ -2088,6 +2097,9 @@ packages:
     resolution: {integrity: sha512-xJIPs+bYuc9ASBl+cvGsKbGrJmS6fAKaSZCnT0lhahT5rhA2VVy9/EcIgd2JhtEuFOJNx7UHNn/qiTPTY4nrQw==}
     engines: {node: '>= 10'}
 
+  '@neoconfetti/react@1.0.0':
+    resolution: {integrity: sha512-klcSooChXXOzIm+SE5IISIAn3bYzYfPjbX7D7HoqZL84oAfgREeSg5vSIaSFH+DaGzzvImTyWe1OyrJ67vik4A==}
+
   '@ng-icons/core@31.4.0':
     resolution: {integrity: sha512-JfLiJGDX/ihWmawcnLGXtwyCqMi2qXz7gMJyXXWdUN5JA18EAnt3JnyuxDAGkoU/u7wRlcOI7irlXHU4spAKOg==}
     peerDependencies:
@@ -2530,12 +2542,6 @@ packages:
     resolution: {integrity: sha512-LYK3oXy/0PgY39FhkYVd9D0bzatLGTsMhaPPwSjBOmZgK0f0yBLqaePy7urUFeHYm/rjwAaRmDJNBqUnGTVoig==}
     peerDependencies:
       storybook: ^9.1.10
-
-  '@storybook/addon-styling-webpack@2.0.0':
-    resolution: {integrity: sha512-N8jWhWnk3/nbL4P9zl0OEV/47P0Cxn/kPzSHjdAClyDYnqj9jI6upeLsraZgIV9Ro3QSeqeIloeXb1zMasWpOw==}
-    peerDependencies:
-      storybook: ^9.0.0
-      webpack: ^5.0.0
 
   '@storybook/angular@9.1.10':
     resolution: {integrity: sha512-VcDsvBazgyAP7QZySe5inlDAghz6fdCIc7AruXdgv/WzjMnhiTqeryCMRyZt4azD9fpjZf2L6CofbgWlRqFTjg==}
@@ -3539,6 +3545,30 @@ packages:
     resolution: {integrity: sha512-+IxzY9BZOQd/XuYPRmrvEVjF/nqj5kgT4kEq7VofrDoM1MxoRjEWkrCC3EtLi59TVawxTAn+orJwFQcrqEN1+g==}
     engines: {node: '>=18'}
 
+  chromatic@12.2.0:
+    resolution: {integrity: sha512-GswmBW9ZptAoTns1BMyjbm55Z7EsIJnUvYKdQqXIBZIKbGErmpA+p4c0BYA+nzw5B0M+rb3Iqp1IaH8TFwIQew==}
+    hasBin: true
+    peerDependencies:
+      '@chromatic-com/cypress': ^0.*.* || ^1.0.0
+      '@chromatic-com/playwright': ^0.*.* || ^1.0.0
+    peerDependenciesMeta:
+      '@chromatic-com/cypress':
+        optional: true
+      '@chromatic-com/playwright':
+        optional: true
+
+  chromatic@13.3.0:
+    resolution: {integrity: sha512-OtXVKSFqGS1x6E6xYzmYX2iImSknbvo5CfTxP3ztFvXQhIAwhJzJuA3XpnIewER9gtWUNnV2DDi8/f9JyZJSfg==}
+    hasBin: true
+    peerDependencies:
+      '@chromatic-com/cypress': ^0.*.* || ^1.0.0
+      '@chromatic-com/playwright': ^0.*.* || ^1.0.0
+    peerDependenciesMeta:
+      '@chromatic-com/cypress':
+        optional: true
+      '@chromatic-com/playwright':
+        optional: true
+
   chrome-trace-event@1.0.4:
     resolution: {integrity: sha512-rNjApaLzuwaOTjCiT8lSDdGN1APCiqkChLMJxJPWLunPAt5fy8xgU9/jNOchV84wfIxrA0lRQB7oCT8jrn/wrQ==}
     engines: {node: '>=6.0'}
@@ -4472,6 +4502,10 @@ packages:
   file-entry-cache@8.0.0:
     resolution: {integrity: sha512-XXTUwCvisa5oacNGRP9SfNtYBNAMi+RPwBFmblZEF7N7swHYQS6/Zfk7SRwx4D5j3CH211YNRco1DEMNVfZCnQ==}
     engines: {node: '>=16.0.0'}
+
+  filesize@10.1.6:
+    resolution: {integrity: sha512-sJslQKU2uM33qH5nqewAwVB2QgR6w1aMNsYUp3aN5rMRyXEwJGmZvaWzeJFNTOXWlHQyBFCWrdj3fV/fsTOX8w==}
+    engines: {node: '>= 10.4.0'}
 
   fill-range@7.1.1:
     resolution: {integrity: sha512-YsGpe3WHLK8ZYi4tWDg2Jy3ebRz2rXowDxnld4bkQB00cc/1Zw9AWnC0i9ztDJitivtQvaI9KaLyKrc+hBW0yg==}
@@ -9556,6 +9590,18 @@ snapshots:
       human-id: 4.1.1
       prettier: 2.8.8
 
+  '@chromatic-com/storybook@4.1.1(storybook@9.1.10(@testing-library/dom@10.4.1)(prettier@3.6.2)(vite@6.3.6(@types/node@24.6.2)(jiti@2.6.1)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.39.0)(yaml@2.8.1)))':
+    dependencies:
+      '@neoconfetti/react': 1.0.0
+      chromatic: 12.2.0
+      filesize: 10.1.6
+      jsonfile: 6.2.0
+      storybook: 9.1.10(@testing-library/dom@10.4.1)(prettier@3.6.2)(vite@6.3.6(@types/node@24.6.2)(jiti@2.6.1)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.39.0)(yaml@2.8.1))
+      strip-ansi: 7.1.2
+    transitivePeerDependencies:
+      - '@chromatic-com/cypress'
+      - '@chromatic-com/playwright'
+
   '@colors/colors@1.5.0': {}
 
   '@commitlint/cli@17.7.1':
@@ -10413,6 +10459,8 @@ snapshots:
       '@napi-rs/nice-win32-x64-msvc': 1.1.1
     optional: true
 
+  '@neoconfetti/react@1.0.0': {}
+
   '@ng-icons/core@31.4.0(@angular/common@19.2.15(@angular/core@19.2.15(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2))(@angular/core@19.2.15(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2)':
     dependencies:
       '@angular/common': 19.2.15(@angular/core@19.2.15(rxjs@7.8.2)(zone.js@0.15.1))(rxjs@7.8.2)
@@ -10779,11 +10827,6 @@ snapshots:
       ts-dedent: 2.2.0
     transitivePeerDependencies:
       - '@types/react'
-
-  '@storybook/addon-styling-webpack@2.0.0(storybook@9.1.10(@testing-library/dom@10.4.1)(prettier@3.6.2)(vite@6.3.6(@types/node@24.6.2)(jiti@2.6.1)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.39.0)(yaml@2.8.1)))(webpack@5.102.0(esbuild@0.25.10))':
-    dependencies:
-      storybook: 9.1.10(@testing-library/dom@10.4.1)(prettier@3.6.2)(vite@6.3.6(@types/node@24.6.2)(jiti@2.6.1)(less@4.2.2)(lightningcss@1.30.1)(sass@1.85.0)(terser@5.39.0)(yaml@2.8.1))
-      webpack: 5.102.0(esbuild@0.25.10)
 
   '@storybook/angular@9.1.10(8e85b82b42a0d0d3d03f503f1cd50eee)':
     dependencies:
@@ -12002,6 +12045,10 @@ snapshots:
 
   chownr@3.0.0: {}
 
+  chromatic@12.2.0: {}
+
+  chromatic@13.3.0: {}
+
   chrome-trace-event@1.0.4: {}
 
   ci-info@3.9.0: {}
@@ -13189,6 +13236,8 @@ snapshots:
   file-entry-cache@8.0.0:
     dependencies:
       flat-cache: 4.0.1
+
+  filesize@10.1.6: {}
 
   fill-range@7.1.1:
     dependencies:

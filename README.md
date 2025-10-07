@@ -7,6 +7,8 @@
 ![pnpm](https://img.shields.io/badge/pnpm-10.6.x-orange.svg)
 ![Commitizen](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg)
 
+[![Storybook](https://img.shields.io/badge/Storybook-View_Components-FF4785?style=for-the-badge&logo=storybook&logoColor=white)](https://main--68e56bc427fd47846235f3f9.chromatic.com/)
+
 </div>
 
 ---

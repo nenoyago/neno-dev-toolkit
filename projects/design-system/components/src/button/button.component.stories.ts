@@ -17,7 +17,11 @@ const meta: Meta<ButtonStory> = {
       control: { type: 'select' },
       options: ['primary', 'secondary']
     },
-    disabled: { control: 'boolean' }
+    disabled: { control: 'boolean' },
+    htmlType: {
+      control: { type: 'select' },
+      options: ['button', 'submit', 'reset']
+    }
   },
   args: {
     variant: 'primary',
@@ -35,6 +39,7 @@ export const Primary: StoryObj<ButtonStory> = {
   args: {
     variant: 'primary',
     disabled: false,
+    htmlType: 'button',
     content: 'Primary Button'
   }
 };
@@ -43,6 +48,7 @@ export const Secondary: StoryObj<ButtonStory> = {
   args: {
     variant: 'secondary',
     disabled: false,
+    htmlType: 'button',
     content: 'Secondary Button'
   }
 };
@@ -51,6 +57,7 @@ export const Disabled: StoryObj<ButtonStory> = {
   args: {
     variant: 'primary',
     disabled: true,
+    htmlType: 'button',
     content: 'Disabled Button'
   }
 };
