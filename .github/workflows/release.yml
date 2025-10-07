@@ -272,47 +272,48 @@ jobs:
       - name: 🛠️ Build all packages
         run: pnpm run build:packages
 
-      - name: 📸 Capture published version from NPM
-        id: version_before
-        run: |
-          # Consulta a versão publicada no NPM registry
-          PUBLISHED_VERSION=$(npm view @nenoyago/design-system version 2>/dev/null || echo "none")
-          LOCAL_VERSION=$(node -p "require('./projects/design-system/package.json').version")
-          
-          echo "published=$PUBLISHED_VERSION" >> $GITHUB_OUTPUT
-          echo "local=$LOCAL_VERSION" >> $GITHUB_OUTPUT
-          echo "📦 Design System versions:"
-          echo "  📚 Published on NPM: $PUBLISHED_VERSION"
-          echo "  💻 Local version: $LOCAL_VERSION"
-
-      - name: 📝 Publish packages
+      - name: � Publish packages
         id: publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           echo "//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
+
+          # Captura a versão publicada ANTES (autenticado)
+          PUBLISHED_VERSION=$(npm view @nenoyago/design-system version 2>/dev/null || echo "none")
+          LOCAL_VERSION=$(node -p "require('./projects/design-system/package.json').version")
+
+          echo "published_before=$PUBLISHED_VERSION" >> $GITHUB_OUTPUT
+          echo "local_version=$LOCAL_VERSION" >> $GITHUB_OUTPUT
+
+          echo "📦 Design System versions:"
+          echo "  📚 Published on NPM: $PUBLISHED_VERSION"
+          echo "  💻 Local version: $LOCAL_VERSION"
+
+          # Publica os pacotes
           pnpm changeset publish
         continue-on-error: false
 
       - name: 🔍 Check if design-system was published
         id: check_publish
         run: |
-          PUBLISHED_BEFORE="${{ steps.version_before.outputs.published }}"
-          LOCAL_VERSION="${{ steps.version_before.outputs.local }}"
-          
+          PUBLISHED_BEFORE="${{ steps.publish.outputs.published_before }}"
+          LOCAL_VERSION="${{ steps.publish.outputs.local_version }}"
+
           echo "📊 Design System publication check:"
           echo "  📚 Was on NPM: $PUBLISHED_BEFORE"
           echo "  💻 Local version: $LOCAL_VERSION"
-          
+
           # Se a versão local é diferente da publicada, significa que foi publicado agora
-          if [ "$PUBLISHED_BEFORE" != "$LOCAL_VERSION" ]; then
+          if [ "$PUBLISHED_BEFORE" != "$LOCAL_VERSION" ] && [ "$PUBLISHED_BEFORE" != "none" ]; then
             echo "design_system_published=true" >> $GITHUB_OUTPUT
             echo "✅ Design System was published: $PUBLISHED_BEFORE → $LOCAL_VERSION"
+          elif [ "$PUBLISHED_BEFORE" = "none" ]; then
+            echo "design_system_published=true" >> $GITHUB_OUTPUT
+            echo "✅ Design System was published for the first time: $LOCAL_VERSION"
           else
             echo "design_system_published=false" >> $GITHUB_OUTPUT
             echo "⏭️  Design System version unchanged: $LOCAL_VERSION"
-          fi
-            echo "⏭️  Design System version unchanged: $VERSION_AFTER"
           fi
 
       - name: 🎉 Publish summary
