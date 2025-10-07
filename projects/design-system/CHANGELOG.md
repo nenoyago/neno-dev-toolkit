@@ -1,5 +1,11 @@
 # @nenoyago/design-system
 
+## 4.4.1
+
+### Patch Changes
+
+- b7f3c08: default button html
+
 ## 4.4.0
 
 ### Minor Changes
