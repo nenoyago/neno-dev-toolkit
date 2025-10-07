@@ -1,5 +1,11 @@
 # @nenoyago/design-system
 
+## 4.4.0
+
+### Minor Changes
+
+- 7add1b7: change default htmlType on button
+
 ## 4.3.2
 
 ### Patch Changes
