@@ -266,12 +266,34 @@ jobs:
         run: pnpm run build:packages
 
       - name: 📝 Publish packages
+        id: publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           echo "//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
-          pnpm changeset publish
+
+          # Captura output do changeset publish para verificar quais pacotes foram publicados
+          OUTPUT=$(pnpm changeset publish 2>&1 | tee /dev/stderr)
+
+          # Verifica se o design-system foi publicado
+          if echo "$OUTPUT" | grep -q "@nenoyago/design-system"; then
+            echo "design_system_published=true" >> $GITHUB_OUTPUT
+            echo "✅ Design System was published"
+          else
+            echo "design_system_published=false" >> $GITHUB_OUTPUT
+            echo "⏭️  Design System was not published"
+          fi
         continue-on-error: false
+
+      - name: 🎨 Deploy Storybook to Chromatic
+        if: steps.publish.outputs.design_system_published == 'true'
+        uses: chromaui/action@latest
+        with:
+          projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
+          buildScriptName: 'build:storybook'
+          exitZeroOnChanges: true
+          autoAcceptChanges: true
+          onlyChanged: true
 
       - name: 🎉 Release summary
         run: |
@@ -279,4 +301,9 @@ jobs:
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           echo "🎉 Release workflow completed successfully!"
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+          echo ""
+
+          if [ "${{ steps.publish.outputs.design_system_published }}" = "true" ]; then
+            echo "📚 Storybook deployed to Chromatic"
+          fi
           echo ""
