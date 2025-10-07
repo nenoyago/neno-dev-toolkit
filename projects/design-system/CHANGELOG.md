@@ -1,5 +1,11 @@
 # @nenoyago/design-system
 
+## 4.3.0
+
+### Minor Changes
+
+- bfb82d7: adjust ds
+
 ## 4.2.1
 
 ### Patch Changes
