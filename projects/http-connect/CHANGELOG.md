@@ -1,5 +1,11 @@
 # @nenoyago/http-connect
 
+## 1.3.4
+
+### Patch Changes
+
+- c977a49: connect
+
 ## 1.3.3
 
 ### Patch Changes
