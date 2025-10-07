@@ -72,7 +72,7 @@
                 }
             ],
             "indexSignatures": [],
-            "kind": 171,
+            "kind": 172,
             "methods": [],
             "extends": []
         }
@@ -85,7 +85,7 @@
     "components": [
         {
             "name": "ButtonComponent",
-            "id": "component-ButtonComponent-1fac4397a4fe8b7eb580753d8f68a2cfa5c1e231776fba79a7cee29ce37df5ea0461616ed984a43c023071fbf1a98c7671849427db9a4823735a616cefe0ca5c",
+            "id": "component-ButtonComponent-eea757a526740ec5987e0afcc8aecc81a38f7534dc9984fb8dac6a851618f53ee53da06fa60cb61486e7027f8bf1c249b71536a73a2035afa5774c9a5e98cf83",
             "file": "projects/design-system/components/src/button/button.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -118,6 +118,20 @@
                     "required": false
                 },
                 {
+                    "name": "formId",
+                    "defaultValue": "'', {    transform: (value) => (value === null ? '' : value)  }",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 17,
+                    "modifierKind": [
+                        148
+                    ],
+                    "required": false
+                },
+                {
                     "name": "htmlType",
                     "defaultValue": "'button'",
                     "deprecated": false,
@@ -126,7 +140,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 17,
+                    "line": 20,
                     "modifierKind": [
                         148
                     ],
@@ -164,7 +178,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { NgClass } from '@angular/common';\nimport { booleanAttribute, Component, input } from '@angular/core';\n\ntype Variant = 'primary' | 'secondary';\n\n@Component({\n  selector: 'liv-button',\n  imports: [NgClass],\n  templateUrl: './button.component.html',\n  styleUrls: ['./button.component.css']\n})\nexport class ButtonComponent {\n  readonly variant = input<Variant>('primary');\n  readonly disabled = input(false, {\n    transform: booleanAttribute\n  });\n  readonly htmlType = input<'button' | 'submit' | 'reset'>('button');\n}\n",
+            "sourceCode": "import { NgClass } from '@angular/common';\nimport { booleanAttribute, Component, input } from '@angular/core';\n\ntype Variant = 'primary' | 'secondary';\n\n@Component({\n  selector: 'liv-button',\n  imports: [NgClass],\n  templateUrl: './button.component.html',\n  styleUrls: ['./button.component.css']\n})\nexport class ButtonComponent {\n  readonly variant = input<Variant>('primary');\n  readonly disabled = input(false, {\n    transform: booleanAttribute\n  });\n  readonly formId = input('', {\n    transform: (value) => (value === null ? '' : value)\n  });\n  readonly htmlType = input<'button' | 'submit' | 'reset'>('button');\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
@@ -174,7 +188,7 @@
             ],
             "stylesData": "",
             "extends": [],
-            "templateData": "<button\n  [type]=\"htmlType()\"\n  [disabled]=\"disabled()\"\n  [ngClass]=\"[\n    'px-4 py-2 text-sm font-semibold rounded transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-offset-2',\n    variant() === 'primary'\n      ? 'bg-main-primary-600 text-white enabled:focus:ring-main-primary-300 enabled:hover:bg-main-primary-400'\n      : '',\n    variant() === 'secondary'\n      ? 'bg-transparent text-main-secondary-800 enabled:hover:text-main-secondary-600 enabled:focus:ring-main-secondary-600  border border-main-secondary-800 enabled:hover:border-main-secondary-600'\n      : ''\n  ]\"\n>\n  <ng-content />\n</button>\n"
+            "templateData": "<button\n  [type]=\"htmlType()\"\n  [attr.form]=\"formId()\"\n  [disabled]=\"disabled()\"\n  [ngClass]=\"[\n    'px-4 py-2 text-sm font-semibold rounded transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-offset-2',\n    variant() === 'primary'\n      ? 'bg-main-primary-600 text-white enabled:focus:ring-main-primary-300 enabled:hover:bg-main-primary-400'\n      : '',\n    variant() === 'secondary'\n      ? 'bg-transparent text-main-secondary-800 enabled:hover:text-main-secondary-600 enabled:focus:ring-main-secondary-600  border border-main-secondary-800 enabled:hover:border-main-secondary-600'\n      : ''\n  ]\"\n>\n  <ng-content />\n</button>\n"
         },
         {
             "name": "IconBaseComponent",
@@ -688,7 +702,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "StorybookConfig",
-                "defaultValue": "{\n  stories: [\n    '../components/src/**/*.mdx',\n    '../components/src/**/*.stories.@(js|jsx|mjs|ts|tsx)'\n  ],\n  addons: ['@storybook/addon-docs', '@storybook/addon-styling-webpack'],\n  framework: {\n    name: '@storybook/angular',\n    options: {}\n  }\n}"
+                "defaultValue": "{\n  stories: [\n    '../components/src/**/*.mdx',\n    '../components/src/**/*.stories.@(js|jsx|mjs|ts|tsx)'\n  ],\n  addons: ['@storybook/addon-docs', '@chromatic-com/storybook'],\n  framework: {\n    name: '@storybook/angular',\n    options: {}\n  }\n}"
             },
             {
                 "name": "Disabled",
@@ -788,7 +802,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "StoryObj<ButtonStory>",
-                "defaultValue": "{\n  args: {\n    variant: 'secondary',\n    disabled: true,\n    content: 'Secondary Button'\n  }\n}"
+                "defaultValue": "{\n  args: {\n    variant: 'secondary',\n    disabled: false,\n    content: 'Secondary Button'\n  }\n}"
             }
         ],
         "functions": [],
@@ -802,7 +816,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 193
+                "kind": 194
             },
             {
                 "name": "HeroIconName",
@@ -813,7 +827,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 183
+                "kind": 184
             },
             {
                 "name": "IconInput",
@@ -824,7 +838,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 192
+                "kind": 193
             },
             {
                 "name": "IconName",
@@ -835,7 +849,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 192
+                "kind": 193
             },
             {
                 "name": "IconStory",
@@ -846,7 +860,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 183
+                "kind": 184
             },
             {
                 "name": "LucideIconName",
@@ -857,7 +871,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 183
+                "kind": 184
             },
             {
                 "name": "StoryArgs",
@@ -868,7 +882,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 187
+                "kind": 188
             },
             {
                 "name": "Variant",
@@ -879,7 +893,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
-                "kind": 192
+                "kind": 193
             }
         ],
         "enumerations": [],
@@ -905,7 +919,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "StorybookConfig",
-                    "defaultValue": "{\n  stories: [\n    '../components/src/**/*.mdx',\n    '../components/src/**/*.stories.@(js|jsx|mjs|ts|tsx)'\n  ],\n  addons: ['@storybook/addon-docs', '@storybook/addon-styling-webpack'],\n  framework: {\n    name: '@storybook/angular',\n    options: {}\n  }\n}"
+                    "defaultValue": "{\n  stories: [\n    '../components/src/**/*.mdx',\n    '../components/src/**/*.stories.@(js|jsx|mjs|ts|tsx)'\n  ],\n  addons: ['@storybook/addon-docs', '@chromatic-com/storybook'],\n  framework: {\n    name: '@storybook/angular',\n    options: {}\n  }\n}"
                 }
             ],
             "projects/design-system/components/src/button/button.component.stories.ts": [
@@ -947,7 +961,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "StoryObj<ButtonStory>",
-                    "defaultValue": "{\n  args: {\n    variant: 'secondary',\n    disabled: true,\n    content: 'Secondary Button'\n  }\n}"
+                    "defaultValue": "{\n  args: {\n    variant: 'secondary',\n    disabled: false,\n    content: 'Secondary Button'\n  }\n}"
                 }
             ],
             "projects/design-system/components/src/icon/icon.component.stories.ts": [
@@ -1028,7 +1042,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 193
+                    "kind": 194
                 },
                 {
                     "name": "StoryArgs",
@@ -1039,7 +1053,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 187
+                    "kind": 188
                 }
             ],
             "projects/design-system/components/src/icon/icon.component.ts": [
@@ -1052,7 +1066,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 183
+                    "kind": 184
                 },
                 {
                     "name": "IconInput",
@@ -1063,7 +1077,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 192
+                    "kind": 193
                 },
                 {
                     "name": "IconName",
@@ -1074,7 +1088,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 192
+                    "kind": 193
                 },
                 {
                     "name": "LucideIconName",
@@ -1085,7 +1099,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 183
+                    "kind": 184
                 }
             ],
             "projects/design-system/components/src/icon/icon.component.stories.ts": [
@@ -1098,7 +1112,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 183
+                    "kind": 184
                 }
             ],
             "projects/design-system/components/src/button/button.component.ts": [
@@ -1111,7 +1125,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
-                    "kind": 192
+                    "kind": 193
                 }
             ]
         }
@@ -1211,7 +1225,7 @@
                 "linktype": "component",
                 "name": "ButtonComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/4",
+                "coverageCount": "0/5",
                 "status": "low"
             },
             {

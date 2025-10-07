@@ -5,7 +5,7 @@ const config: StorybookConfig = {
     '../components/src/**/*.mdx',
     '../components/src/**/*.stories.@(js|jsx|mjs|ts|tsx)'
   ],
-  addons: ['@storybook/addon-docs', '@storybook/addon-styling-webpack'],
+  addons: ['@storybook/addon-docs', '@chromatic-com/storybook'],
   framework: {
     name: '@storybook/angular',
     options: {}
