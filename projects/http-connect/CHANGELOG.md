@@ -1,5 +1,11 @@
 # @nenoyago/http-connect
 
+## 1.3.3
+
+### Patch Changes
+
+- 991b149: test
+
 ## 1.3.2
 
 ### Patch Changes
