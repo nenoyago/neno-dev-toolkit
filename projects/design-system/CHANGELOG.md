@@ -1,5 +1,11 @@
 # @nenoyago/design-system
 
+## 4.4.2
+
+### Patch Changes
+
+- c21e9d4: test
+
 ## 4.4.1
 
 ### Patch Changes
