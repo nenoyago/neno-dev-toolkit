@@ -238,7 +238,7 @@ jobs:
       needs.version-and-pr.outputs.should_publish == 'true' &&
       needs.version-and-pr.result == 'success'
     outputs:
-      design_system_published: ${{ steps.publish.outputs.design_system_published }}
+      design_system_published: ${{ steps.check_publish.outputs.design_system_published }}
     steps:
       - name: 📥 Checkout repository
         uses: actions/checkout@v4
@@ -264,6 +264,7 @@ jobs:
         with:
           node-version: 22.14
           registry-url: 'https://npm.pkg.github.com'
+          cache: 'pnpm'
 
       - name: ⚡ Install dependencies
         run: pnpm install --frozen-lockfile
@@ -271,25 +272,39 @@ jobs:
       - name: 🛠️ Build all packages
         run: pnpm run build:packages
 
-      - name: 📝 Publish packages
+      - name: � Capture current design-system version
+        id: version_before
+        run: |
+          VERSION=$(node -p "require('./projects/design-system/package.json').version")
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "📦 Design System version before publish: $VERSION"
+
+      - name: �📝 Publish packages
         id: publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           echo "//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
+          pnpm changeset publish
+        continue-on-error: false
 
-          # Captura output do changeset publish para verificar quais pacotes foram publicados
-          OUTPUT=$(pnpm changeset publish 2>&1 | tee /dev/stderr)
+      - name: 🔍 Check if design-system was published
+        id: check_publish
+        run: |
+          VERSION_BEFORE="${{ steps.version_before.outputs.version }}"
+          VERSION_AFTER=$(node -p "require('./projects/design-system/package.json').version")
 
-          # Verifica se o design-system foi publicado
-          if echo "$OUTPUT" | grep -q "@nenoyago/design-system"; then
+          echo "📊 Design System version comparison:"
+          echo "  Before: $VERSION_BEFORE"
+          echo "  After:  $VERSION_AFTER"
+
+          if [ "$VERSION_BEFORE" != "$VERSION_AFTER" ]; then
             echo "design_system_published=true" >> $GITHUB_OUTPUT
-            echo "✅ Design System was published"
+            echo "✅ Design System was published: $VERSION_BEFORE → $VERSION_AFTER"
           else
             echo "design_system_published=false" >> $GITHUB_OUTPUT
-            echo "⏭️  Design System was not published"
+            echo "⏭️  Design System version unchanged: $VERSION_AFTER"
           fi
-        continue-on-error: false
 
       - name: 🎉 Publish summary
         run: |
@@ -298,8 +313,10 @@ jobs:
           echo "🎉 Packages published successfully!"
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
           echo ""
-          if [ "${{ steps.publish.outputs.design_system_published }}" = "true" ]; then
+          if [ "${{ steps.check_publish.outputs.design_system_published }}" = "true" ]; then
             echo "📚 Design System was published - Storybook will be deployed next"
+          else
+            echo "📚 Design System was not published - Storybook deployment skipped"
           fi
           echo ""
 
