@@ -17,5 +17,5 @@ export class ButtonComponent {
   readonly formId = input('', {
     transform: (value) => (value === null ? '' : value)
   });
-  readonly htmlType = input<'button' | 'submit' | 'reset'>('button');
+  readonly htmlType = input<'button' | 'submit' | 'reset'>('reset');
 }
