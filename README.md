@@ -1,5 +1,5 @@
 <div align="center">
-  <h1>liv-dev-toolkit</h1>
+  <h1>neno-dev-toolkit</h1>
   <p><strong>Monorepo para projetos Angular, Design System e configurações compartilhadas.</strong></p>
 
 ![License](https://img.shields.io/badge/license-Proprietary-red.svg)
@@ -40,7 +40,7 @@ Este monorepo centraliza o desenvolvimento de múltiplas bibliotecas Angular e c
 ## 📁 Estrutura do Projeto
 
 ```
-liv-dev-toolkit/
+neno-dev-toolkit/
 ├── projects/
 │   ├── design-system/       # Componentes UI e sistema de temas
 │   ├── shared-utilities/    # Diretivas, pipes e serviços
@@ -123,7 +123,7 @@ Clone o repositório e instale as dependências:
 ```bash
 # Clone o repositório (substitua pela URL correta)
 git clone <URL_DO_REPOSITORIO>
-cd liv-dev-toolkit
+cd neno-dev-toolkit
 
 # Instale as dependências
 pnpm install
@@ -156,7 +156,7 @@ pnpm build:http-connect
 
 # 2. Em outro projeto Angular, use o link local (opcional)
 cd seu-projeto-angular
-pnpm link ../liv-dev-toolkit/dist/design-system
+pnpm link ../neno-dev-toolkit/dist/design-system
 ```
 
 ### Visualizando Componentes
