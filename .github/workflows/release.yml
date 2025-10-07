@@ -17,21 +17,7 @@ permissions:
 
 jobs:
   version-and-pr:
-    name:   publish:
-    name: � Publish packages
-    environment: Semver
-    runs-on: ubuntu-latest
-    needs: version-and-pr
-    # Só executa se:
-    # 1. O job anterior criou e mergeu o PR (has_changes e should_publish são true)
-    # 2. Estamos na main (o merge já aconteceu)
-    # 3. Não é um commit [skip ci]
-    if: |
-      needs.version-and-pr.outputs.has_changes == 'true' &&
-      needs.version-and-pr.outputs.should_publish == 'true' &&
-      needs.version-and-pr.result == 'success'
-    outputs:
-      design_system_published: ${{ steps.publish.outputs.design_system_published }}ckages & Create Release PR
+    name: 📝 Version Packages & Create Release PR
     environment: Semver
     if: "!contains(github.event.head_commit.message, '[skip ci]')"
     runs-on: ubuntu-latest
@@ -45,7 +31,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: 📦 Setup pnpm
+      - name: �� Setup pnpm
         uses: pnpm/action-setup@v4
         with:
           version: 10.6.5
@@ -160,7 +146,7 @@ jobs:
           This PR contains automated version updates based on changesets.
 
           ### 🔄 Changes
-          - 🔖 Version bumps for affected packages
+          - �� Version bumps for affected packages
           - 📝 Updated CHANGELOG files
           - ✅ Ready for publication
 
@@ -247,14 +233,12 @@ jobs:
     environment: Semver
     runs-on: ubuntu-latest
     needs: version-and-pr
-    # Só executa se:
-    # 1. O job anterior criou e mergou o PR (has_changes e should_publish são true)
-    # 2. Estamos na main (o merge já aconteceu)
-    # 3. Não é um commit [skip ci]
     if: |
       needs.version-and-pr.outputs.has_changes == 'true' &&
       needs.version-and-pr.outputs.should_publish == 'true' &&
       needs.version-and-pr.result == 'success'
+    outputs:
+      design_system_published: ${{ steps.publish.outputs.design_system_published }}
     steps:
       - name: 📥 Checkout repository
         uses: actions/checkout@v4
@@ -307,7 +291,7 @@ jobs:
           fi
         continue-on-error: false
 
-      - name: � Publish summary
+      - name: 🎉 Publish summary
         run: |
           echo ""
           echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
@@ -320,7 +304,7 @@ jobs:
           echo ""
 
   deploy-storybook:
-    name: �🎨 Deploy Storybook
+    name: 🎨 Deploy Storybook
     environment: Semver
     runs-on: ubuntu-latest
     needs: publish
