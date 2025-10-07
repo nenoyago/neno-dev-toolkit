@@ -1,5 +1,11 @@
 # @nenoyago/design-system
 
+## 4.3.2
+
+### Patch Changes
+
+- dc59895: default button html type
+
 ## 4.3.1
 
 ### Patch Changes
