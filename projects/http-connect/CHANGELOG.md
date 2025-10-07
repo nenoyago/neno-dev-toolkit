@@ -1,5 +1,11 @@
 # @nenoyago/http-connect
 
+## 1.3.2
+
+### Patch Changes
+
+- bb60c0f: connect
+
 ## 1.3.1
 
 ### Patch Changes
