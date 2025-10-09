@@ -31,7 +31,7 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: �� Setup pnpm
+      - name: 📦 Setup pnpm
         uses: pnpm/action-setup@v4
         with:
           version: 10.6.5
@@ -146,7 +146,7 @@ jobs:
           This PR contains automated version updates based on changesets.
 
           ### 🔄 Changes
-          - �� Version bumps for affected packages
+          - 🔖 Version bumps for affected packages
           - 📝 Updated CHANGELOG files
           - ✅ Ready for publication
 
