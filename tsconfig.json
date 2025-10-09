@@ -6,7 +6,8 @@
     "baseUrl": ".",
     "paths": {
       "@nenoyago/design-system": [
-        "./projects/design-system"
+        "./projects/design-system",
+        "./dist/design-system"
       ],
       "@nenoyago/design-system/*": [
         "./projects/design-system/*"
