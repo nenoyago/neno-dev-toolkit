@@ -1,5 +1,11 @@
 # @nenoyago/design-system
 
+## 4.5.1
+
+### Patch Changes
+
+- 4542db7: import index style
+
 ## 4.5.0
 
 ### Minor Changes
