@@ -712,7 +712,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "StoryObj<ButtonStory>",
-                "defaultValue": "{\n  args: {\n    variant: 'primary',\n    disabled: true,\n    content: 'Disabled Button'\n  }\n}"
+                "defaultValue": "{\n  args: {\n    variant: 'primary',\n    disabled: true,\n    htmlType: 'button',\n    content: 'Disabled Button'\n  }\n}"
             },
             {
                 "name": "heroIcons",
@@ -762,7 +762,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<ButtonStory>",
-                "defaultValue": "{\n  title: 'Components/Button',\n  component: ButtonComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: {\n      control: { type: 'select' },\n      options: ['primary', 'secondary']\n    },\n    disabled: { control: 'boolean' }\n  },\n  args: {\n    variant: 'primary',\n    disabled: false\n  },\n  render: (args) => ({\n    props: args,\n    template: `<liv-button [variant]=\"variant\" [disabled]=\"disabled\">{{content}}</liv-button>`\n  })\n}"
+                "defaultValue": "{\n  title: 'Components/Button',\n  component: ButtonComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: {\n      control: { type: 'select' },\n      options: ['primary', 'secondary']\n    },\n    disabled: { control: 'boolean' },\n    htmlType: {\n      control: { type: 'select' },\n      options: ['button', 'submit', 'reset']\n    }\n  },\n  args: {\n    variant: 'primary',\n    disabled: false\n  },\n  render: (args) => ({\n    props: args,\n    template: `<liv-button [variant]=\"variant\" [disabled]=\"disabled\">{{content}}</liv-button>`\n  })\n}"
             },
             {
                 "name": "meta",
@@ -792,7 +792,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "StoryObj<ButtonStory>",
-                "defaultValue": "{\n  args: {\n    variant: 'primary',\n    disabled: false,\n    content: 'Primary Button'\n  }\n}"
+                "defaultValue": "{\n  args: {\n    variant: 'primary',\n    disabled: false,\n    htmlType: 'button',\n    content: 'Primary Button'\n  }\n}"
             },
             {
                 "name": "Secondary",
@@ -802,7 +802,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "StoryObj<ButtonStory>",
-                "defaultValue": "{\n  args: {\n    variant: 'secondary',\n    disabled: false,\n    content: 'Secondary Button'\n  }\n}"
+                "defaultValue": "{\n  args: {\n    variant: 'secondary',\n    disabled: false,\n    htmlType: 'button',\n    content: 'Secondary Button'\n  }\n}"
             }
         ],
         "functions": [],
@@ -931,7 +931,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "StoryObj<ButtonStory>",
-                    "defaultValue": "{\n  args: {\n    variant: 'primary',\n    disabled: true,\n    content: 'Disabled Button'\n  }\n}"
+                    "defaultValue": "{\n  args: {\n    variant: 'primary',\n    disabled: true,\n    htmlType: 'button',\n    content: 'Disabled Button'\n  }\n}"
                 },
                 {
                     "name": "meta",
@@ -941,7 +941,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<ButtonStory>",
-                    "defaultValue": "{\n  title: 'Components/Button',\n  component: ButtonComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: {\n      control: { type: 'select' },\n      options: ['primary', 'secondary']\n    },\n    disabled: { control: 'boolean' }\n  },\n  args: {\n    variant: 'primary',\n    disabled: false\n  },\n  render: (args) => ({\n    props: args,\n    template: `<liv-button [variant]=\"variant\" [disabled]=\"disabled\">{{content}}</liv-button>`\n  })\n}"
+                    "defaultValue": "{\n  title: 'Components/Button',\n  component: ButtonComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: {\n      control: { type: 'select' },\n      options: ['primary', 'secondary']\n    },\n    disabled: { control: 'boolean' },\n    htmlType: {\n      control: { type: 'select' },\n      options: ['button', 'submit', 'reset']\n    }\n  },\n  args: {\n    variant: 'primary',\n    disabled: false\n  },\n  render: (args) => ({\n    props: args,\n    template: `<liv-button [variant]=\"variant\" [disabled]=\"disabled\">{{content}}</liv-button>`\n  })\n}"
                 },
                 {
                     "name": "Primary",
@@ -951,7 +951,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "StoryObj<ButtonStory>",
-                    "defaultValue": "{\n  args: {\n    variant: 'primary',\n    disabled: false,\n    content: 'Primary Button'\n  }\n}"
+                    "defaultValue": "{\n  args: {\n    variant: 'primary',\n    disabled: false,\n    htmlType: 'button',\n    content: 'Primary Button'\n  }\n}"
                 },
                 {
                     "name": "Secondary",
@@ -961,7 +961,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "StoryObj<ButtonStory>",
-                    "defaultValue": "{\n  args: {\n    variant: 'secondary',\n    disabled: false,\n    content: 'Secondary Button'\n  }\n}"
+                    "defaultValue": "{\n  args: {\n    variant: 'secondary',\n    disabled: false,\n    htmlType: 'button',\n    content: 'Secondary Button'\n  }\n}"
                 }
             ],
             "projects/design-system/components/src/icon/icon.component.stories.ts": [

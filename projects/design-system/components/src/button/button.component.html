@@ -2,6 +2,7 @@
   [type]="htmlType()"
   [attr.form]="formId()"
   [disabled]="disabled()"
+  (click)="onClick($event)"
   [ngClass]="[
     'px-4 py-2 text-sm font-semibold rounded transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-offset-2',
     variant() === 'primary'

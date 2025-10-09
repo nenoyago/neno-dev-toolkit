@@ -1,5 +1,5 @@
 import { NgClass } from '@angular/common';
-import { booleanAttribute, Component, input } from '@angular/core';
+import { booleanAttribute, Component, input, output } from '@angular/core';
 
 type Variant = 'primary' | 'secondary';
 
@@ -18,4 +18,10 @@ export class ButtonComponent {
     transform: (value) => (value === null ? '' : value)
   });
   readonly htmlType = input<'button' | 'submit' | 'reset'>('button');
+
+  readonly buttonClick = output<PointerEvent>();
+
+  onClick(event: PointerEvent) {
+    this.buttonClick.emit(event);
+  }
 }
