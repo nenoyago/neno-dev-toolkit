@@ -1,5 +1,11 @@
 # @nenoyago/design-system
 
+## 4.5.0
+
+### Minor Changes
+
+- 88e30a3: button click
+
 ## 4.4.3
 
 ### Patch Changes
