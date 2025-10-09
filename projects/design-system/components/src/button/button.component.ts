@@ -19,9 +19,9 @@ export class ButtonComponent {
   });
   readonly htmlType = input<'button' | 'submit' | 'reset'>('button');
 
-  readonly buttonClick = output<PointerEvent>();
+  readonly buttonClick = output<MouseEvent>();
 
-  onClick(event: PointerEvent) {
+  onClick(event: MouseEvent) {
     this.buttonClick.emit(event);
   }
 }
