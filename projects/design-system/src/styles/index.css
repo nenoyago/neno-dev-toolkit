@@ -1,2 +1,2 @@
-@import './output.css';
-@import './theme.css';
+@import '@nenoyago/design-system/styles/tailwind';
+@import '@nenoyago/design-system/styles/theme';
