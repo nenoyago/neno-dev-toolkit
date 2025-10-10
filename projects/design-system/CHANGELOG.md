@@ -1,5 +1,11 @@
 # @nenoyago/design-system
 
+## 4.6.0
+
+### Minor Changes
+
+- 5ccfd92: button rounded
+
 ## 4.5.1
 
 ### Patch Changes
