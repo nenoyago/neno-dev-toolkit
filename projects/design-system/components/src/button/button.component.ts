@@ -18,7 +18,9 @@ export class ButtonComponent {
     transform: (value) => (value === null ? '' : value)
   });
   readonly htmlType = input<'button' | 'submit' | 'reset'>('button');
-
+  readonly rounded = input(false, {
+    transform: booleanAttribute
+  });
   readonly buttonClick = output<MouseEvent>();
 
   onClick(event: MouseEvent) {
