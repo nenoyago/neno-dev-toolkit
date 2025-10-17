@@ -1,5 +1,0 @@
----
-'@nenoyago/analytics': major
----
-
-analytics
