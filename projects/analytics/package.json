@@ -1,0 +1,16 @@
+{
+  "name": "@nenoyago/analytics",
+  "version": "0.0.1",
+  "peerDependencies": {
+    "@angular/common": "^19.2.0",
+    "@angular/core": "^19.2.0"
+  },
+  "dependencies": {
+    "tslib": "^2.3.0"
+  },
+  "sideEffects": false,
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/",
+    "directory": "../../dist/analytics"
+  }
+}
