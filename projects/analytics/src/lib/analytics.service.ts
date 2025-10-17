@@ -21,6 +21,16 @@ function isTrackingObject(arg: Event | TrackingData): arg is TrackingData {
   return (arg as TrackingData).id !== undefined;
 }
 
+function formatUserDataPayload(user: AnalyticsUserData): Record<string, any> {
+  return {
+    id: user.id,
+    nome: user.name,
+    email: user.email,
+    espacoSer: user.isSpaceToBe,
+    perfisAcesso: user.accessProfiles || []
+  };
+}
+
 /**
  * @description
  * Service responsible for tracking user interactions and sending analytics events.
@@ -185,7 +195,7 @@ export class AnalyticsService {
       linkHref: target?.getAttribute('href') ?? null,
       imgSrc: target?.getAttribute('src') ?? null,
       imgAlt: target?.getAttribute('alt') ?? null,
-      userData: user
+      userData: formatUserDataPayload(user)
     };
   }
 

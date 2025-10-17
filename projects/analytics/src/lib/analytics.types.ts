@@ -41,12 +41,28 @@ export interface AnalyticsUserData {
   /**
    * Unique user identifier.
    */
-  userId: string;
+  id: string | number;
   /**
-   * Unique account identifier.
+   * User's full name.
    */
-  accountId: string;
-  // Additional user information can be added here.
+  name: string;
+  /**
+   * User's email address.
+   */
+  email: string;
+  /**
+   * List of access profiles for the user.
+   */
+  accessProfiles: AccessProfile[];
+  /**
+   * Indicates if the user has 'space to be' privileges.
+   */
+  isSpaceToBe: boolean;
+}
+
+export interface AccessProfile {
+  id: number;
+  name: string;
 }
 
 /**
@@ -104,5 +120,5 @@ export interface Analytics {
   /**
    * User data associated with the event.
    */
-  userData: AnalyticsUserData;
+  userData: Record<string, any>;
 }
