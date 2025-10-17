@@ -21,7 +21,7 @@ export class KibanaHttpService {
   private readonly BASE_PATH = '/Kibana';
 
   constructor() {
-    this.baseUrl = this.normalizeBaseUrl(this.config.url);
+    this.baseUrl = this.normalizeBaseUrl(this.config.baseUrl);
   }
 
   private normalizeBaseUrl(url: string) {

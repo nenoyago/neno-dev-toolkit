@@ -16,7 +16,7 @@
     "build:design-system": "NODE_OPTIONS='--max-old-space-size=4096' pnpm run build:design-system:css && ng build design-system",
     "build:http-connect": "ng build http-connect",
     "prebuild:packages": "pnpm run clean && pnpm run check-env && pnpm run typecheck && pnpm run check-versions && pnpm run build:common-utilities",
-    "build:packages": "pnpm run build:analytics && pnpm run build:shared-utilities && pnpm run build:design-system:css && pnpm run build:design-system && pnpm run build:http-connect",
+    "build:packages": "pnpm run build:analytics && pnpm run build:shared-utilities && pnpm run build:design-system && pnpm run build:http-connect",
     "storybook": "ng run design-system:storybook",
     "build:storybook": "ng run design-system:build-storybook",
     "deploy:storybook": "storybook-to-ghpages",

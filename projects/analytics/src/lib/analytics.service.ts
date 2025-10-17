@@ -1,11 +1,21 @@
 import { Injectable, inject } from '@angular/core';
 
-import { TrackingData, AnalyticsUserData, Analytics } from './analytics.types';
-import { KibanaHttpService } from './http/kibana-http.service';
+import { of } from 'rxjs';
+import { timeout, catchError } from 'rxjs/operators';
+
+import { defaultTagNames } from './analytics.constants';
+import {
+  TrackingData,
+  AnalyticsUserData,
+  Analytics,
+  TrackingCallbacks
+} from './analytics.types';
+import { KibanaHttpService } from '../public-api';
+import { ANALYTICS_CONFIG } from './analytics.config';
 
 /**
  * @description
- * A utility type guard to check if an object is of type `TrackingData`.
+ * A type guard utility to check if an object is of type `TrackingData`.
  */
 function isTrackingObject(arg: Event | TrackingData): arg is TrackingData {
   return (arg as TrackingData).id !== undefined;
@@ -14,45 +24,58 @@ function isTrackingObject(arg: Event | TrackingData): arg is TrackingData {
 /**
  * @description
  * Service responsible for tracking user interactions and sending analytics events.
- * It is decoupled from any specific application state and requires user data
- * to be provided for each tracking call.
+ * It is decoupled from any application state and requires user data
+ * in each tracking call.
  */
 @Injectable({
   providedIn: 'root'
 })
 export class AnalyticsService {
   private readonly kibana = inject(KibanaHttpService);
+  private readonly config = inject(ANALYTICS_CONFIG);
 
-  // --- Public API ---
+  private readonly TIMEOUT_MS = 5000;
+  private readonly INTERACTIVE_TAGS: string[] = [];
+
+  constructor() {
+    this.INTERACTIVE_TAGS = this.config.tagNames || defaultTagNames;
+  }
 
   /**
    * Tracks a user interaction event based on a DOM Event.
-   * It extracts tracking information from `data-tracking-id` and
-   * `data-tracking-object` attributes on the event target.
+   * Extracts tracking information from 'data-tracking-id' and 'data-tracking-object'
+   * and allows success/failure callbacks.
    *
-   * @param {Event} event The DOM event to be tracked.
-   * @param {AnalyticsUserData} userData The user data to associate with the event.
+   * @param {Event} event The DOM Event to be tracked.
+   * @param {AnalyticsUserData} userData The user data to be associated.
+   * @param {TrackingCallbacks} [notify] Optional callbacks to notify request success/failure.
    */
-  public track(event: Event, userData: AnalyticsUserData): void;
+  public track(
+    event: Event,
+    userData: AnalyticsUserData,
+    notify?: TrackingCallbacks
+  ): void;
+
   /**
-   * Tracks a custom, programmatic event.
+   * Tracks a custom and programmatic event.
+   * Notification callbacks are included in the `trackingData.notify` object.
    *
    * @param {TrackingData} trackingData An object containing the tracking `id` and optional `data`.
-   * @param {AnalyticsUserData} userData The user data to associate with the event.
-   * @param {Event} [event] Optional DOM event to enrich the payload with target element details.
+   * @param {AnalyticsUserData} userData The user data.
+   * @param {Event} [event] Optional DOM Event to enrich the payload with target element details.
    */
   public track(
     trackingData: TrackingData,
     userData: AnalyticsUserData,
     event?: Event
   ): void;
+
+  // Unified implementation
   public track(
     eventOrTrackingData: Event | TrackingData,
     userData: AnalyticsUserData,
-    optionalEvent?: Event
+    optionalNotifyOrEvent?: Event | TrackingCallbacks
   ): void {
-    // The consuming application is now responsible for ensuring userData is valid.
-    // The library proceeds assuming valid data is passed.
     if (!userData) {
       console.warn(
         'AnalyticsService: User data was not provided. Event will not be tracked.'
@@ -63,24 +86,36 @@ export class AnalyticsService {
     let trackingId: string | null;
     let objectData: string | null;
     let event: Event | undefined;
+    let callbacks: TrackingCallbacks | undefined;
+    let targetElement: HTMLElement | undefined;
 
     if (isTrackingObject(eventOrTrackingData)) {
-      // Called as: track({ id: '...' }, userData, event?)
-      event = optionalEvent;
-      const target = event?.target as HTMLElement;
+      event = optionalNotifyOrEvent as Event;
+      callbacks = eventOrTrackingData.notify;
+
+      // Finds the closest target element with a tracking attribute (or uses the target itself)
+      targetElement =
+        ((event?.target as HTMLElement)?.closest(
+          '[data-tracking-id], [data-tracking-object]'
+        ) as HTMLElement) || (event?.target as HTMLElement);
+
       trackingId = eventOrTrackingData.id;
       objectData = eventOrTrackingData.data
         ? JSON.stringify(eventOrTrackingData.data)
-        : target?.getAttribute('data-tracking-object') || null;
+        : targetElement?.getAttribute('data-tracking-object') || null;
     } else {
-      // Called as: track(event, userData)
       event = eventOrTrackingData;
-      const target = event.target as HTMLElement;
-      trackingId = target?.getAttribute('data-tracking-id') || null;
-      objectData = target?.getAttribute('data-tracking-object') || null;
-    }
+      callbacks = optionalNotifyOrEvent as TrackingCallbacks;
 
-    const targetElement = event?.target as HTMLElement | undefined;
+      // Finds the closest target element with a tracking attribute (or uses the target itself)
+      targetElement =
+        ((event.target as HTMLElement)?.closest(
+          '[data-tracking-id], [data-tracking-object]'
+        ) as HTMLElement) || (event.target as HTMLElement);
+
+      trackingId = targetElement?.getAttribute('data-tracking-id') || null;
+      objectData = targetElement?.getAttribute('data-tracking-object') || null;
+    }
 
     if (!this.isTrackable(trackingId, targetElement)) {
       return;
@@ -94,35 +129,43 @@ export class AnalyticsService {
       objectData
     };
 
-    this.sendEvent(analyticsPayload);
+    this.sendEvent(analyticsPayload, callbacks);
   }
-
-  // --- Private Helpers ---
 
   /**
    * @private
    * Determines if an event should be tracked.
-   * @param {string | null} trackingId The tracking identifier.
-   * @param {HTMLElement | null | undefined} target The HTML element that triggered the event.
-   * @returns {boolean} True if the event should be tracked.
+   * Improved implementation focusing on the presence of `trackingId` or interactive tags.
    */
   private isTrackable(
     trackingId: string | null,
     target?: HTMLElement | null
   ): boolean {
-    const ALLOWED_TAGS = ['IMG', 'BUTTON', 'LABEL', 'INPUT', 'A', 'SPAN'];
-    if (trackingId) return true;
-    if (!target) return false;
+    // If the tracking ID was provided, track (explicit intent).
+    if (trackingId) {
+      return true;
+    }
 
-    return ALLOWED_TAGS.includes(target.tagName?.toUpperCase() || '');
+    if (!target) {
+      return false;
+    }
+
+    // If there is no ID, only track if it is a common interactive element
+    const tagName = target.tagName?.toUpperCase() || '';
+
+    const isButtonRole =
+      target.getAttribute('role')?.toLowerCase() === 'button';
+    const isInteractive =
+      this.INTERACTIVE_TAGS.includes(tagName) ||
+      target.hasAttribute('tabindex') ||
+      isButtonRole;
+
+    return isInteractive;
   }
 
   /**
    * @private
-   * Constructs the base payload for an analytics event.
-   * @param {AnalyticsUserData} user The user data for the event.
-   * @param {HTMLElement} [target] The optional target element of the event.
-   * @returns {Omit<Analytics, 'trackingId' | 'objectData'>} The base analytics payload.
+   * Builds the base payload for an analytics event.
    */
   private buildBasePayload(
     user: AnalyticsUserData,
@@ -132,8 +175,9 @@ export class AnalyticsService {
 
     return {
       url,
-      urlTo: target?.baseURI ?? url,
-      type: 'click',
+      // Use href if it is a link, otherwise the current URL.
+      urlTo: target?.getAttribute('href') ?? target?.baseURI ?? url,
+      type: 'click', // Simplified type for this example
       cssClasses: target?.classList?.value ?? '',
       htmlId: target?.id ?? '',
       htmlTag: target?.tagName ?? '',
@@ -141,16 +185,35 @@ export class AnalyticsService {
       linkHref: target?.getAttribute('href') ?? null,
       imgSrc: target?.getAttribute('src') ?? null,
       imgAlt: target?.getAttribute('alt') ?? null,
-      userData: user // Directly use the provided user data
+      userData: user
     };
   }
 
   /**
    * @private
-   * Sends the analytics payload to the backend service.
-   * @param {Analytics} payload The complete analytics event data.
+   * Sends the analytics payload to the backend service, with error handling and timeout.
+   * @param {Analytics} payload The complete event data.
+   * @param {TrackingCallbacks} [callbacks] Optional callbacks for notification.
    */
-  private sendEvent(payload: Analytics): void {
-    this.kibana.logGenericEvent(payload).subscribe();
+  private sendEvent(payload: Analytics, callbacks?: TrackingCallbacks): void {
+    this.kibana
+      .logGenericEvent(payload)
+      .pipe(
+        timeout(this.TIMEOUT_MS),
+        catchError((error) => {
+          console.error(
+            'AnalyticsService: Error or Timeout sending event to backend.',
+            error,
+            payload
+          );
+          callbacks?.onFailure?.(error);
+          return of(null);
+        })
+      )
+      .subscribe({
+        next: () => {
+          callbacks?.onSuccess?.();
+        }
+      });
   }
 }
