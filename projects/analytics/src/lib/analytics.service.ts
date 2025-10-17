@@ -1,6 +1,5 @@
 import { Injectable, inject } from '@angular/core';
 
-import { ANALYTICS_CONFIG, KibanaHttpService } from 'analytics';
 import { of } from 'rxjs';
 import { timeout, catchError } from 'rxjs/operators';
 
@@ -11,6 +10,8 @@ import {
   Analytics,
   TrackingCallbacks
 } from './analytics.types';
+import { KibanaHttpService } from '../public-api';
+import { ANALYTICS_CONFIG } from './analytics.config';
 
 /**
  * @description
