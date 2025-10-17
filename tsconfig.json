@@ -35,6 +35,9 @@
       "@nenoyago/common-utilities/*": [
         "./projects/common-utilities/*"
       ],
+      "analytics": [
+        "./dist/analytics"
+      ],
     },
     "outDir": "./dist/out-tsc",
     "strict": true,
