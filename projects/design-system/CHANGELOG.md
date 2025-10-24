@@ -1,5 +1,11 @@
 # @nenoyago/design-system
 
+## 5.0.0
+
+### Major Changes
+
+- d6d2001: primitive
+
 ## 4.6.0
 
 ### Minor Changes
