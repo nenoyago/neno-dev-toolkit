@@ -2,17 +2,9 @@
   [type]="htmlType()"
   [attr.form]="formId()"
   [disabled]="disabled()"
-  (click)="onClick($event)"
-  [ngClass]="[
-    'px-4 py-2 text-sm font-semibold rounded transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-offset-2',
-    rounded() ? 'rounded-3xl' : 'rounded-md',
-    variant() === 'primary'
-      ? 'bg-main-primary-600 text-white enabled:focus:ring-main-primary-300 enabled:hover:bg-main-primary-400'
-      : '',
-    variant() === 'secondary'
-      ? 'bg-transparent text-main-secondary-800 enabled:hover:text-main-secondary-600 enabled:focus:ring-main-secondary-600  border border-main-secondary-800 enabled:hover:border-main-secondary-600'
-      : ''
-  ]"
+  class="liv-button liv-button--{{ variant() }} {{
+    disabled() ? 'liv-button-disabled' : ''
+  }}"
 >
   <ng-content />
 </button>

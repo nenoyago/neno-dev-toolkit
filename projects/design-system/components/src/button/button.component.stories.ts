@@ -4,6 +4,9 @@ import { ButtonComponent } from './button.component';
 
 type StoryArgs = {
   content: string;
+  leadingContent: string;
+  trailingContent: string;
+  disabled: boolean;
 };
 
 type ButtonStory = ButtonComponent & StoryArgs;
@@ -15,21 +18,52 @@ const meta: Meta<ButtonStory> = {
   argTypes: {
     variant: {
       control: { type: 'select' },
-      options: ['primary', 'secondary']
+      options: [
+        'primary',
+        'secondary',
+        'destructive',
+        'outline',
+        'ghost',
+        'link'
+      ]
     },
-    disabled: { control: 'boolean' },
-    htmlType: {
+    size: {
       control: { type: 'select' },
-      options: ['button', 'submit', 'reset']
+      options: ['sm', 'md', 'lg', 'xl']
+    },
+    disabled: {
+      control: 'boolean'
+    },
+    leadingContent: {
+      control: 'text',
+      description: 'Conteúdo para o slot leading'
+    },
+    trailingContent: {
+      control: 'text',
+      description: 'Conteúdo para o slot trailing'
     }
   },
   args: {
     variant: 'primary',
-    disabled: false
+    size: 'md',
+    disabled: false,
+    content: 'Button',
+    leadingContent: 'teste',
+    trailingContent: 'test2'
   },
   render: (args) => ({
     props: args,
-    template: `<button liv-button [variant]="variant" [disabled]="disabled">{{content}}</button>`
+    template: `
+      <button liv-button [variant]="variant" [size]="size" [disabled]="disabled">
+      @if (leadingContent) {
+        <span slot="leading">{{leadingContent}}</span>
+      }
+        {{content}}
+        @if (trailingContent) {
+        <span  slot="trailing">{{trailingContent}}</span>
+        }
+      </button>
+    `
   })
 };
 
@@ -38,8 +72,6 @@ export default meta;
 export const Primary: StoryObj<ButtonStory> = {
   args: {
     variant: 'primary',
-    disabled: false,
-    htmlType: 'button',
     content: 'Primary Button'
   }
 };
@@ -47,8 +79,6 @@ export const Primary: StoryObj<ButtonStory> = {
 export const Secondary: StoryObj<ButtonStory> = {
   args: {
     variant: 'secondary',
-    disabled: false,
-    htmlType: 'button',
     content: 'Secondary Button'
   }
 };
@@ -56,8 +86,6 @@ export const Secondary: StoryObj<ButtonStory> = {
 export const Disabled: StoryObj<ButtonStory> = {
   args: {
     variant: 'primary',
-    disabled: true,
-    htmlType: 'button',
     content: 'Disabled Button'
   }
 };
