@@ -1,5 +1,11 @@
 # @nenoyago/design-system
 
+## 5.0.1
+
+### Patch Changes
+
+- c00e23b: button
+
 ## 5.0.0
 
 ### Major Changes
