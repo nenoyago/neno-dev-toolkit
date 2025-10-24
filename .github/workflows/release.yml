@@ -131,13 +131,7 @@ jobs:
           gh label create "🧹 chore" --color F59E0B --description "Maintenance and cleanup tasks" --force || true
           gh label create "👷 ci" --color 3B82F6 --description "CI/CD changes" --force || true
 
-      - name: � Authenticate gh CLI
-        if: env.CHANGES == 'true'
-        env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
-        run: echo "${GITHUB_TOKEN}" | gh auth login --with-token
-
-      - name: �📬 Create Release PR
+      - name: 📬 Create Release PR
         if: env.CHANGES == 'true'
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
