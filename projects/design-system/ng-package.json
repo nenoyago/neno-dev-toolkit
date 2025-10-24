@@ -5,13 +5,16 @@
     "entryFile": "src/public-api.ts"
   },
   "allowedNonPeerDependencies": [
+    "@angular/cdk",
     "@tailwindcss/postcss",
     "tailwindcss",
     "postcss",
     "@ng-icons/core",
     "@ng-icons/heroicons",
     "@ng-icons/lucide",
-    "@nenoyago/shared-utilities"
+    "@nenoyago/shared-utilities",
+    "@floating-ui/dom",
+    "ng-primitives"
   ],
   "assets": [
     "src/styles/output.css",

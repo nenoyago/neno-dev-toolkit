@@ -1,0 +1,33 @@
+/* @reference "tailwindcss";
+
+.liv-button {
+  @apply inline-flex items-center justify-center px-4 py-2 text-sm font-medium transition-colors focus:outline-none;
+}
+
+.liv-button--primary {
+  @apply bg-blue-600 text-white hover:bg-blue-700;
+}
+
+.liv-button--secondary {
+  @apply bg-gray-200 text-gray-900 hover:bg-gray-300;
+}
+
+.liv-button--rounded {
+  @apply rounded-full;
+}
+
+.liv-button:not(.liv-button--rounded) {
+  @apply rounded-md;
+}
+
+.liv-button[data-focus-visible] {
+  @apply ring-2 ring-blue-500 ring-offset-2;
+}
+
+.liv-button[data-press] {
+  @apply scale-95;
+}
+
+.liv-button[data-disabled] {
+  @apply opacity-50 cursor-not-allowed;
+} */

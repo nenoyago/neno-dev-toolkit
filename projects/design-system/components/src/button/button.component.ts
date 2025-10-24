@@ -1,13 +1,21 @@
-import { NgClass } from '@angular/common';
-import { booleanAttribute, Component, input, output } from '@angular/core';
+import { booleanAttribute, Component, computed, input } from '@angular/core';
+
+import { NgpButton } from 'ng-primitives/button';
 
 type Variant = 'primary' | 'secondary';
 
 @Component({
-  selector: 'liv-button',
-  imports: [NgClass],
-  templateUrl: './button.component.html',
-  styleUrls: ['./button.component.css']
+  // eslint-disable-next-line @angular-eslint/component-selector
+  selector: 'button[liv-button]',
+  imports: [NgpButton],
+  template: '<ng-content></ng-content>',
+  styleUrls: ['./button.component.css'],
+  host: {
+    '[attr.type]': 'htmlType()',
+    '[attr.form]': 'formId()',
+    '[class]': 'variantClass()'
+  },
+  hostDirectives: [{ directive: NgpButton, inputs: ['disabled'] }]
 })
 export class ButtonComponent {
   readonly variant = input<Variant>('primary');
@@ -21,9 +29,12 @@ export class ButtonComponent {
   readonly rounded = input(false, {
     transform: booleanAttribute
   });
-  readonly buttonClick = output<MouseEvent>();
 
-  onClick(event: MouseEvent) {
-    this.buttonClick.emit(event);
-  }
+  readonly variantClass = computed(() => {
+    const classes = ['liv-button', `liv-button--${this.variant()}`];
+    if (this.rounded()) {
+      classes.push('liv-button--rounded');
+    }
+    return classes.join(' ');
+  });
 }
