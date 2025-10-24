@@ -1,40 +1,221 @@
-import { booleanAttribute, Component, computed, input } from '@angular/core';
+import { Component, input } from '@angular/core';
 
 import { NgpButton } from 'ng-primitives/button';
 
-type Variant = 'primary' | 'secondary';
+/**
+ * The size of the button.
+ */
+export type ButtonSize = 'sm' | 'md' | 'lg' | 'xl';
+
+/**
+ * The variant of the button.
+ */
+export type ButtonVariant =
+  | 'primary'
+  | 'secondary'
+  | 'destructive'
+  | 'outline'
+  | 'ghost'
+  | 'link';
 
 @Component({
   // eslint-disable-next-line @angular-eslint/component-selector
   selector: 'button[liv-button]',
-  imports: [NgpButton],
-  template: '<ng-content></ng-content>',
-  styleUrls: ['./button.component.css'],
+  hostDirectives: [{ directive: NgpButton, inputs: ['disabled'] }],
+  template: `
+    <ng-content select="[slot=leading]" />
+    <ng-content />
+    <ng-content select="[slot=trailing]" />
+  `,
   host: {
-    '[attr.type]': 'htmlType()',
-    '[attr.form]': 'formId()',
-    '[class]': 'variantClass()'
+    '[attr.data-size]': 'size()',
+    '[attr.data-variant]': 'variant()'
   },
-  hostDirectives: [{ directive: NgpButton, inputs: ['disabled'] }]
+  styles: `
+    /* These styles rely on CSS variables that can be imported from ng-primitives/example-theme/index.css in your global styles */
+
+    :host {
+      --ngp-text-primary: var(--ngp-button-text-primary, #ffffff);
+      --ngp-background: var(--ngp-button-background, #3b82f6);
+      --ngp-background-hover: var(--ngp-button-background-hover, #2563eb);
+      --ngp-background-active: var(--ngp-button-background-active, #1d4ed8);
+      --ngp-focus-ring: var(--ngp-button-focus-ring, #2563eb);
+      --ngp-button-shadow: var(
+        --ngp-button-shadow,
+        0 1px 2px 0 rgba(0, 0, 0, 0.05)
+      );
+
+      padding-left: 1rem;
+      padding-right: 1rem;
+      border-radius: 0.5rem;
+      color: var(--ngp-text-primary);
+      border: none;
+      height: 2.5rem;
+      font-weight: 500;
+      background-color: var(--ngp-background);
+      transition: background-color 300ms cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: var(--ngp-button-shadow);
+      box-sizing: border-box;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      gap: 0.5rem;
+    }
+
+    :host[data-hover] {
+      background-color: var(--ngp-background-hover);
+    }
+
+    :host[data-focus-visible] {
+      outline: 2px solid var(--ngp-focus-ring);
+    }
+
+    :host[data-press] {
+      background-color: var(--ngp-background-active);
+    }
+
+    /* Size variants */
+    :host[data-size='sm'] {
+      height: 2rem;
+      padding-left: 0.75rem;
+      padding-right: 0.75rem;
+      font-size: 0.875rem;
+      --ng-icon__size: 0.875rem;
+    }
+
+    :host[data-size='md'],
+    :host:not([data-size]) {
+      height: 2.5rem;
+      padding-left: 1rem;
+      padding-right: 1rem;
+      font-size: 0.875rem;
+      --ng-icon__size: 0.875rem;
+    }
+
+    :host[data-size='lg'] {
+      height: 3rem;
+      padding-left: 1.25rem;
+      padding-right: 1.25rem;
+      font-size: 1rem;
+      --ng-icon__size: 1rem;
+    }
+
+    :host[data-size='xl'] {
+      height: 3.5rem;
+      padding-left: 1.5rem;
+      padding-right: 1.5rem;
+      font-size: 1.125rem;
+      --ng-icon__size: 1.125rem;
+    }
+
+    /* Variant styles */
+    :host[data-variant='primary'],
+    :host:not([data-variant]) {
+      background-color: var(--ngp-background);
+      color: var(--ngp-text-primary);
+      border: none;
+    }
+
+    :host[data-variant='primary'][data-hover],
+    :host:not([data-variant])[data-hover] {
+      background-color: var(--ngp-background-hover);
+    }
+
+    :host[data-variant='primary'][data-press],
+    :host:not([data-variant])[data-press] {
+      background-color: var(--ngp-background-active);
+    }
+
+    :host[data-variant='secondary'] {
+      background-color: var(--ngp-secondary-background, #f1f5f9);
+      color: var(--ngp-secondary-text, #0f172a);
+      border: none;
+    }
+
+    :host[data-variant='secondary'][data-hover] {
+      background-color: var(--ngp-secondary-background-hover, #e2e8f0);
+    }
+
+    :host[data-variant='secondary'][data-press] {
+      background-color: var(--ngp-secondary-background-active, #cbd5e1);
+    }
+
+    :host[data-variant='destructive'] {
+      background-color: var(--ngp-destructive-background, #ef4444);
+      color: var(--ngp-destructive-text, #ffffff);
+      border: none;
+    }
+
+    :host[data-variant='destructive'][data-hover] {
+      background-color: var(--ngp-destructive-background-hover, #dc2626);
+    }
+
+    :host[data-variant='destructive'][data-press] {
+      background-color: var(--ngp-destructive-background-active, #b91c1c);
+    }
+
+    :host[data-variant='outline'] {
+      background-color: transparent;
+      color: var(--ngp-text-primary);
+      border: 1px solid var(--ngp-outline-border, #e2e8f0);
+      box-shadow: none;
+    }
+
+    :host[data-variant='outline'][data-hover] {
+      background-color: var(--ngp-background-hover);
+      border-color: var(--ngp-outline-border-hover, #cbd5e1);
+    }
+
+    :host[data-variant='outline'][data-press] {
+      background-color: var(
+        --ngp-outline-background-active,
+        rgba(15, 23, 42, 0.1)
+      );
+    }
+
+    :host[data-variant='ghost'] {
+      background-color: transparent;
+      color: var(--ngp-text-primary);
+      border: none;
+      box-shadow: none;
+    }
+
+    :host[data-variant='ghost'][data-hover] {
+      background-color: var(--ngp-background-hover);
+    }
+
+    :host[data-variant='ghost'][data-press] {
+      background-color: var(--ngp-background-active);
+    }
+
+    :host[data-variant='link'] {
+      background-color: transparent;
+      color: var(--ngp-link-color, #3b82f6);
+      border: none;
+      box-shadow: none;
+      text-decoration: underline;
+      text-underline-offset: 4px;
+    }
+
+    :host[data-variant='link'][data-hover] {
+      text-decoration-thickness: 2px;
+    }
+
+    :host[disabled] {
+      opacity: 0.5;
+      cursor: not-allowed;
+    }
+  `
 })
 export class ButtonComponent {
-  readonly variant = input<Variant>('primary');
-  readonly disabled = input(false, {
-    transform: booleanAttribute
-  });
-  readonly formId = input('', {
-    transform: (value) => (value === null ? '' : value)
-  });
-  readonly htmlType = input<'button' | 'submit' | 'reset'>('button');
-  readonly rounded = input(false, {
-    transform: booleanAttribute
-  });
+  /**
+   * The size of the button.
+   */
+  readonly size = input<ButtonSize>('md');
 
-  readonly variantClass = computed(() => {
-    const classes = ['liv-button', `liv-button--${this.variant()}`];
-    if (this.rounded()) {
-      classes.push('liv-button--rounded');
-    }
-    return classes.join(' ');
-  });
+  /**
+   * The variant of the button.
+   */
+  readonly variant = input<ButtonVariant>('primary');
 }

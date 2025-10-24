@@ -85,7 +85,7 @@
     "components": [
         {
             "name": "ButtonComponent",
-            "id": "component-ButtonComponent-5c077fd611aa1f77bde0c906f74de871e323482def66f6f4c96f4c77bd1a2d5414f8db189460aede3854b2c0b61c6e16b1b9185495d7fada97e45d9057ed1401",
+            "id": "component-ButtonComponent-81155bfae41179074c961c684bb316a8ee6dfe87025513f513361d72e23ad8cf34c40d6bd234c0a0a09bbff4f23ff2546fd3e095828e5be76fe0a0b66f0c9491",
             "file": "projects/design-system/components/src/button/button.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -94,9 +94,7 @@
             "outputs": [],
             "providers": [],
             "selector": "button[liv-button]",
-            "styleUrls": [
-                "./button.component.css"
-            ],
+            "styleUrls": [],
             "styles": [],
             "template": "<ng-content></ng-content>",
             "templateUrl": [],
@@ -119,7 +117,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 21,
+                    "line": 23,
                     "modifierKind": [
                         148
                     ],
@@ -133,7 +131,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 24,
+                    "line": 26,
                     "modifierKind": [
                         148
                     ],
@@ -148,7 +146,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 27,
+                    "line": 29,
                     "modifierKind": [
                         148
                     ],
@@ -162,7 +160,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 28,
+                    "line": 30,
                     "modifierKind": [
                         148
                     ],
@@ -177,7 +175,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 20,
+                    "line": 22,
                     "modifierKind": [
                         148
                     ],
@@ -185,22 +183,7 @@
                 }
             ],
             "outputsClass": [],
-            "propertiesClass": [
-                {
-                    "name": "variantClass",
-                    "defaultValue": "computed(() => {\n    const classes = ['liv-button', `liv-button--${this.variant()}`];\n    if (this.rounded()) {\n      classes.push('liv-button--rounded');\n    }\n    return classes.join(' ');\n  })",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "",
-                    "indexKey": "",
-                    "optional": false,
-                    "description": "",
-                    "line": 32,
-                    "modifierKind": [
-                        148
-                    ]
-                }
-            ],
+            "propertiesClass": [],
             "methodsClass": [],
             "deprecated": false,
             "deprecationMessage": "",
@@ -215,14 +198,10 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { booleanAttribute, Component, computed, input } from '@angular/core';\n\nimport { NgpButton } from 'ng-primitives/button';\n\ntype Variant = 'primary' | 'secondary';\n\n@Component({\n  selector: 'button[liv-button]',\n  imports: [NgpButton],\n  template: '<ng-content></ng-content>',\n  styleUrls: ['./button.component.css'],\n  host: {\n    '[attr.type]': 'htmlType()',\n    '[attr.form]': 'formId()',\n    '[class]': 'variantClass()'\n  },\n  hostDirectives: [{ directive: NgpButton, inputs: ['disabled'] }]\n})\nexport class ButtonComponent {\n  readonly variant = input<Variant>('primary');\n  readonly disabled = input(false, {\n    transform: booleanAttribute\n  });\n  readonly formId = input('', {\n    transform: (value) => (value === null ? '' : value)\n  });\n  readonly htmlType = input<'button' | 'submit' | 'reset'>('button');\n  readonly rounded = input(false, {\n    transform: booleanAttribute\n  });\n\n  readonly variantClass = computed(() => {\n    const classes = ['liv-button', `liv-button--${this.variant()}`];\n    if (this.rounded()) {\n      classes.push('liv-button--rounded');\n    }\n    return classes.join(' ');\n  });\n}\n",
+            "sourceCode": "import { booleanAttribute, Component, input } from '@angular/core';\n\nimport { NgpButton } from 'ng-primitives/button';\n\ntype Variant = 'primary' | 'secondary';\n\n@Component({\n  // eslint-disable-next-line @angular-eslint/component-selector\n  selector: 'button[liv-button]',\n  imports: [NgpButton],\n  template: '<ng-content></ng-content>',\n  styleUrl: './button.component.css',\n  host: {\n    '[attr.type]': 'htmlType()',\n    '[attr.form]': 'formId()',\n    '[class]':\n      '\"liv-button liv-button--\" + variant() + (rounded() ? \" liv-button--rounded\" : \"\")'\n  },\n  hostDirectives: [{ directive: NgpButton, inputs: ['disabled'] }]\n})\nexport class ButtonComponent {\n  readonly variant = input<Variant>('primary');\n  readonly disabled = input(false, {\n    transform: booleanAttribute\n  });\n  readonly formId = input('', {\n    transform: (value) => (value === null ? '' : value)\n  });\n  readonly htmlType = input<'button' | 'submit' | 'reset'>('button');\n  readonly rounded = input(false, {\n    transform: booleanAttribute\n  });\n}\n",
+            "styleUrl": "./button.component.css",
             "assetsDirs": [],
-            "styleUrlsData": [
-                {
-                    "data": "/* @reference \"tailwindcss\";\n\n.liv-button {\n  @apply inline-flex items-center justify-center px-4 py-2 text-sm font-medium transition-colors focus:outline-none;\n}\n\n.liv-button--primary {\n  @apply bg-blue-600 text-white hover:bg-blue-700;\n}\n\n.liv-button--secondary {\n  @apply bg-gray-200 text-gray-900 hover:bg-gray-300;\n}\n\n.liv-button--rounded {\n  @apply rounded-full;\n}\n\n.liv-button:not(.liv-button--rounded) {\n  @apply rounded-md;\n}\n\n.liv-button[data-focus-visible] {\n  @apply ring-2 ring-blue-500 ring-offset-2;\n}\n\n.liv-button[data-press] {\n  @apply scale-95;\n}\n\n.liv-button[data-disabled] {\n  @apply opacity-50 cursor-not-allowed;\n} */\n",
-                    "styleUrl": "./button.component.css"
-                }
-            ],
+            "styleUrlsData": "",
             "stylesData": "",
             "extends": []
         },
@@ -738,7 +717,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "StorybookConfig",
-                "defaultValue": "{\n  stories: [\n    '../components/src/**/*.mdx',\n    '../components/src/**/*.stories.@(js|jsx|mjs|ts|tsx)'\n  ],\n  addons: ['@storybook/addon-docs', '@chromatic-com/storybook'],\n  framework: {\n    name: '@storybook/angular',\n    options: {}\n  }\n}"
+                "defaultValue": "{\n  stories: [\n    '../components/src/**/*.mdx',\n    '../components/src/**/*.stories.@(js|jsx|mjs|ts|tsx)'\n  ],\n  addons: [\n    '@storybook/addon-docs',\n    '@chromatic-com/storybook',\n    '@storybook/addon-styling-webpack'\n  ],\n  framework: {\n    name: '@storybook/angular',\n    options: {}\n  }\n}"
             },
             {
                 "name": "Disabled",
@@ -794,21 +773,21 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/design-system/components/src/icon/icon.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<IconStory>",
-                "defaultValue": "{\n  title: 'Components/Icon',\n  component: IconComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    name: {\n      control: {\n        type: 'text'\n      }\n    },\n    size: {\n      control: {\n        type: 'text'\n      }\n    },\n    strokeWidth: {\n      control: { type: 'number' }\n    },\n    class: {\n      control: { type: 'text' }\n    },\n    ngClass: {\n      control: { type: 'object' }\n    },\n    style: {\n      control: { type: 'text' }\n    }\n  }\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/design-system/components/src/button/button.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<ButtonStory>",
                 "defaultValue": "{\n  title: 'Components/Button',\n  component: ButtonComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: {\n      control: { type: 'select' },\n      options: ['primary', 'secondary']\n    },\n    disabled: { control: 'boolean' },\n    htmlType: {\n      control: { type: 'select' },\n      options: ['button', 'submit', 'reset']\n    }\n  },\n  args: {\n    variant: 'primary',\n    disabled: false\n  },\n  render: (args) => ({\n    props: args,\n    template: `<button liv-button [variant]=\"variant\" [disabled]=\"disabled\">{{content}}</button>`\n  })\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/design-system/components/src/icon/icon.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<IconStory>",
+                "defaultValue": "{\n  title: 'Components/Icon',\n  component: IconComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    name: {\n      control: {\n        type: 'text'\n      }\n    },\n    size: {\n      control: {\n        type: 'text'\n      }\n    },\n    strokeWidth: {\n      control: { type: 'number' }\n    },\n    class: {\n      control: { type: 'text' }\n    },\n    ngClass: {\n      control: { type: 'object' }\n    },\n    style: {\n      control: { type: 'text' }\n    }\n  }\n}"
             },
             {
                 "name": "preview",
@@ -955,7 +934,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "StorybookConfig",
-                    "defaultValue": "{\n  stories: [\n    '../components/src/**/*.mdx',\n    '../components/src/**/*.stories.@(js|jsx|mjs|ts|tsx)'\n  ],\n  addons: ['@storybook/addon-docs', '@chromatic-com/storybook'],\n  framework: {\n    name: '@storybook/angular',\n    options: {}\n  }\n}"
+                    "defaultValue": "{\n  stories: [\n    '../components/src/**/*.mdx',\n    '../components/src/**/*.stories.@(js|jsx|mjs|ts|tsx)'\n  ],\n  addons: [\n    '@storybook/addon-docs',\n    '@chromatic-com/storybook',\n    '@storybook/addon-styling-webpack'\n  ],\n  framework: {\n    name: '@storybook/angular',\n    options: {}\n  }\n}"
                 }
             ],
             "projects/design-system/components/src/button/button.component.stories.ts": [
@@ -1261,7 +1240,7 @@
                 "linktype": "component",
                 "name": "ButtonComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/7",
+                "coverageCount": "0/6",
                 "status": "low"
             },
             {
