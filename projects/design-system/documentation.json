@@ -85,23 +85,31 @@
     "components": [
         {
             "name": "ButtonComponent",
-            "id": "component-ButtonComponent-eea757a526740ec5987e0afcc8aecc81a38f7534dc9984fb8dac6a851618f53ee53da06fa60cb61486e7027f8bf1c249b71536a73a2035afa5774c9a5e98cf83",
+            "id": "component-ButtonComponent-5c077fd611aa1f77bde0c906f74de871e323482def66f6f4c96f4c77bd1a2d5414f8db189460aede3854b2c0b61c6e16b1b9185495d7fada97e45d9057ed1401",
             "file": "projects/design-system/components/src/button/button.component.ts",
             "encapsulation": [],
             "entryComponents": [],
+            "host": {},
             "inputs": [],
             "outputs": [],
             "providers": [],
-            "selector": "liv-button",
+            "selector": "button[liv-button]",
             "styleUrls": [
                 "./button.component.css"
             ],
             "styles": [],
-            "templateUrl": [
-                "./button.component.html"
-            ],
+            "template": "<ng-content></ng-content>",
+            "templateUrl": [],
             "viewProviders": [],
-            "hostDirectives": [],
+            "hostDirectives": [
+                {
+                    "name": "NgpButton",
+                    "inputs": [
+                        "disabled"
+                    ],
+                    "outputs": []
+                }
+            ],
             "inputsClass": [
                 {
                     "name": "disabled",
@@ -111,7 +119,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 14,
+                    "line": 21,
                     "modifierKind": [
                         148
                     ],
@@ -125,7 +133,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 17,
+                    "line": 24,
                     "modifierKind": [
                         148
                     ],
@@ -140,7 +148,21 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 20,
+                    "line": 27,
+                    "modifierKind": [
+                        148
+                    ],
+                    "required": false
+                },
+                {
+                    "name": "rounded",
+                    "defaultValue": "false, {    transform: booleanAttribute  }",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 28,
                     "modifierKind": [
                         148
                     ],
@@ -155,7 +177,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 13,
+                    "line": 20,
                     "modifierKind": [
                         148
                     ],
@@ -163,7 +185,22 @@
                 }
             ],
             "outputsClass": [],
-            "propertiesClass": [],
+            "propertiesClass": [
+                {
+                    "name": "variantClass",
+                    "defaultValue": "computed(() => {\n    const classes = ['liv-button', `liv-button--${this.variant()}`];\n    if (this.rounded()) {\n      classes.push('liv-button--rounded');\n    }\n    return classes.join(' ');\n  })",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "",
+                    "indexKey": "",
+                    "optional": false,
+                    "description": "",
+                    "line": 32,
+                    "modifierKind": [
+                        148
+                    ]
+                }
+            ],
             "methodsClass": [],
             "deprecated": false,
             "deprecationMessage": "",
@@ -172,23 +209,22 @@
             "standalone": false,
             "imports": [
                 {
-                    "name": "NgClass"
+                    "name": "NgpButton"
                 }
             ],
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { NgClass } from '@angular/common';\nimport { booleanAttribute, Component, input } from '@angular/core';\n\ntype Variant = 'primary' | 'secondary';\n\n@Component({\n  selector: 'liv-button',\n  imports: [NgClass],\n  templateUrl: './button.component.html',\n  styleUrls: ['./button.component.css']\n})\nexport class ButtonComponent {\n  readonly variant = input<Variant>('primary');\n  readonly disabled = input(false, {\n    transform: booleanAttribute\n  });\n  readonly formId = input('', {\n    transform: (value) => (value === null ? '' : value)\n  });\n  readonly htmlType = input<'button' | 'submit' | 'reset'>('button');\n}\n",
+            "sourceCode": "import { booleanAttribute, Component, computed, input } from '@angular/core';\n\nimport { NgpButton } from 'ng-primitives/button';\n\ntype Variant = 'primary' | 'secondary';\n\n@Component({\n  selector: 'button[liv-button]',\n  imports: [NgpButton],\n  template: '<ng-content></ng-content>',\n  styleUrls: ['./button.component.css'],\n  host: {\n    '[attr.type]': 'htmlType()',\n    '[attr.form]': 'formId()',\n    '[class]': 'variantClass()'\n  },\n  hostDirectives: [{ directive: NgpButton, inputs: ['disabled'] }]\n})\nexport class ButtonComponent {\n  readonly variant = input<Variant>('primary');\n  readonly disabled = input(false, {\n    transform: booleanAttribute\n  });\n  readonly formId = input('', {\n    transform: (value) => (value === null ? '' : value)\n  });\n  readonly htmlType = input<'button' | 'submit' | 'reset'>('button');\n  readonly rounded = input(false, {\n    transform: booleanAttribute\n  });\n\n  readonly variantClass = computed(() => {\n    const classes = ['liv-button', `liv-button--${this.variant()}`];\n    if (this.rounded()) {\n      classes.push('liv-button--rounded');\n    }\n    return classes.join(' ');\n  });\n}\n",
             "assetsDirs": [],
             "styleUrlsData": [
                 {
-                    "data": "",
+                    "data": "/* @reference \"tailwindcss\";\n\n.liv-button {\n  @apply inline-flex items-center justify-center px-4 py-2 text-sm font-medium transition-colors focus:outline-none;\n}\n\n.liv-button--primary {\n  @apply bg-blue-600 text-white hover:bg-blue-700;\n}\n\n.liv-button--secondary {\n  @apply bg-gray-200 text-gray-900 hover:bg-gray-300;\n}\n\n.liv-button--rounded {\n  @apply rounded-full;\n}\n\n.liv-button:not(.liv-button--rounded) {\n  @apply rounded-md;\n}\n\n.liv-button[data-focus-visible] {\n  @apply ring-2 ring-blue-500 ring-offset-2;\n}\n\n.liv-button[data-press] {\n  @apply scale-95;\n}\n\n.liv-button[data-disabled] {\n  @apply opacity-50 cursor-not-allowed;\n} */\n",
                     "styleUrl": "./button.component.css"
                 }
             ],
             "stylesData": "",
-            "extends": [],
-            "templateData": "<button\n  [type]=\"htmlType()\"\n  [attr.form]=\"formId()\"\n  [disabled]=\"disabled()\"\n  [ngClass]=\"[\n    'px-4 py-2 text-sm font-semibold rounded transition-colors cursor-pointer disabled:cursor-not-allowed disabled:opacity-50 focus:outline-none focus:ring-2 focus:ring-offset-2',\n    variant() === 'primary'\n      ? 'bg-main-primary-600 text-white enabled:focus:ring-main-primary-300 enabled:hover:bg-main-primary-400'\n      : '',\n    variant() === 'secondary'\n      ? 'bg-transparent text-main-secondary-800 enabled:hover:text-main-secondary-600 enabled:focus:ring-main-secondary-600  border border-main-secondary-800 enabled:hover:border-main-secondary-600'\n      : ''\n  ]\"\n>\n  <ng-content />\n</button>\n"
+            "extends": []
         },
         {
             "name": "IconBaseComponent",
@@ -758,21 +794,21 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/design-system/components/src/button/button.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta<ButtonStory>",
-                "defaultValue": "{\n  title: 'Components/Button',\n  component: ButtonComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: {\n      control: { type: 'select' },\n      options: ['primary', 'secondary']\n    },\n    disabled: { control: 'boolean' },\n    htmlType: {\n      control: { type: 'select' },\n      options: ['button', 'submit', 'reset']\n    }\n  },\n  args: {\n    variant: 'primary',\n    disabled: false\n  },\n  render: (args) => ({\n    props: args,\n    template: `<liv-button [variant]=\"variant\" [disabled]=\"disabled\">{{content}}</liv-button>`\n  })\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/design-system/components/src/icon/icon.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<IconStory>",
                 "defaultValue": "{\n  title: 'Components/Icon',\n  component: IconComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    name: {\n      control: {\n        type: 'text'\n      }\n    },\n    size: {\n      control: {\n        type: 'text'\n      }\n    },\n    strokeWidth: {\n      control: { type: 'number' }\n    },\n    class: {\n      control: { type: 'text' }\n    },\n    ngClass: {\n      control: { type: 'object' }\n    },\n    style: {\n      control: { type: 'text' }\n    }\n  }\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/design-system/components/src/button/button.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta<ButtonStory>",
+                "defaultValue": "{\n  title: 'Components/Button',\n  component: ButtonComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: {\n      control: { type: 'select' },\n      options: ['primary', 'secondary']\n    },\n    disabled: { control: 'boolean' },\n    htmlType: {\n      control: { type: 'select' },\n      options: ['button', 'submit', 'reset']\n    }\n  },\n  args: {\n    variant: 'primary',\n    disabled: false\n  },\n  render: (args) => ({\n    props: args,\n    template: `<button liv-button [variant]=\"variant\" [disabled]=\"disabled\">{{content}}</button>`\n  })\n}"
             },
             {
                 "name": "preview",
@@ -941,7 +977,7 @@
                     "deprecated": false,
                     "deprecationMessage": "",
                     "type": "Meta<ButtonStory>",
-                    "defaultValue": "{\n  title: 'Components/Button',\n  component: ButtonComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: {\n      control: { type: 'select' },\n      options: ['primary', 'secondary']\n    },\n    disabled: { control: 'boolean' },\n    htmlType: {\n      control: { type: 'select' },\n      options: ['button', 'submit', 'reset']\n    }\n  },\n  args: {\n    variant: 'primary',\n    disabled: false\n  },\n  render: (args) => ({\n    props: args,\n    template: `<liv-button [variant]=\"variant\" [disabled]=\"disabled\">{{content}}</liv-button>`\n  })\n}"
+                    "defaultValue": "{\n  title: 'Components/Button',\n  component: ButtonComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    variant: {\n      control: { type: 'select' },\n      options: ['primary', 'secondary']\n    },\n    disabled: { control: 'boolean' },\n    htmlType: {\n      control: { type: 'select' },\n      options: ['button', 'submit', 'reset']\n    }\n  },\n  args: {\n    variant: 'primary',\n    disabled: false\n  },\n  render: (args) => ({\n    props: args,\n    template: `<button liv-button [variant]=\"variant\" [disabled]=\"disabled\">{{content}}</button>`\n  })\n}"
                 },
                 {
                     "name": "Primary",
@@ -1225,7 +1261,7 @@
                 "linktype": "component",
                 "name": "ButtonComponent",
                 "coveragePercent": 0,
-                "coverageCount": "0/5",
+                "coverageCount": "0/7",
                 "status": "low"
             },
             {
