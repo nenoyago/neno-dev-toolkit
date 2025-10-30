@@ -1,0 +1,31 @@
+<div
+  [class]="wrapperClasses"
+  [attr.data-size]="size()"
+  [attr.data-invalid]="isInvalid()"
+>
+  <input
+    #inputRef
+    ngpInput
+    [class]="inputClasses"
+    [ngClass]="dynamicClasses()"
+    type="tel"
+    pattern="[0-9]*"
+    [attr.id]="id()"
+    [name]="name()"
+    [(ngModel)]="value"
+    [placeholder]="placeholder()"
+    [disabled]="props().disabled"
+    [readOnly]="props().readonly"
+    [autocomplete]="autocomplete()"
+    [autocapitalize]="autocapitalize()"
+    (input)="handleInput($event)"
+    (focus)="handleFocus($event)"
+    (blur)="handleBlur($event)"
+    [attr.maxlength]="maxlength()"
+    [attr.min]="min()"
+    [attr.max]="max()"
+    [attr.step]="step()"
+    [attr.aria-invalid]="isInvalid()"
+    [attr.aria-describedby]="id() + '-error'"
+  />
+</div>

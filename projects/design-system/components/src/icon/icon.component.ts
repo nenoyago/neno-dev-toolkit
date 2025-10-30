@@ -1,12 +1,7 @@
-import { NgClass, NgComponentOutlet } from '@angular/common';
-import { Component, inject, Injector, input, InputSignal } from '@angular/core';
+import { NgClass } from '@angular/common';
+import { Component, input, InputSignal } from '@angular/core';
 
-import { provideIcons, IconName as NgIconName, NgIcon } from '@ng-icons/core';
-
-const AVAILABLE_ICONS_IMPORT = [
-  import('@ng-icons/heroicons/outline'),
-  import('@ng-icons/lucide')
-];
+import { IconName as NgIconName, NgIcon } from '@ng-icons/core';
 
 type HeroIconName = Extract<
   Exclude<
@@ -25,7 +20,6 @@ export type IconInput = IconName | (string & {});
 interface IconBaseComponentProps {
   name: InputSignal<IconInput>;
   size: InputSignal<string>;
-  strokeWidth?: InputSignal<number>;
   class?: InputSignal<string>;
   ngClass?: InputSignal<string | string[] | Record<string, boolean>>;
   style?: InputSignal<Record<string, string>>;
@@ -37,79 +31,43 @@ interface IconBaseComponentProps {
 })
 abstract class IconBaseComponent implements IconBaseComponentProps {
   readonly name = input.required<IconInput>();
-  readonly size = input<string>('');
-  readonly strokeWidth = input<number>(1.5);
+  readonly size = input('', {
+    transform: (value: string) => {
+      if (value === '') return value; // Allow empty string
+      const sizeNum = Number(value);
+      if (isNaN(sizeNum) || sizeNum <= 0) {
+        throw new Error(
+          `Invalid size value: ${value}. Must be a positive number.`
+        );
+      }
+      return value;
+    }
+  });
+  readonly strokeWidth = input<string | number, number>('2', {
+    transform: (value: string | number) => {
+      if (typeof value === 'string') {
+        const num = parseFloat(value);
+        if (isNaN(num)) {
+          throw new Error(
+            `Invalid strokeWidth value: ${value}. Must be a valid number.`
+          );
+        }
+        return num;
+      }
+      return value;
+    }
+  });
   readonly class = input<string>('');
   readonly ngClass = input<string | string[] | Record<string, boolean>>('');
   readonly style = input<Record<string, string>>({});
 }
-
-@Component({
-  selector: 'liv-icon-render',
-  imports: [NgIcon, NgClass],
-  template: `
-    @if (name(); as name) {
-      <ng-icon
-        [name]="name"
-        [size]="size()"
-        [strokeWidth]="strokeWidth()"
-        [class]="class()"
-        [ngClass]="ngClass()"
-        [style]="style()"
-      />
-    }
-  `
-})
-class IconRenderComponent extends IconBaseComponent {}
-
 @Component({
   selector: 'liv-icon',
-  imports: [NgComponentOutlet],
+  imports: [NgIcon, NgClass],
   templateUrl: './icon.component.html',
-  styleUrl: './icon.component.css'
-})
-export class IconComponent extends IconBaseComponent {
-  private readonly parentInjector = inject(Injector);
-
-  protected injector: Injector | null = null;
-  protected child = IconRenderComponent;
-
-  async ngOnInit() {
-    const name = this.name();
-
-    if (!name) {
-      this.injector = this.parentInjector;
-      throw new Error('Icon name is required');
-    }
-
-    const isCustomIcon =
-      typeof name === 'string' &&
-      !name.startsWith('hero') &&
-      !name.startsWith('lucide');
-
-    if (isCustomIcon) {
-      this.injector = Injector.create({
-        providers: [],
-        parent: this.parentInjector
-      });
-      return;
-    }
-
-    try {
-      // @ts-ignore
-      for await (const { [name]: icon } of AVAILABLE_ICONS_IMPORT) {
-        if (icon) {
-          this.injector = Injector.create({
-            providers: [provideIcons({ [name]: icon })],
-            parent: this.parentInjector
-          });
-          break;
-        }
-        this.injector = this.parentInjector;
-      }
-    } catch (err) {
-      console.error('Error loading icon:', err);
-      this.injector = this.parentInjector;
-    }
+  styleUrl: './icon.component.css',
+  host: {
+    class: 'contents'
   }
-}
+})
+export class IconComponent extends IconBaseComponent {}

@@ -68,7 +68,8 @@ const lucideIcons = [
   'lucideAntenna',
   'lucideAnvil',
   'lucideAperture',
-  'lucideApple'
+  'lucideApple',
+  'lucideEyeOff'
 ];
 
 export const LucideIconsShowcase = {

@@ -1,0 +1,50 @@
+<div
+  [class]="wrapperClasses"
+  [attr.data-size]="size()"
+  [attr.data-invalid]="isInvalid()"
+>
+  @let iconSize = size() === 'sm' ? '12' : '16';
+
+  <span [class]="leadingSpanClasses" data-slot="leading">
+    <button
+      type="button"
+      class="flex group-data-[size='sm']/wrapper:size-4 size-5 items-center justify-center rounded border border-neutral-300 bg-white text-neutral-600 transition-all duration-150 hover:bg-neutral-50 hover:text-neutral-700 hover:border-neutral-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-main-primary-500 focus-visible:ring-offset-1 active:bg-neutral-100 enabled:active:scale-90 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white disabled:hover:text-neutral-600 disabled:hover:border-neutral-300 cursor-pointer leading-0"
+      [disabled]="props().disabled || props().readonly || !canDecrement()"
+      (click)="decrement()"
+      aria-label="Decrement"
+    >
+      <liv-icon name="lucideMinus" [size]="iconSize" />
+    </button>
+  </span>
+  <input
+    #inputRef
+    ngpInput
+    [class]="inputClasses"
+    [ngClass]="dynamicClasses()"
+    type="number"
+    [attr.id]="id()"
+    [name]="name()"
+    [(ngModel)]="value"
+    [placeholder]="placeholder()"
+    [disabled]="props().disabled"
+    [readOnly]="props().readonly"
+    [autocomplete]="autocomplete()"
+    [autocapitalize]="autocapitalize()"
+    (focus)="handleFocus($event)"
+    (blur)="handleBlur($event)"
+    [attr.maxlength]="maxlength()"
+    [attr.aria-invalid]="isInvalid()"
+    [attr.aria-describedby]="id() + '-error'"
+  />
+  <span [class]="trailingSpanClasses" data-slot="trailing">
+    <button
+      type="button"
+      class="flex group-data-[size='sm']/wrapper:size-4 size-5 items-center justify-center rounded border border-neutral-300 bg-white text-neutral-600 transition-all duration-150 hover:bg-neutral-50 hover:text-neutral-700 hover:border-neutral-400 focus:outline-none focus-visible:ring-2 focus-visible:ring-main-primary-500 focus-visible:ring-offset-1 active:bg-neutral-100 enabled:active:scale-90 disabled:cursor-not-allowed disabled:opacity-50 disabled:hover:bg-white disabled:hover:text-neutral-600 disabled:hover:border-neutral-300 cursor-pointer leading-0"
+      [disabled]="props().disabled || props().readonly || !canIncrement()"
+      (click)="increment()"
+      aria-label="Increment"
+    >
+      <liv-icon name="lucidePlus" [size]="iconSize" />
+    </button>
+  </span>
+</div>

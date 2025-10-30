@@ -1,0 +1,28 @@
+<div
+  [class]="wrapperClasses"
+  [attr.data-size]="size()"
+  [attr.data-invalid]="isInvalid()"
+>
+  <input
+    #inputRef
+    ngpInput
+    [class]="inputClasses"
+    [ngClass]="dynamicClasses()"
+    type="text"
+    [attr.id]="id()"
+    [name]="name()"
+    [(ngModel)]="value"
+    [placeholder]="placeholder()"
+    [disabled]="props().disabled"
+    [readOnly]="props().readonly"
+    [autocomplete]="autocomplete()"
+    [autocapitalize]="autocapitalize()"
+    (focus)="handleFocus($event)"
+    (blur)="handleBlur($event)"
+    [attr.maxlength]="maxlength()"
+    [attr.aria-invalid]="isInvalid()"
+    [attr.aria-describedby]="id() + '-error'"
+    currencyMask
+    [currencyMask]="currencyMaskOptions()"
+  />
+</div>

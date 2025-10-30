@@ -1,0 +1,32 @@
+<div ngpFormField data-cid="liv-form-field">
+  <div class="space-y-0.5 mb-2">
+    <label
+      [for]="livInput()?.id()"
+      class="block text-sm font-medium leading-5 text-neutral-900 data-[required=true]:after:content-['*'] data-[required=true]:after:ml-0.5 data-[required=true]:after:text-feedback-error-medium"
+      [attr.data-required]="isRequired() ? true : null"
+    >
+      {{ label() }}
+    </label>
+
+    @if (hint()) {
+      <p ngpDescription class="block text-xs leading-4 text-neutral-500">
+        {{ hint() }}
+      </p>
+    }
+  </div>
+
+  <ng-content />
+
+  @if (errorMessage()) {
+    <div
+      ngpError
+      @fadeSlide
+      class="mt-2 flex items-center gap-1.5 overflow-hidden text-feedback-error-medium"
+    >
+      <liv-icon name="lucideCircleAlert" />
+      <p class="text-xs leading-4">
+        {{ errorMessage() }}
+      </p>
+    </div>
+  }
+</div>

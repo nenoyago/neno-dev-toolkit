@@ -1,0 +1,34 @@
+<div
+  [class]="wrapperClasses"
+  [attr.data-size]="size()"
+  [attr.data-invalid]="isInvalid()"
+>
+  <span [class]="leadingSpanClasses" data-slot="leading">
+    <ng-content select="[slot=leading]" />
+  </span>
+
+  <input
+    #inputRef
+    ngpInput
+    [class]="inputClasses"
+    [ngClass]="dynamicClasses()"
+    [type]="type()"
+    [id]="id()"
+    [name]="name()"
+    [(ngModel)]="value"
+    [placeholder]="placeholder()"
+    [disabled]="props().disabled"
+    [readOnly]="props().readonly"
+    [autocomplete]="autocomplete()"
+    [autocapitalize]="autocapitalize()"
+    (focus)="handleFocus($event)"
+    (blur)="handleBlur($event)"
+    [attr.maxlength]="maxlength()"
+    [attr.aria-invalid]="isInvalid()"
+    [attr.aria-describedby]="id() + '-error'"
+  />
+
+  <span [class]="trailingSpanClasses" data-slot="trailing">
+    <ng-content select="[slot=trailing]" />
+  </span>
+</div>

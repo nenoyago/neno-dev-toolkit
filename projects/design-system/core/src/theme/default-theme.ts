@@ -3,7 +3,7 @@ import { FullTheme } from './theme-config';
 export const DEFAULT_THEME: FullTheme = {
   colors: {
     // Main - Primário
-    'main-primary-50': '#FFFFFF',
+    'main-primary-50': '#F2F2F2',
     'main-primary-100': '#DDD7EA',
     'main-primary-200': '#BCAAE4',
     'main-primary-300': '#9E84D7',

@@ -1,11 +1,12 @@
-import { setCompodocJson } from '@storybook/addon-docs/angular';
-import { type Preview } from '@storybook/angular';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
-import { initDefaultThemeCss } from '../core/src/theme/theme-style-injector';
+import { setCompodocJson } from '@storybook/addon-docs/angular';
+import { applicationConfig, type Preview } from '@storybook/angular';
+
+import { provideTheme } from '../core/src/theme/theme.provider';
 import docJson from '../documentation.json';
 
 setCompodocJson(docJson);
-initDefaultThemeCss();
 
 const preview: Preview = {
   parameters: {
@@ -16,7 +17,12 @@ const preview: Preview = {
         date: /Date$/i
       }
     }
-  }
+  },
+  decorators: [
+    applicationConfig({
+      providers: [provideAnimations(), provideTheme()]
+    })
+  ]
 };
 
 export default preview;
