@@ -1,16 +1,8 @@
-@if (injector; as inj) {
-  <ng-container
-    *ngComponentOutlet="
-      child;
-      injector: inj;
-      inputs: {
-        name: name(),
-        size: size(),
-        strokeWidth: strokeWidth(),
-        class: class(),
-        ngClass: ngClass(),
-        style: style()
-      }
-    "
-  />
-}
+<ng-icon
+  [name]="name()"
+  [size]="size()"
+  [strokeWidth]="strokeWidth()"
+  [class]="class()"
+  [ngClass]="ngClass()"
+  [style]="style()"
+/>

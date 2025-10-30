@@ -1,0 +1,30 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { PasswordInputComponent } from './password-input.component';
+
+describe('PasswordInputComponent', () => {
+  let component: PasswordInputComponent;
+  let fixture: ComponentFixture<PasswordInputComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [PasswordInputComponent]
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(PasswordInputComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+
+  it('should toggle visibility', () => {
+    expect(component.computedType()).toBe('password');
+    component.toggleVisibility();
+    expect(component.computedType()).toBe('text');
+    component.toggleVisibility();
+    expect(component.computedType()).toBe('password');
+  });
+});

@@ -1,10 +1,3 @@
-<button
-  [type]="htmlType()"
-  [attr.form]="formId()"
-  [disabled]="disabled()"
-  class="liv-button liv-button--{{ variant() }} {{
-    disabled() ? 'liv-button-disabled' : ''
-  }}"
->
-  <ng-content />
-</button>
+<ng-content select="[slot=leading]" />
+<ng-content />
+<ng-content select="[slot=trailing]" />
