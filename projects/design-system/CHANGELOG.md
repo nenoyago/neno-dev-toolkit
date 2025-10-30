@@ -1,5 +1,11 @@
 # @nenoyago/design-system
 
+## 5.1.0
+
+### Minor Changes
+
+- 5a04037: create button and inputs components
+
 ## 5.0.1
 
 ### Patch Changes
