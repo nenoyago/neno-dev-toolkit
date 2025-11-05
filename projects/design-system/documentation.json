@@ -3529,7 +3529,7 @@
         },
         {
             "name": "FormFieldComponent",
-            "id": "component-FormFieldComponent-d2aa31565386fc02a7518f816ba1904983cbd712646bfa68329a024d05893d5a4e928618726660f14324f796d82042abfef85f2148fd0aba44dcd1ca4b7d3cf4",
+            "id": "component-FormFieldComponent-3f9f8f67b0329c3f6e41f5e1887d4987598d44b60b610e08d79d89703a62bc306998600abba077438ffe3b00e50c5a7d4ab254a56b53901078fc600c0ea948ef",
             "file": "projects/design-system/components/src/form-field/form-field.component.ts",
             "encapsulation": [],
             "entryComponents": [],
@@ -3554,7 +3554,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 65,
+                    "line": 64,
                     "modifierKind": [
                         148
                     ],
@@ -3569,7 +3569,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 66,
+                    "line": 65,
                     "modifierKind": [
                         148
                     ],
@@ -3587,7 +3587,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 70,
+                    "line": 69,
                     "modifierKind": [
                         123,
                         148
@@ -3602,7 +3602,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 71,
+                    "line": 70,
                     "modifierKind": [
                         123,
                         148
@@ -3617,7 +3617,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 73,
+                    "line": 72,
                     "modifierKind": [
                         148
                     ]
@@ -3631,7 +3631,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 75,
+                    "line": 74,
                     "modifierKind": [
                         148
                     ]
@@ -3645,7 +3645,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 79,
+                    "line": 78,
                     "modifierKind": [
                         148
                     ]
@@ -3659,7 +3659,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 68,
+                    "line": 67,
                     "modifierKind": [
                         148
                     ]
@@ -3673,7 +3673,7 @@
                     "indexKey": "",
                     "optional": false,
                     "description": "",
-                    "line": 81,
+                    "line": 80,
                     "modifierKind": [
                         123
                     ]
@@ -3693,7 +3693,7 @@
                     "optional": false,
                     "returnType": "boolean",
                     "typeParameters": [],
-                    "line": 149,
+                    "line": 144,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -3717,7 +3717,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 126,
+                    "line": 121,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -3743,7 +3743,7 @@
                     "optional": false,
                     "returnType": "string | null",
                     "typeParameters": [],
-                    "line": 157,
+                    "line": 152,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -3776,7 +3776,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 99,
+                    "line": 94,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -3786,7 +3786,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 91,
+                    "line": 86,
                     "deprecated": false,
                     "deprecationMessage": ""
                 },
@@ -3796,7 +3796,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 103,
+                    "line": 98,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -3816,7 +3816,7 @@
                     "optional": false,
                     "returnType": "void",
                     "typeParameters": [],
-                    "line": 133,
+                    "line": 128,
                     "deprecated": false,
                     "deprecationMessage": "",
                     "modifierKind": [
@@ -3845,9 +3845,6 @@
                     "name": "NgpFormField"
                 },
                 {
-                    "name": "NgpLabel"
-                },
-                {
                     "name": "NgpError"
                 },
                 {
@@ -3861,7 +3858,7 @@
             "description": "",
             "rawdescription": "\n",
             "type": "component",
-            "sourceCode": "import { trigger, transition, style, animate } from '@angular/animations';\nimport {\n  Component,\n  OnInit,\n  input,\n  computed,\n  contentChild,\n  signal,\n  effect,\n  OnDestroy\n} from '@angular/core';\nimport { AbstractControl, NgControl } from '@angular/forms';\n\nimport {\n  NgpFormField,\n  NgpLabel,\n  NgpError,\n  NgpDescription\n} from 'ng-primitives/form-field';\nimport { Subscription } from 'rxjs';\n\nimport { getFormErrorMessage } from './get-form-error-message';\nimport { IconComponent } from '../icon';\nimport { BaseInput } from '../input/base/base-input';\nimport { LIV_INPUT_COMPONENT_TOKEN } from '../input/base/input-tokens';\n\n@Component({\n  selector: 'liv-form-field',\n  imports: [NgpFormField, NgpLabel, NgpError, NgpDescription, IconComponent],\n  templateUrl: './form-field.component.html',\n  styleUrl: './form-field.component.css',\n  animations: [\n    trigger('fadeSlide', [\n      transition(':enter', [\n        style({\n          opacity: 0,\n          transform: 'translateY(-12px)',\n          height: '0',\n          overflow: 'hidden'\n        }),\n        animate(\n          '200ms ease-out',\n          style({\n            opacity: 1,\n            transform: 'translateY(0)',\n            height: '*'\n          })\n        )\n      ]),\n      transition(':leave', [\n        animate(\n          '150ms ease-in',\n          style({\n            opacity: 0,\n            transform: 'translateY(-8px)',\n            height: '0',\n            overflow: 'hidden'\n          })\n        )\n      ])\n    ])\n  ]\n})\nexport class FormFieldComponent implements OnInit, OnDestroy {\n  readonly hint = input<string | undefined>(undefined);\n  readonly label = input<string | undefined>(undefined);\n\n  readonly livInput = contentChild<BaseInput>(LIV_INPUT_COMPONENT_TOKEN);\n\n  private readonly _error = signal<string | null>(null);\n  private readonly _isRequired = signal<boolean>(false);\n\n  readonly control = computed(() => this.livInput()?.control);\n\n  readonly errorMessage = computed(() => {\n    return this._error();\n  });\n\n  readonly isRequired = this._isRequired.asReadonly();\n\n  private statusChangesSubscription: Subscription | null = null;\n\n  constructor() {\n    this.setupControlStatusEffect();\n\n    effect(() => {\n      console.log(this.livInput());\n    });\n  }\n\n  ngOnInit(): void {\n    if (!this.livInput() || !this.livInput()?.control) {\n      console.warn(\n        'FormFieldComponent requires a LIV input component (such as <liv-input>, <liv-count-input>, etc.) with an NgControl (formControlName/ngModel).'\n      );\n    }\n  }\n\n  ngOnDestroy(): void {\n    this.cleanupStatusChangesSubscription();\n  }\n\n  private setupControlStatusEffect(): void {\n    effect(() => {\n      const ngControl = this.control();\n\n      this.cleanupStatusChangesSubscription();\n\n      if (ngControl?.statusChanges) {\n        this.updateControlState(ngControl);\n\n        this.statusChangesSubscription = ngControl.statusChanges.subscribe(\n          () => {\n            this.updateControlState(ngControl);\n          }\n        );\n      } else if (ngControl) {\n        this.updateControlState(ngControl);\n      } else {\n        this._error.set(null);\n        this._isRequired.set(false);\n      }\n    });\n  }\n\n  private cleanupStatusChangesSubscription(): void {\n    if (this.statusChangesSubscription) {\n      this.statusChangesSubscription.unsubscribe();\n      this.statusChangesSubscription = null;\n    }\n  }\n\n  private updateControlState(ngControl: NgControl): void {\n    if (!ngControl) return;\n\n    const isRequired = this.checkIfRequired(ngControl);\n    this._isRequired.set(isRequired);\n\n    const { touched, invalid, errors } = ngControl;\n    const shouldShowError = touched && invalid;\n\n    if (shouldShowError) {\n      this._error.set(this.getErrorMessage(ngControl, errors));\n    } else {\n      this._error.set(null);\n    }\n  }\n\n  private checkIfRequired(ngControl: NgControl): boolean {\n    if (!ngControl.control?.validator) {\n      return false;\n    }\n    const validator = ngControl.control.validator({} as AbstractControl);\n    return !!(validator && validator['required']);\n  }\n\n  private getErrorMessage(\n    ngControl: NgControl,\n    errors: Record<string, unknown> | null\n  ): string | null {\n    if (!errors) {\n      return null;\n    }\n\n    for (const [propertyName, propertyValue] of Object.entries(errors)) {\n      if (ngControl.dirty || ngControl.touched) {\n        const fieldName = this.label() || this.livInput()?.name() || 'Campo';\n\n        const formErrorMessage = getFormErrorMessage(\n          fieldName,\n          propertyName,\n          propertyValue as Record<string, string>\n        );\n\n        if (formErrorMessage) {\n          return formErrorMessage;\n        }\n\n        if (typeof propertyValue === 'string') {\n          return propertyValue;\n        }\n\n        return 'Campo inválido.';\n      }\n    }\n    return null;\n  }\n}\n",
+            "sourceCode": "import { trigger, transition, style, animate } from '@angular/animations';\nimport {\n  Component,\n  OnInit,\n  input,\n  computed,\n  contentChild,\n  signal,\n  effect,\n  OnDestroy\n} from '@angular/core';\nimport { AbstractControl, NgControl } from '@angular/forms';\n\nimport {\n  NgpFormField,\n  NgpError,\n  NgpDescription\n} from 'ng-primitives/form-field';\nimport { Subscription } from 'rxjs';\n\nimport { getFormErrorMessage } from './get-form-error-message';\nimport { IconComponent } from '../icon';\nimport { BaseInput } from '../input/base/base-input';\nimport { LIV_INPUT_COMPONENT_TOKEN } from '../input/base/input-tokens';\n\n@Component({\n  selector: 'liv-form-field',\n  imports: [NgpFormField, NgpError, NgpDescription, IconComponent],\n  templateUrl: './form-field.component.html',\n  styleUrl: './form-field.component.css',\n  animations: [\n    trigger('fadeSlide', [\n      transition(':enter', [\n        style({\n          opacity: 0,\n          transform: 'translateY(-8px)',\n          height: '0',\n          overflow: 'hidden'\n        }),\n        animate(\n          '200ms ease-out',\n          style({\n            opacity: 1,\n            transform: 'translateY(0)',\n            height: '*'\n          })\n        )\n      ]),\n      transition(':leave', [\n        animate(\n          '150ms ease-in',\n          style({\n            opacity: 0,\n            transform: 'translateY(-8px)',\n            height: '0',\n            overflow: 'hidden'\n          })\n        )\n      ])\n    ])\n  ]\n})\nexport class FormFieldComponent implements OnInit, OnDestroy {\n  readonly hint = input<string | undefined>(undefined);\n  readonly label = input<string | undefined>(undefined);\n\n  readonly livInput = contentChild<BaseInput>(LIV_INPUT_COMPONENT_TOKEN);\n\n  private readonly _error = signal<string | null>(null);\n  private readonly _isRequired = signal<boolean>(false);\n\n  readonly control = computed(() => this.livInput()?.control);\n\n  readonly errorMessage = computed(() => {\n    return this._error();\n  });\n\n  readonly isRequired = this._isRequired.asReadonly();\n\n  private statusChangesSubscription: Subscription | null = null;\n\n  constructor() {\n    this.setupControlStatusEffect();\n  }\n\n  ngOnInit(): void {\n    if (!this.livInput() || !this.livInput()?.control) {\n      console.warn(\n        'FormFieldComponent requires a LIV input component (such as <liv-input>, <liv-count-input>, etc.) with an NgControl (formControlName/ngModel).'\n      );\n    }\n  }\n\n  ngOnDestroy(): void {\n    this.cleanupStatusChangesSubscription();\n  }\n\n  private setupControlStatusEffect(): void {\n    effect(() => {\n      const ngControl = this.control();\n\n      this.cleanupStatusChangesSubscription();\n\n      if (ngControl?.statusChanges) {\n        this.updateControlState(ngControl);\n\n        this.statusChangesSubscription = ngControl.statusChanges.subscribe(\n          () => {\n            this.updateControlState(ngControl);\n          }\n        );\n      } else if (ngControl) {\n        this.updateControlState(ngControl);\n      } else {\n        this._error.set(null);\n        this._isRequired.set(false);\n      }\n    });\n  }\n\n  private cleanupStatusChangesSubscription(): void {\n    if (this.statusChangesSubscription) {\n      this.statusChangesSubscription.unsubscribe();\n      this.statusChangesSubscription = null;\n    }\n  }\n\n  private updateControlState(ngControl: NgControl): void {\n    if (!ngControl) return;\n\n    const isRequired = this.checkIfRequired(ngControl);\n    this._isRequired.set(isRequired);\n\n    const { touched, invalid, errors } = ngControl;\n    const shouldShowError = touched && invalid;\n\n    if (shouldShowError) {\n      this._error.set(this.getErrorMessage(ngControl, errors));\n    } else {\n      this._error.set(null);\n    }\n  }\n\n  private checkIfRequired(ngControl: NgControl): boolean {\n    if (!ngControl.control?.validator) {\n      return false;\n    }\n    const validator = ngControl.control.validator({} as AbstractControl);\n    return !!(validator && validator['required']);\n  }\n\n  private getErrorMessage(\n    ngControl: NgControl,\n    errors: Record<string, unknown> | null\n  ): string | null {\n    if (!errors) {\n      return null;\n    }\n\n    for (const [propertyName, propertyValue] of Object.entries(errors)) {\n      if (ngControl.dirty || ngControl.touched) {\n        const fieldName = this.label() || this.livInput()?.name() || 'Campo';\n\n        const formErrorMessage = getFormErrorMessage(\n          fieldName,\n          propertyName,\n          propertyValue as Record<string, string>\n        );\n\n        if (formErrorMessage) {\n          return formErrorMessage;\n        }\n\n        if (typeof propertyValue === 'string') {\n          return propertyValue;\n        }\n\n        return 'Campo inválido.';\n      }\n    }\n    return null;\n  }\n}\n",
             "styleUrl": "./form-field.component.css",
             "assetsDirs": [],
             "styleUrlsData": "",
@@ -3872,7 +3869,7 @@
                 "deprecated": false,
                 "deprecationMessage": "",
                 "args": [],
-                "line": 81
+                "line": 80
             },
             "extends": [],
             "implements": [
@@ -7766,21 +7763,21 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/design-system/components/src/form-field/form-field.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta",
-                "defaultValue": "{\n  title: 'Components/Form Field',\n  component: FormFieldComponent,\n  tags: ['autodocs']\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/design-system/components/src/icon/icon.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<IconStory>",
                 "defaultValue": "{\n  title: 'Components/Icon',\n  component: IconComponent,\n  tags: ['autodocs'],\n  argTypes: {\n    name: {\n      control: {\n        type: 'text'\n      }\n    },\n    size: {\n      control: {\n        type: 'text'\n      }\n    },\n    strokeWidth: {\n      control: { type: 'number' }\n    },\n    class: {\n      control: { type: 'text' }\n    },\n    ngClass: {\n      control: { type: 'object' }\n    },\n    style: {\n      control: { type: 'text' }\n    }\n  }\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/design-system/components/src/form-field/form-field.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta",
+                "defaultValue": "{\n  title: 'Components/Form Field',\n  component: FormFieldComponent,\n  tags: ['autodocs']\n}"
             },
             {
                 "name": "meta",
