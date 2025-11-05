@@ -33,7 +33,7 @@ import { LIV_INPUT_COMPONENT_TOKEN } from '../input/base/input-tokens';
       transition(':enter', [
         style({
           opacity: 0,
-          transform: 'translateY(-12px)',
+          transform: 'translateY(-8px)',
           height: '0',
           overflow: 'hidden'
         }),
