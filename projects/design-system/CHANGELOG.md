@@ -1,5 +1,11 @@
 # @nenoyago/design-system
 
+## 5.2.0
+
+### Minor Changes
+
+- 46e48e1: form field
+
 ## 5.1.0
 
 ### Minor Changes
