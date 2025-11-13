@@ -10,9 +10,6 @@ const config: StorybookConfig = {
     '@chromatic-com/storybook',
     '@storybook/addon-styling-webpack'
   ],
-  framework: {
-    name: '@storybook/angular',
-    options: {}
-  }
+  framework: '@storybook/angular'
 };
 export default config;

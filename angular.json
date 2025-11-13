@@ -71,7 +71,7 @@
               "projects/design-system"
             ],
             "outputDir": "storybook-static",
-            "statsJson": true
+            "webpackStatsJson": true
           }
         }
       }
