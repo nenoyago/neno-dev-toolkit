@@ -1,5 +1,12 @@
 # @nenoyago/design-system
 
+## 5.5.0
+
+### Minor Changes
+
+- 15617c7: daadsasd
+- 4857d7b: change button
+
 ## 5.4.0
 
 ### Minor Changes
