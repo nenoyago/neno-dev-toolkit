@@ -1,5 +1,15 @@
 # @nenoyago/design-system
 
+## 5.3.0
+
+### Minor Changes
+
+- 8312397: change default button shape
+
+### Patch Changes
+
+- 66e78a2: udahudashads
+
 ## 5.2.0
 
 ### Minor Changes
