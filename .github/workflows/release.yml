@@ -365,6 +365,7 @@ jobs:
           exitZeroOnChanges: true
           autoAcceptChanges: true
           onlyChanged: true
+          turboSnap: false
 
       - name: 🎉 Storybook deployed
         run: |

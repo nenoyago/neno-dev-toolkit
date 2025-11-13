@@ -7443,21 +7443,21 @@
                 "name": "Default",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/design-system/components/src/form-field/form-field.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Story",
-                "defaultValue": "{\n  render: () => ({\n    moduleMetadata: {\n      imports: [InputComponent, ReactiveFormsModule]\n    },\n    props: {\n      formGroup: new FormGroup({\n        name: new FormControl('', [Validators.required])\n      })\n    },\n    template: `\n      <form [formGroup]=\"formGroup\">\n        <liv-form-field label=\"Nome\" hint=\"Digite seu nome completo\">\n          <liv-input formControlName=\"name\" placeholder=\"Seu nome\" />\n        </liv-form-field>\n      </form>\n    `\n  })\n}"
-            },
-            {
-                "name": "Default",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/design-system/components/src/input/input.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Story",
                 "defaultValue": "{\n  args: {\n    placeholder: 'Enter text',\n    size: 'md',\n    shape: 'rounded',\n    type: 'text'\n  }\n}"
+            },
+            {
+                "name": "Default",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/design-system/components/src/form-field/form-field.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Story",
+                "defaultValue": "{\n  render: () => ({\n    moduleMetadata: {\n      imports: [InputComponent, ReactiveFormsModule]\n    },\n    props: {\n      formGroup: new FormGroup({\n        name: new FormControl('', [Validators.required])\n      })\n    },\n    template: `\n      <form [formGroup]=\"formGroup\">\n        <liv-form-field label=\"Nome\" hint=\"Digite seu nome completo\">\n          <liv-input formControlName=\"name\" placeholder=\"Seu nome\" />\n        </liv-form-field>\n      </form>\n    `\n  })\n}"
             },
             {
                 "name": "Default",
@@ -7773,21 +7773,21 @@
                 "name": "meta",
                 "ctype": "miscellaneous",
                 "subtype": "variable",
-                "file": "projects/design-system/components/src/form-field/form-field.component.stories.ts",
-                "deprecated": false,
-                "deprecationMessage": "",
-                "type": "Meta",
-                "defaultValue": "{\n  title: 'Components/Form Field',\n  component: FormFieldComponent,\n  tags: ['autodocs']\n}"
-            },
-            {
-                "name": "meta",
-                "ctype": "miscellaneous",
-                "subtype": "variable",
                 "file": "projects/design-system/components/src/input/input.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "type": "Meta<InputComponent>",
                 "defaultValue": "{\n  title: 'Components/Input/Input',\n  tags: ['autodocs'],\n  component: InputComponent,\n  argTypes: {\n    size: { control: 'select', options: ['sm', 'md', 'lg'] },\n    shape: { control: 'select', options: ['square', 'rounded', 'pill'] },\n    disabled: { control: 'boolean' },\n    readonly: { control: 'boolean' },\n    type: {\n      control: 'select',\n      options: ['text', 'email', 'tel', 'url', 'search']\n    },\n    placeholder: { control: 'text' }\n  }\n}"
+            },
+            {
+                "name": "meta",
+                "ctype": "miscellaneous",
+                "subtype": "variable",
+                "file": "projects/design-system/components/src/form-field/form-field.component.stories.ts",
+                "deprecated": false,
+                "deprecationMessage": "",
+                "type": "Meta",
+                "defaultValue": "{\n  title: 'Components/Form Field',\n  component: FormFieldComponent,\n  tags: ['autodocs']\n}"
             },
             {
                 "name": "meta",
@@ -8237,8 +8237,8 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "StoryObj<>",
-                "file": "projects/design-system/components/src/form-field/form-field.component.stories.ts",
+                "rawtype": "StoryObj<InputComponent>",
+                "file": "projects/design-system/components/src/input/input.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -8248,8 +8248,8 @@
                 "name": "Story",
                 "ctype": "miscellaneous",
                 "subtype": "typealias",
-                "rawtype": "StoryObj<InputComponent>",
-                "file": "projects/design-system/components/src/input/input.component.stories.ts",
+                "rawtype": "StoryObj<>",
+                "file": "projects/design-system/components/src/form-field/form-field.component.stories.ts",
                 "deprecated": false,
                 "deprecationMessage": "",
                 "description": "",
@@ -8334,28 +8334,6 @@
                     "deprecationMessage": "",
                     "type": "StorybookConfig",
                     "defaultValue": "{\n  stories: [\n    '../components/src/**/*.mdx',\n    '../components/src/**/*.stories.@(js|jsx|mjs|ts|tsx)'\n  ],\n  addons: [\n    '@storybook/addon-docs',\n    '@chromatic-com/storybook',\n    '@storybook/addon-styling-webpack'\n  ],\n  framework: {\n    name: '@storybook/angular',\n    options: {}\n  }\n}"
-                }
-            ],
-            "projects/design-system/components/src/form-field/form-field.component.stories.ts": [
-                {
-                    "name": "Default",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/design-system/components/src/form-field/form-field.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Story",
-                    "defaultValue": "{\n  render: () => ({\n    moduleMetadata: {\n      imports: [InputComponent, ReactiveFormsModule]\n    },\n    props: {\n      formGroup: new FormGroup({\n        name: new FormControl('', [Validators.required])\n      })\n    },\n    template: `\n      <form [formGroup]=\"formGroup\">\n        <liv-form-field label=\"Nome\" hint=\"Digite seu nome completo\">\n          <liv-input formControlName=\"name\" placeholder=\"Seu nome\" />\n        </liv-form-field>\n      </form>\n    `\n  })\n}"
-                },
-                {
-                    "name": "meta",
-                    "ctype": "miscellaneous",
-                    "subtype": "variable",
-                    "file": "projects/design-system/components/src/form-field/form-field.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "type": "Meta",
-                    "defaultValue": "{\n  title: 'Components/Form Field',\n  component: FormFieldComponent,\n  tags: ['autodocs']\n}"
                 }
             ],
             "projects/design-system/components/src/input/input.component.stories.ts": [
@@ -8448,6 +8426,28 @@
                     "deprecationMessage": "",
                     "type": "Story",
                     "defaultValue": "{\n  render: () => ({\n    moduleMetadata: {\n      imports: [IconComponent]\n    },\n    template: `\n      <liv-input \n        placeholder=\"Search...\" \n        size=\"md\" \n        shape=\"rounded\" \n    >\n      <liv-icon name=\"heroHeart\" slot=\"leading\"></liv-icon>\n      <liv-icon name=\"lucideUser\" slot=\"trailing\"></liv-icon>\n    </liv-input>\n    `\n  })\n}"
+                }
+            ],
+            "projects/design-system/components/src/form-field/form-field.component.stories.ts": [
+                {
+                    "name": "Default",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/design-system/components/src/form-field/form-field.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Story",
+                    "defaultValue": "{\n  render: () => ({\n    moduleMetadata: {\n      imports: [InputComponent, ReactiveFormsModule]\n    },\n    props: {\n      formGroup: new FormGroup({\n        name: new FormControl('', [Validators.required])\n      })\n    },\n    template: `\n      <form [formGroup]=\"formGroup\">\n        <liv-form-field label=\"Nome\" hint=\"Digite seu nome completo\">\n          <liv-input formControlName=\"name\" placeholder=\"Seu nome\" />\n        </liv-form-field>\n      </form>\n    `\n  })\n}"
+                },
+                {
+                    "name": "meta",
+                    "ctype": "miscellaneous",
+                    "subtype": "variable",
+                    "file": "projects/design-system/components/src/form-field/form-field.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "type": "Meta",
+                    "defaultValue": "{\n  title: 'Components/Form Field',\n  component: FormFieldComponent,\n  tags: ['autodocs']\n}"
                 }
             ],
             "projects/design-system/components/src/input/count/count-input.component.stories.ts": [
@@ -9178,19 +9178,6 @@
                     "kind": 184
                 }
             ],
-            "projects/design-system/components/src/form-field/form-field.component.stories.ts": [
-                {
-                    "name": "Story",
-                    "ctype": "miscellaneous",
-                    "subtype": "typealias",
-                    "rawtype": "StoryObj<>",
-                    "file": "projects/design-system/components/src/form-field/form-field.component.stories.ts",
-                    "deprecated": false,
-                    "deprecationMessage": "",
-                    "description": "",
-                    "kind": 184
-                }
-            ],
             "projects/design-system/components/src/input/input.component.stories.ts": [
                 {
                     "name": "Story",
@@ -9198,6 +9185,19 @@
                     "subtype": "typealias",
                     "rawtype": "StoryObj<InputComponent>",
                     "file": "projects/design-system/components/src/input/input.component.stories.ts",
+                    "deprecated": false,
+                    "deprecationMessage": "",
+                    "description": "",
+                    "kind": 184
+                }
+            ],
+            "projects/design-system/components/src/form-field/form-field.component.stories.ts": [
+                {
+                    "name": "Story",
+                    "ctype": "miscellaneous",
+                    "subtype": "typealias",
+                    "rawtype": "StoryObj<>",
+                    "file": "projects/design-system/components/src/form-field/form-field.component.stories.ts",
                     "deprecated": false,
                     "deprecationMessage": "",
                     "description": "",
