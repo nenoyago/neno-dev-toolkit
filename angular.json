@@ -70,7 +70,8 @@
               "-d",
               "projects/design-system"
             ],
-            "outputDir": "storybook-static"
+            "outputDir": "storybook-static",
+            "statsJson": true
           }
         }
       }
