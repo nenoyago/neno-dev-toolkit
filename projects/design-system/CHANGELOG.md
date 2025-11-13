@@ -1,5 +1,11 @@
 # @nenoyago/design-system
 
+## 5.4.0
+
+### Minor Changes
+
+- dd0f509: change button
+
 ## 5.3.0
 
 ### Minor Changes
