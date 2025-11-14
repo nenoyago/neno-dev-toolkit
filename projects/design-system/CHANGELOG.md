@@ -1,5 +1,11 @@
 # @nenoyago/design-system
 
+## 5.6.0
+
+### Minor Changes
+
+- 8ae6b62: change default button shape
+
 ## 5.5.0
 
 ### Minor Changes
