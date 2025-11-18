@@ -1,5 +1,11 @@
 # @nenoyago/design-system
 
+## 5.8.0
+
+### Minor Changes
+
+- ecb5a14: icon
+
 ## 5.7.0
 
 ### Minor Changes
