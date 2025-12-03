@@ -65,6 +65,9 @@ abstract class IconBaseComponent implements IconBaseComponentProps {
   selector: 'liv-icon',
   imports: [NgIcon, NgClass],
   templateUrl: './icon.component.html',
-  styleUrl: './icon.component.css'
+  styleUrl: './icon.component.css',
+  host: {
+    class: 'contents'
+  }
 })
 export class IconComponent extends IconBaseComponent {}
