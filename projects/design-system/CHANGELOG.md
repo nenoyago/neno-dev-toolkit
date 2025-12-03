@@ -1,5 +1,11 @@
 # @nenoyago/design-system
 
+## 5.9.0
+
+### Minor Changes
+
+- 400d1f8: add host class to IconComponent for styling
+
 ## 5.8.0
 
 ### Minor Changes
