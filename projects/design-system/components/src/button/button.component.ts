@@ -24,5 +24,5 @@ export class ButtonComponent {
   readonly size = input<ButtonSize>('md');
   readonly variant = input<ButtonVariant>('filled');
   readonly intent = input<ButtonIntent>('primary');
-  readonly shape = input<ButtonShape>('rounded');
+  readonly shape = input<ButtonShape>('pill');
 }
