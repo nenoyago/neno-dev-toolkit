@@ -88,8 +88,7 @@ const NG_BUILD_ORDER_HINT = [
   'common-utilities',
   'shared-utilities',
   'design-system',
-  'http-connect',
-  'i18n'
+  'http-connect'
 ];
 
 /** @param {string[]} keys */
