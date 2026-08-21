@@ -125,7 +125,7 @@ jobs:
       - name: 🏷️ Ensure release labels exist
         if: env.CHANGES == 'true'
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           gh label create "🤖 automated" --color A855F7 --description "Automated changes" --force || true
           gh label create "🚀 release" --color 22C55E --description "Package releases" --force || true
@@ -135,7 +135,7 @@ jobs:
       - name: 📬 Create Release PR
         if: env.CHANGES == 'true'
         env:
-          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
+          GH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           echo "🔄 Creating pull request for branch: $NEW_BRANCH"
 
@@ -245,7 +245,7 @@ jobs:
         with:
           fetch-depth: 0
           ref: main
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.GH_TOKEN }}
 
       - name: 🔄 Pull latest changes from main
         run: |
@@ -273,32 +273,81 @@ jobs:
         run: pnpm run build:packages
 
       - name: 📊 Snapshot registry versions before publish
+        env:
+          # Reading a private package needs auth just like publishing does.
+          # Without this the npm view calls below 401 and every package looks
+          # like a first publish, which would deploy Storybook on every run.
+          NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           set -euo pipefail
 
-          # Read only BEFORE publishing: the registry is authoritative here, with
-          # no indexing lag to race. Reusing the repo's own publishable-package
-          # helper keeps this list in sync with `build:packages`.
+          # Self-contained on purpose: this workflow also runs in repos that
+          # don't carry scripts/workspace-packages/, where importing that helper
+          # died with ERR_MODULE_NOT_FOUND. Same filter it applies: publishable
+          # means not private, with a publishConfig.registry, name and version.
+          #
+          # Written to a file rather than piped into `while` via process
+          # substitution: `set -e` does not catch failures inside `< <(...)`, so
+          # a broken lookup used to leave the loop with no input and the summary
+          # silently reporting "0 of 0" while skipping the Storybook deploy.
+          node --input-type=commonjs -e '
+            const fs = require("fs");
+            const path = require("path");
+            const root = "projects";
+            if (!fs.existsSync(root)) process.exit(0);
+            for (const dir of fs.readdirSync(root).sort()) {
+              const file = path.join(root, dir, "package.json");
+              if (!fs.existsSync(file)) continue;
+              const pkg = JSON.parse(fs.readFileSync(file, "utf8"));
+              if (pkg.private === true) continue;
+              if (!pkg.publishConfig || !pkg.publishConfig.registry) continue;
+              if (!pkg.name || !pkg.version) continue;
+              console.log(pkg.name + " " + pkg.version);
+            }
+          ' > /tmp/packages.txt
+
+          if [ ! -s /tmp/packages.txt ]; then
+            echo "::error::Found no publishable packages under projects/ — cannot determine what was released."
+            exit 1
+          fi
+
           : > /tmp/versions-before.tsv
           while read -r NAME LOCAL_VERSION; do
-            REGISTRY_VERSION=$(npm view "$NAME" version 2>/dev/null || echo "none")
+            # Only a genuine 404 means "never published". Treating any other
+            # failure (401/403/network) as "none" would mark every package as a
+            # first publish and deploy Storybook on a run that released nothing,
+            # so anything else is a hard failure.
+            if VIEW_OUTPUT=$(npm view "$NAME" version 2>&1); then
+              REGISTRY_VERSION="$VIEW_OUTPUT"
+            elif printf '%s' "$VIEW_OUTPUT" | grep -q 'E404'; then
+              REGISTRY_VERSION="none"
+            else
+              echo "::error::Could not read $NAME from the registry (not a 404 — check auth/network):"
+              printf '%s\n' "$VIEW_OUTPUT"
+              exit 1
+            fi
+
             printf '%s\t%s\t%s\n' "$NAME" "$REGISTRY_VERSION" "$LOCAL_VERSION" >> /tmp/versions-before.tsv
             echo "  $NAME: registry=$REGISTRY_VERSION local=$LOCAL_VERSION"
-          done < <(node -e "
-            import('./scripts/workspace-packages/publishable-workspace-packages.mjs').then((m) => {
-              for (const p of m.listPublishablePackagesForDisplay()) {
-                console.log(\`\${p.name} \${p.version}\`);
-              }
-            });
-          ")
+          done < /tmp/packages.txt
 
       - name: 📦 Publish packages
         id: publish
         env:
           NODE_AUTH_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
+          # pipefail is required, not decorative: the runner's default shell is
+          # `bash -e` without it, so the pipe below would return sed's exit code
+          # and a failed publish would pass silently.
+          set -euo pipefail
+
           echo "//npm.pkg.github.com/:_authToken=${NODE_AUTH_TOKEN}" > ~/.npmrc
-          pnpm changeset publish
+
+          # changeset's spinner emits cursor hide/show escapes (ESC[?25l / ESC[?25h).
+          # The Actions log viewer eats the ESC[? prefix but renders the rest as
+          # stray "25l"/"25h" text, so drop just those two sequences. Colour and
+          # every other escape are left alone.
+          pnpm changeset publish 2>&1 | sed -u 's/\x1b\[?25[hl]//g'
         continue-on-error: false
 
       - name: 🎉 Publish summary
@@ -313,6 +362,13 @@ jobs:
           # used to print "Registry after: unknown" on a successful release).
           # The publish step above cannot have failed silently — it has
           # continue-on-error: false, so the job would already be red.
+          if [ ! -s /tmp/versions-before.tsv ]; then
+            echo "::error::Version snapshot is missing or empty — cannot report what was released."
+            exit 1
+          fi
+
+          TOTAL_COUNT=$(wc -l < /tmp/versions-before.tsv | tr -d ' ')
+
           DS_PUBLISHED=false
           PUBLISHED_COUNT=0
           TABLE_ROWS=""
@@ -326,7 +382,7 @@ jobs:
             fi
 
             PUBLISHED_COUNT=$((PUBLISHED_COUNT + 1))
-            if [ "$NAME" = "@gruposaltaedu/liv-design-system" ]; then
+            if [ "$NAME" = "@nenoyago/design-system" ]; then
               DS_PUBLISHED=true
             fi
 
@@ -351,16 +407,25 @@ jobs:
           {
             echo "## 📦 Publish summary"
             echo ""
-            echo "**$PUBLISHED_COUNT of $(wc -l < /tmp/versions-before.tsv | tr -d ' ') package(s) released** to \`npm.pkg.github.com\`."
-            echo ""
-            echo "| Package | Before | After | Status |"
-            echo "| :--- | :--- | :--- | :--- |"
-            printf '%s' "$TABLE_ROWS"
+            if [ "$PUBLISHED_COUNT" -eq 0 ]; then
+              # Nothing moved: a table of N identical before/after rows is noise.
+              echo "**Nothing to release.** All $TOTAL_COUNT package(s) already match the versions on \`npm.pkg.github.com\`."
+            else
+              echo "**$PUBLISHED_COUNT of $TOTAL_COUNT package(s) released** to \`npm.pkg.github.com\`."
+              echo ""
+              echo "| Package | Before | After | Status |"
+              echo "| :--- | :--- | :--- | :--- |"
+              printf '%s' "$TABLE_ROWS"
+            fi
             echo ""
             echo "$NEXT_LINE"
           } >> "$GITHUB_STEP_SUMMARY"
 
-          echo "📦 Publish summary — $PUBLISHED_COUNT package(s) released:"
+          if [ "$PUBLISHED_COUNT" -eq 0 ]; then
+            echo "📦 Publish summary — nothing to release ($TOTAL_COUNT package(s) already up to date)"
+          else
+            echo "📦 Publish summary — $PUBLISHED_COUNT of $TOTAL_COUNT package(s) released:"
+          fi
           printf '%s' "$CONSOLE_LINES"
           echo "$NEXT_LINE"
 
