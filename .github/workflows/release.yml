@@ -510,11 +510,23 @@ jobs:
       # deploy left the summary claiming the deploy was still coming.
       - name: 🎨 Report Storybook deploy
         if: always()
+        env:
+          # Passed as env rather than interpolated into the script: values that
+          # come from an action's output should never be spliced into bash.
+          OUTCOME: ${{ steps.chromatic.outcome }}
+          CHROMATIC_STORYBOOK_URL: ${{ steps.chromatic.outputs.storybookUrl }}
+          CHROMATIC_BUILD_URL: ${{ steps.chromatic.outputs.buildUrl }}
         run: |
           set -euo pipefail
 
-          STORYBOOK_URL="https://main--68e56bc427fd47846235f3f9.chromatic.com/"
-          OUTCOME="${{ steps.chromatic.outcome }}"
+          # Prefer the URLs the action reports for this build. The literal
+          # fallback is this repo's permanent main branch and is wrong in any
+          # other repo, so it only stands in when the action published nothing.
+          STORYBOOK_URL="${CHROMATIC_STORYBOOK_URL:-}"
+          BUILD_URL="${CHROMATIC_BUILD_URL:-}"
+          if [ -z "$STORYBOOK_URL" ]; then
+            STORYBOOK_URL="https://main--68e65966ce871879795aa9cc.chromatic.com/"
+          fi
 
           {
             echo "## 🎨 Storybook deploy"
@@ -522,6 +534,10 @@ jobs:
             case "$OUTCOME" in
               success)
                 echo "✅ Deployed to Chromatic — [open Storybook]($STORYBOOK_URL)"
+                if [ -n "$BUILD_URL" ]; then
+                  echo ""
+                  echo "- Build: [$BUILD_URL]($BUILD_URL)"
+                fi
                 ;;
               skipped)
                 echo "⏭️ Skipped — an earlier step in this job did not complete."
@@ -529,7 +545,10 @@ jobs:
               *)
                 echo "❌ **Failed** ($OUTCOME). The packages were still published; only the Storybook deploy failed."
                 echo ""
-                echo "Check the **🎨 Deploy to Chromatic** step for the reason."
+                if [ -n "$BUILD_URL" ]; then
+                  echo "- Chromatic build: [$BUILD_URL]($BUILD_URL)"
+                fi
+                echo "- Otherwise the **🎨 Deploy to Chromatic** step above has the reason."
                 ;;
             esac
           } >> "$GITHUB_STEP_SUMMARY"
