@@ -1,5 +1,11 @@
 # @nenoyago/design-system
 
+## 5.15.0
+
+### Minor Changes
+
+- b987b27: update default button shape from square to square
+
 ## 5.14.0
 
 ### Minor Changes
