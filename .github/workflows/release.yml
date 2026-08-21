@@ -35,12 +35,12 @@ jobs:
       - name: 📦 Setup pnpm
         uses: pnpm/action-setup@v6
         with:
-          version: 10.6.5
+          version: 11.22.0
 
       - name: 🟢 Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: 22.14
+          node-version: 24.18.1
           cache: 'pnpm'
 
       - name: ⚡ Install dependencies
@@ -232,6 +232,11 @@ jobs:
     name: 📦 Publish packages
     environment: Semver
     runs-on: ubuntu-latest
+    env:
+      # Folder under projects/, not the npm name: the name is scoped per repo
+      # (@gruposaltaedu/liv-design-system) while the
+      # folder is what `build:storybook` targets (ng run design-system:...).
+      DESIGN_SYSTEM_DIR: design-system
     needs: version-and-pr
     if: |
       needs.version-and-pr.outputs.has_changes == 'true' &&
@@ -257,12 +262,12 @@ jobs:
       - name: 📦 Setup pnpm
         uses: pnpm/action-setup@v6
         with:
-          version: 10.6.5
+          version: 11.22.0
 
       - name: 🟢 Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: 22.14
+          node-version: 24.18.1
           registry-url: 'https://npm.pkg.github.com'
           cache: 'pnpm'
 
@@ -290,6 +295,10 @@ jobs:
           # substitution: `set -e` does not catch failures inside `< <(...)`, so
           # a broken lookup used to leave the loop with no input and the summary
           # silently reporting "0 of 0" while skipping the Storybook deploy.
+          # Emits `dir<TAB>name<TAB>version`. The directory is what identifies the
+          # design-system package downstream: its npm name carries a per-repo
+          # scope (@gruposaltaedu/liv-design-system, @nenoyago/design-system),
+          # so matching on the name skipped the Storybook deploy in other repos.
           node --input-type=commonjs -e '
             const fs = require("fs");
             const path = require("path");
@@ -302,7 +311,7 @@ jobs:
               if (pkg.private === true) continue;
               if (!pkg.publishConfig || !pkg.publishConfig.registry) continue;
               if (!pkg.name || !pkg.version) continue;
-              console.log(pkg.name + " " + pkg.version);
+              console.log([dir, pkg.name, pkg.version].join("\t"));
             }
           ' > /tmp/packages.txt
 
@@ -312,7 +321,7 @@ jobs:
           fi
 
           : > /tmp/versions-before.tsv
-          while read -r NAME LOCAL_VERSION; do
+          while IFS=$'\t' read -r DIR NAME LOCAL_VERSION; do
             # Only a genuine 404 means "never published". Treating any other
             # failure (401/403/network) as "none" would mark every package as a
             # first publish and deploy Storybook on a run that released nothing,
@@ -327,9 +336,17 @@ jobs:
               exit 1
             fi
 
-            printf '%s\t%s\t%s\n' "$NAME" "$REGISTRY_VERSION" "$LOCAL_VERSION" >> /tmp/versions-before.tsv
-            echo "  $NAME: registry=$REGISTRY_VERSION local=$LOCAL_VERSION"
+            printf '%s\t%s\t%s\t%s\n' "$DIR" "$NAME" "$REGISTRY_VERSION" "$LOCAL_VERSION" >> /tmp/versions-before.tsv
+            echo "  $NAME ($DIR): registry=$REGISTRY_VERSION local=$LOCAL_VERSION"
           done < /tmp/packages.txt
+
+          # Surfaced rather than silently assumed: without this directory there
+          # is nothing to gate the Storybook deploy on, and it would never run.
+          if cut -f1 /tmp/versions-before.tsv | grep -qx "$DESIGN_SYSTEM_DIR"; then
+            echo "🎨 Storybook gate: projects/$DESIGN_SYSTEM_DIR"
+          else
+            echo "::warning::No projects/$DESIGN_SYSTEM_DIR package found — the Storybook deploy can never trigger in this repo."
+          fi
 
       - name: 📦 Publish packages
         id: publish
@@ -380,7 +397,7 @@ jobs:
           # ones stay listed but collapsed: dropping them entirely would hide
           # whether the snapshot actually covered every package, which is how the
           # earlier "0 of 0" bug went unnoticed.
-          while IFS=$'\t' read -r NAME BEFORE LOCAL; do
+          while IFS=$'\t' read -r DIR NAME BEFORE LOCAL; do
             if [ "$BEFORE" = "$LOCAL" ]; then
               UNCHANGED_COUNT=$((UNCHANGED_COUNT + 1))
               UNCHANGED_LIST+="- \`$NAME\` \`$LOCAL\`"$'\n'
@@ -388,7 +405,7 @@ jobs:
             fi
 
             PUBLISHED_COUNT=$((PUBLISHED_COUNT + 1))
-            if [ "$NAME" = "@gruposaltaedu/liv-design-system" ]; then
+            if [ "$DIR" = "$DESIGN_SYSTEM_DIR" ]; then
               DS_PUBLISHED=true
             fi
 
@@ -467,12 +484,12 @@ jobs:
       - name: 📦 Setup pnpm
         uses: pnpm/action-setup@v6
         with:
-          version: 10.6.5
+          version: 11.22.0
 
       - name: 🟢 Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: 22.14
+          node-version: 24.18.1
           cache: 'pnpm'
 
       - name: ⚡ Install dependencies
