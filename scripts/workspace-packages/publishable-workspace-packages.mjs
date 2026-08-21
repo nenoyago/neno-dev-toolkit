@@ -85,6 +85,7 @@ export function listNgPackagrProjectKeys() {
  */
 const NG_BUILD_ORDER_HINT = [
   'analytics',
+  'common-utilities',
   'shared-utilities',
   'design-system',
   'http-connect',
