@@ -1,5 +1,11 @@
 # @nenoyago/design-system
 
+## 5.13.0
+
+### Minor Changes
+
+- 1f0255b: change button shape
+
 ## 5.12.0
 
 ### Minor Changes
