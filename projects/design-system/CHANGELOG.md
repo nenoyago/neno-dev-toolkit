@@ -1,5 +1,17 @@
 # @nenoyago/design-system
 
+## 5.12.0
+
+### Minor Changes
+
+- a36d09b: update default button shape to pill
+
+## 5.11.0
+
+### Minor Changes
+
+- a36d09b: update default button shape to square
+
 ## 5.10.0
 
 ### Minor Changes

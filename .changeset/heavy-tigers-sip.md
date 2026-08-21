@@ -2,4 +2,4 @@
 '@nenoyago/design-system': minor
 ---
 
-update default button shape to square
+change button shape
