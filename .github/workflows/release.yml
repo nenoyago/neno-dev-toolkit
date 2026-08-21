@@ -35,12 +35,12 @@ jobs:
       - name: 📦 Setup pnpm
         uses: pnpm/action-setup@v6
         with:
-          version: 11.22.0
+          version: 10.6.5
 
       - name: 🟢 Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: 24.18.1
+          node-version: 22.14
           cache: 'pnpm'
 
       - name: ⚡ Install dependencies
@@ -257,12 +257,12 @@ jobs:
       - name: 📦 Setup pnpm
         uses: pnpm/action-setup@v6
         with:
-          version: 11.22.0
+          version: 10.6.5
 
       - name: 🟢 Setup Node.js
         uses: actions/setup-node@v6
         with:
-          node-version: 24.18.1
+          node-version: 22.14
           registry-url: 'https://npm.pkg.github.com'
           cache: 'pnpm'
 
