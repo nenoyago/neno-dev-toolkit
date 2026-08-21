@@ -1,5 +1,11 @@
 # @nenoyago/design-system
 
+## 5.16.0
+
+### Minor Changes
+
+- 44af748: update button shape to pill
+
 ## 5.15.0
 
 ### Minor Changes
