@@ -125,7 +125,7 @@ jobs:
       - name: 🏷️ Ensure release labels exist
         if: env.CHANGES == 'true'
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           gh label create "🤖 automated" --color A855F7 --description "Automated changes" --force || true
           gh label create "🚀 release" --color 22C55E --description "Package releases" --force || true
@@ -135,7 +135,7 @@ jobs:
       - name: 📬 Create Release PR
         if: env.CHANGES == 'true'
         env:
-          GH_TOKEN: ${{ secrets.GH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
         run: |
           echo "🔄 Creating pull request for branch: $NEW_BRANCH"
 
@@ -373,24 +373,30 @@ jobs:
           PUBLISHED_COUNT=0
           TABLE_ROWS=""
           CONSOLE_LINES=""
+          UNCHANGED_LIST=""
+          UNCHANGED_COUNT=0
 
+          # Released packages carry the signal, so they get the table. Unchanged
+          # ones stay listed but collapsed: dropping them entirely would hide
+          # whether the snapshot actually covered every package, which is how the
+          # earlier "0 of 0" bug went unnoticed.
           while IFS=$'\t' read -r NAME BEFORE LOCAL; do
             if [ "$BEFORE" = "$LOCAL" ]; then
-              TABLE_ROWS+="| \`$NAME\` | \`$BEFORE\` | \`$LOCAL\` | ⏭️ unchanged |"$'\n'
-              CONSOLE_LINES+="  ⏭️  $NAME — unchanged ($LOCAL)"$'\n'
+              UNCHANGED_COUNT=$((UNCHANGED_COUNT + 1))
+              UNCHANGED_LIST+="- \`$NAME\` \`$LOCAL\`"$'\n'
               continue
             fi
 
             PUBLISHED_COUNT=$((PUBLISHED_COUNT + 1))
-            if [ "$NAME" = "@nenoyago/design-system" ]; then
+            if [ "$NAME" = "@gruposaltaedu/liv-design-system" ]; then
               DS_PUBLISHED=true
             fi
 
             if [ "$BEFORE" = "none" ]; then
-              TABLE_ROWS+="| \`$NAME\` | — | \`$LOCAL\` | 🎉 first publish |"$'\n'
+              TABLE_ROWS+="| \`$NAME\` | — | **\`$LOCAL\`** | 🎉 first publish |"$'\n'
               CONSOLE_LINES+="  🎉 $NAME — first publish ($LOCAL)"$'\n'
             else
-              TABLE_ROWS+="| \`$NAME\` | \`$BEFORE\` | \`$LOCAL\` | ✅ published |"$'\n'
+              TABLE_ROWS+="| \`$NAME\` | \`$BEFORE\` | **\`$LOCAL\`** | ✅ published |"$'\n'
               CONSOLE_LINES+="  ✅ $NAME — $BEFORE → $LOCAL"$'\n'
             fi
           done < /tmp/versions-before.tsv
@@ -398,17 +404,19 @@ jobs:
           echo "design_system_published=$DS_PUBLISHED" >> "$GITHUB_OUTPUT"
           echo "published_count=$PUBLISHED_COUNT" >> "$GITHUB_OUTPUT"
 
+          # This job finishes before the Storybook deploy does, so state the gate
+          # decision as a fact and let that job report its own outcome in the
+          # "🎨 Storybook deploy" section below — never claim a result here.
           if [ "$DS_PUBLISHED" = "true" ]; then
-            NEXT_LINE="🎨 Next: **Deploy Storybook** will run — design-system was released."
+            NEXT_LINE="🎨 design-system was released, so the **Storybook deploy** was triggered — its result is in the section below."
           else
-            NEXT_LINE="⏭️ Next: Storybook deploy **skipped** — design-system was not part of this release."
+            NEXT_LINE="⏭️ Storybook deploy **not triggered** — design-system was not part of this release."
           fi
 
           {
             echo "## 📦 Publish summary"
             echo ""
             if [ "$PUBLISHED_COUNT" -eq 0 ]; then
-              # Nothing moved: a table of N identical before/after rows is noise.
               echo "**Nothing to release.** All $TOTAL_COUNT package(s) already match the versions on \`npm.pkg.github.com\`."
             else
               echo "**$PUBLISHED_COUNT of $TOTAL_COUNT package(s) released** to \`npm.pkg.github.com\`."
@@ -416,6 +424,17 @@ jobs:
               echo "| Package | Before | After | Status |"
               echo "| :--- | :--- | :--- | :--- |"
               printf '%s' "$TABLE_ROWS"
+
+              if [ "$UNCHANGED_COUNT" -gt 0 ]; then
+                echo ""
+                echo "<details>"
+                echo "<summary>$UNCHANGED_COUNT package(s) unchanged</summary>"
+                # Blank line required, or GitHub renders the list as literal text.
+                echo ""
+                printf '%s' "$UNCHANGED_LIST"
+                echo ""
+                echo "</details>"
+              fi
             fi
             echo ""
             echo "$NEXT_LINE"
@@ -425,8 +444,11 @@ jobs:
             echo "📦 Publish summary — nothing to release ($TOTAL_COUNT package(s) already up to date)"
           else
             echo "📦 Publish summary — $PUBLISHED_COUNT of $TOTAL_COUNT package(s) released:"
+            printf '%s' "$CONSOLE_LINES"
+            if [ "$UNCHANGED_COUNT" -gt 0 ]; then
+              echo "  ⏭️  $UNCHANGED_COUNT unchanged"
+            fi
           fi
-          printf '%s' "$CONSOLE_LINES"
           echo "$NEXT_LINE"
 
   deploy-storybook:
@@ -457,6 +479,7 @@ jobs:
         run: pnpm install --frozen-lockfile
 
       - name: 🎨 Deploy to Chromatic
+        id: chromatic
         uses: chromaui/action@latest
         with:
           projectToken: ${{ secrets.CHROMATIC_PROJECT_TOKEN }}
@@ -465,21 +488,37 @@ jobs:
           autoAcceptChanges: true
           onlyChanged: true
 
-      - name: 🎉 Storybook deployed
+      # always(): the publish job already wrote "Storybook deploy will run",
+      # so this section has to resolve that either way. Without it a failed
+      # deploy left the summary claiming the deploy was still coming.
+      - name: 🎨 Report Storybook deploy
+        if: always()
         run: |
-          STORYBOOK_URL="https://main--68e56bc427fd47846235f3f9.chromatic.com/"
+          set -euo pipefail
 
-          echo ""
-          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-          echo "🎉 Storybook deployed to Chromatic!"
-          echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
-          echo "🔗 $STORYBOOK_URL"
-          echo ""
+          STORYBOOK_URL="https://main--68e56bc427fd47846235f3f9.chromatic.com/"
+          OUTCOME="${{ steps.chromatic.outcome }}"
 
           {
             echo "## 🎨 Storybook deploy"
             echo ""
-            echo "✅ Design System Storybook was deployed to Chromatic."
-            echo ""
-            echo "- Link: [$STORYBOOK_URL]($STORYBOOK_URL)"
+            case "$OUTCOME" in
+              success)
+                echo "✅ Deployed to Chromatic — [open Storybook]($STORYBOOK_URL)"
+                ;;
+              skipped)
+                echo "⏭️ Skipped — an earlier step in this job did not complete."
+                ;;
+              *)
+                echo "❌ **Failed** ($OUTCOME). The packages were still published; only the Storybook deploy failed."
+                echo ""
+                echo "Check the **🎨 Deploy to Chromatic** step for the reason."
+                ;;
+            esac
           } >> "$GITHUB_STEP_SUMMARY"
+
+          case "$OUTCOME" in
+            success) echo "✅ Storybook deployed: $STORYBOOK_URL" ;;
+            skipped) echo "⏭️ Storybook deploy skipped" ;;
+            *)       echo "❌ Storybook deploy failed ($OUTCOME) — packages were published regardless" ;;
+          esac
